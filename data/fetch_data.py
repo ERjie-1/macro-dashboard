@@ -25,8 +25,10 @@ from scipy.stats import percentileofscore
 
 warnings.filterwarnings("ignore")
 
-# Fix macOS SSL certificate verification issue
-ssl._create_default_https_context = ssl._create_unverified_context
+# Fix macOS SSL certificate verification issue (not needed on Linux/CI)
+import platform
+if platform.system() == "Darwin":
+    ssl._create_default_https_context = ssl._create_unverified_context
 
 # ── Config ──────────────────────────────────────────────────────────────────
 
