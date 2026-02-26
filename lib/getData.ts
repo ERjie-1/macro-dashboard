@@ -1,7 +1,9 @@
+import fs from 'fs'
+import path from 'path'
 import type { MacroDashboard, Module } from '@/types'
-import dashboardJson from '@/public/data/dashboard.json'
 
-export const dashboardData = dashboardJson as unknown as MacroDashboard
+const filePath = path.join(process.cwd(), 'public/data/dashboard.json')
+export const dashboardData = JSON.parse(fs.readFileSync(filePath, 'utf-8')) as MacroDashboard
 
 export function getModuleBySlug(slug: string): Module | undefined {
   return dashboardData.modules.find((m) => m.slug === slug)
