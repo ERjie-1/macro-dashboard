@@ -33,6 +33,9 @@ yarn-error.log*
 # env files (can opt-in for committing if needed)
 .env*
 
+# Generated data (run fetch_data.py to regenerate)
+/public/data/dashboard.json
+
 # vercel
 .vercel
 
