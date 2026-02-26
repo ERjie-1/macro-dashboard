@@ -69,6 +69,7 @@ MODULE_COLORS = {
 # Factors where lower raw value = better conditions (score = 100 - percentile)
 INVERT_FACTORS = {
     "tga-deviation", "on-rrp-buffer-risk",
+    "collateral-repo-friction",                        # SOFR>OBFR = repo stress = restrictive
     "corridor-friction-1", "corridor-friction-2",
     "effr-iorb-spread", "cp-tbill-spread",
     "funding-fragmentation", "10y-rate-volatility",
@@ -76,6 +77,7 @@ INVERT_FACTORS = {
     "nfci", "vix", "vix-term-structure",
     "fx-realized-volatility", "oil-volatility-deviation",
     "wti-oil", "natural-gas",
+    "dxy",                                             # strong dollar = tighter global conditions
 }
 
 # ── Helpers ──────────────────────────────────────────────────────────────────
