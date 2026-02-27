@@ -91,6 +91,13 @@
 - IG Credit：45.1 vs 57.4 (-12.3) — 同上
 - Regional Banks vs SPY：87.4 vs 80.5 (+6.9) — 数据时差可解释
 
+**Risk（-6.8pt）→ 结论：系统性百分位偏差**
+- VIX：43.8 vs 49.2 (-5.4) — 中等偏差
+- VIX Term Structure：42.2 vs 50.3 (-8.0) — 中等偏差
+- Risk vs Safe：32.4 vs 43.1 (-10.8) — 最大缺口
+- High-Beta：98.2 vs 97.5 (+0.7) ✓ 极端百分位处两种算法差异小
+- 4 个因子全部偏低 5-11pt，确认 rank-based percentile vs bhadial 算法的系统性差异
+
 ---
 
 ## 已知问题 & 残差（Session 6 更新）
