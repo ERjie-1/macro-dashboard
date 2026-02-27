@@ -347,8 +347,10 @@ funding_frag = frag_mean.rolling(21).std()
 
 # Treasury
 term_30_10 = dgs30 - dgs10
-# Rate vol: use percent-point changes (not annualized) to match bhadial's scale (~0.09 range)
+# Rate vol: 21D std of daily pct-point changes
 # dgs10 is in decimal (0.0404); multiply by 100 to get percent-point daily changes
+# NOTE: bhadial raw value ~0.09 suggests pct returns*10, but that gives worse percentile match
+# Keeping pct-point diff approach which gives closer percentile (score 88.7 vs bhadial 51.0)
 dgs10_chg_pct = dgs10.diff() * 100
 rate_vol_21   = dgs10_chg_pct.rolling(21).std()
 curve_curv    = (2 * dgs10 - dgs2 - dgs30).abs()

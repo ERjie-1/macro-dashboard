@@ -79,6 +79,12 @@
 - CP-TBill：raw value 不同（我们 -0.03% vs bhadial 0.06%），DCPF3M 数据延迟
 - 需要多天 bhadial 数据来反推其 corridor friction 的百分位算法
 
+**Treasury（+9.3pt）→ 结论：百分位算法差异，同 Funding**
+- 30Y-10Y Term Premium：90.7 vs 92.2 (-1.5) ✓ 到位
+- 10Y Rate Volatility：88.7 vs 51.0 (+37.7) — raw value 不同（我们 0.037 vs bhadial 0.091）。尝试 pct returns*10 方法可匹配 raw value 但百分位更差（94.7）。bhadial 百分位算法与 rank-based percentile 有根本差异
+- Curve Curvature：16.3 vs 30.1 (-13.8) — raw value 一致（0.05 pct points），百分位窗口/算法不同
+- 两个偏差因子均指向 bhadial 使用非 rank-based 百分位（可能 z-score 或分段归一化）
+
 ---
 
 ## 已知问题 & 残差（Session 6 更新）
