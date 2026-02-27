@@ -98,24 +98,42 @@
 - High-Beta：98.2 vs 97.5 (+0.7) ✓ 极端百分位处两种算法差异小
 - 4 个因子全部偏低 5-11pt，确认 rank-based percentile vs bhadial 算法的系统性差异
 
+**External（-5.4pt）→ 结论：Natural Gas 数据源不同 + 百分位偏差**
+- DXY：76.1 vs 77.1 (-1.0) ✓ 基本到位
+- FX Realized Vol：83.7 vs 77.2 (+6.5) — 轻微百分位偏差
+- WTI Oil：20.3 vs 29.0 (-8.7) — 中等百分位偏差 + 数据时差
+- Oil Vol Deviation：2.4 vs 2.8 (-0.4) ✓ 近乎完美
+- **Natural Gas：48.7 vs 100.0 (-51.3)** — bhadial score=100 表示 NG 在 0th percentile（最低），但 Henry Hub $3.13 在 5Y 分布（$1.21-$30.72）中排 51st，绝不可能是 0th。bhadial 可能使用不同数据源（NG 期货波动率或 spread 指标）
+
 ---
 
-## 已知问题 & 残差（Session 6 更新）
+## 已知问题 & 残差（Session 6b 完成）
 
-| 模块 | 我们 vs bhadial | 差距 | 分析 |
+| 模块 | 我们 vs bhadial | 差距 | 根因 |
 |------|----------------|------|------|
-| Liquidity | 26.4 vs 20.4 | +6.0 | 需逐因子对比百分位 |
-| **Funding** | **19.9 vs 41.9** | **-22.0** | 百分位窗口问题（5Y 含 2021 QE 极端期） |
-| Treasury | 67.7 vs 58.4 | +9.3 | curve-curvature pctl 可能偏高 |
-| Rates | 67.6 vs 70.2 | -2.6 | 基本到位 |
-| Credit | 67.0 vs 73.6 | -6.6 | NFCI 周度 fill-forward 延迟 |
-| Risk | 51.4 vs 58.2 | -6.8 | VIX/term-structure 百分位可能偏差 |
-| External | 45.2 vs 50.7 | -5.5 | WTI/OVX 数据时差 |
+| Liquidity | 26.4 vs 20.4 | +6.0 | FRED 周频数据时差（TGA 一周降 $73B） |
+| **Funding** | **19.9 vs 41.9** | **-22.0** | 百分位算法差异 + 2021 QE 极端期污染 |
+| Treasury | 67.7 vs 58.4 | +9.3 | 10Y Vol 计算/百分位差异 + Curvature 百分位差异 |
+| Rates | 67.6 vs 70.2 | -2.6 | ✓ 基本到位 |
+| Credit | 67.0 vs 73.6 | -6.6 | HY/IG 百分位算法差异（计算方法已验证正确） |
+| Risk | 51.4 vs 58.2 | -6.8 | 系统性百分位偏差（4 因子全部偏低 5-11pt） |
+| External | 45.3 vs 50.7 | -5.4 | Natural Gas 数据源不同 (-51pt) + 百分位偏差 |
+
+### 全局结论（Session 6b）
+
+逐模块逐因子对比后，偏差来源归为 3 类：
+1. **FRED 数据时差**（Liquidity +6pt）：周频数据发布延迟，无需修复
+2. **百分位归一化算法差异**（Funding -22pt, Treasury +9pt, Credit -7pt, Risk -7pt）：bhadial 可能使用 z-score 归一化或分段百分位，而非 scipy `percentileofscore(kind="rank")`。多模块呈现系统性偏差（我们偏低 5-10pt），需多天 bhadial 数据反推
+3. **数据源/公式差异**（External NG -51pt, Funding Fragmentation -68pt）：bhadial 使用不同指标或计算方式
+
+**下一步**：收集 7-15 天 bhadial API 快照，用时间序列回归反推百分位算法参数
 
 ### 踩坑备忘
 - bhadial API `direction=null` ≠ 不反转（10Y Breakeven 确认内部做了反转）
 - 因子等权 vs 因子加权差异巨大（Rates 从 71→52 再回 67，全因 breakeven 权重 0.35 + real_rate 0.50）
 - bhadial 后端：Render + Supabase，前端 Vite+React SPA，数据通过 `/api/v1` REST API 提供
+- 10Y Rate Vol: `diff()*100` vs `pct_change()*10` 都无法同时匹配 raw value 和百分位
+- Natural Gas: Henry Hub spot price 在 5Y 分布中排 51st，但 bhadial 给 0th，数据源必然不同
 
 ---
 
