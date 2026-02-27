@@ -6,6 +6,7 @@ import GaugeDial from '@/components/GaugeDial'
 import TrendChart from '@/components/TrendChart'
 import FactorsOverview from '@/components/FactorsOverview'
 import FactorTable from '@/components/FactorTable'
+import RelativeTime from '@/components/RelativeTime'
 
 interface Props {
   params: Promise<{ slug: string }>
@@ -69,7 +70,9 @@ export default async function ModulePage({ params }: Props) {
                   <span>·</span>
                   <span>5Y Percentile: {module.percentile5Y}th</span>
                 </div>
-                <div className="text-xs text-gray-400">{module.lastUpdated}</div>
+                <div className="text-xs text-gray-400">
+                  {module.updatedAt ? <RelativeTime isoString={module.updatedAt} /> : module.lastUpdated}
+                </div>
               </div>
             </div>
 

@@ -3,6 +3,7 @@ import GaugeDial from '@/components/GaugeDial'
 import TrendChart from '@/components/TrendChart'
 import ModuleCard from '@/components/ModuleCard'
 import ScoreLiftDrag from '@/components/ScoreLiftDrag'
+import RelativeTime from '@/components/RelativeTime'
 
 export default function HomePage() {
   const d = dashboardData
@@ -44,7 +45,9 @@ export default function HomePage() {
                   <span>·</span>
                   <span>5Y Percentile: {d.percentile5Y}th</span>
                 </div>
-                <div className="text-xs text-gray-400">{d.lastUpdated}</div>
+                <div className="text-xs text-gray-400">
+                  {d.updatedAt ? <RelativeTime isoString={d.updatedAt} /> : d.lastUpdated}
+                </div>
               </div>
             </div>
 

@@ -38,6 +38,7 @@ export interface Module {
   trendDirection: TrendDirection
   percentile5Y: number
   lastUpdated: string
+  updatedAt?: string
   color: string
   trendData: TrendPoint[]
   factors: Factor[]
@@ -55,6 +56,7 @@ export interface MacroDashboard {
   trendDirection: TrendDirection
   percentile5Y: number
   lastUpdated: string
+  updatedAt?: string
   trendData: TrendPoint[]
   modules: Module[]
   scoreLift: LiftDragItem[]
