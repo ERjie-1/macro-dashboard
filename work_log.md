@@ -67,6 +67,12 @@
 
 逐模块对比我们的因子百分位 vs bhadial 精确百分位，定位偏差来源。
 
+**Liquidity（+6pt）→ 结论：数据时差，无需改代码**
+- bhadial 2/26 快照用的是 2/18 周报数据（TGA=912.7B），我们 2/27 用了 2/25 最新数据（TGA=839.0B）
+- TGA 一周内降了 $73B，导致 TGA Deviation 和 Net Liq 值完全不同
+- 周频 FRED 数据（WALCL, WDTGAL, WRESBAL）的发布延迟是差异根源
+- 已验证 daily vs weekly 频率对百分位计算无影响（差 <0.5pt）
+
 ---
 
 ## 已知问题 & 残差（Session 6 更新）
