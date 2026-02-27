@@ -1,0 +1,81 @@
+{
+  "_note": "Bhadial.com reference snapshot — 2026-02-26. Factor weights & percentiles from /drivers endpoint.",
+  "overall": {
+    "score": 53.14,
+    "method": "equal_weight_1/7_across_modules"
+  },
+  "modules": {
+    "liquidity": {
+      "score": 20.40,
+      "scored_factors": 5,
+      "factors": {
+        "fed_net_liquidity":      {"weight": 0.30, "pctl": 4.6,   "direction": "higher_better"},
+        "bank_reserves":          {"weight": 0.20, "pctl": 4.6,   "direction": "higher_better"},
+        "delta_net_liq_13w":      {"weight": 0.25, "pctl": 64.0,  "direction": "higher_better"},
+        "tga_dev_signed":         {"weight": 0.15, "pctl": 6.9,   "direction": "lower_better"},
+        "onrrp_near_zero_risk":   {"weight": 0.10, "pctl": 2.3,   "direction": "lower_better"}
+      }
+    },
+    "funding": {
+      "score": 41.93,
+      "scored_factors": 6,
+      "factors": {
+        "collateral_friction":    {"weight": 0.18, "pctl": 20.8,  "direction": "lower_better"},
+        "corridor_friction_1":    {"weight": 0.22, "pctl": 34.4,  "direction": "lower_better"},
+        "corridor_friction_2":    {"weight": 0.18, "pctl": 21.0,  "direction": "lower_better"},
+        "effr_iorb":              {"weight": 0.12, "pctl": 5.4,   "direction": "lower_better"},
+        "cp_tbill_spread":        {"weight": 0.20, "pctl": 66.1,  "direction": "lower_better"},
+        "fragmentation_21d":      {"weight": 0.10, "pctl": 100.0, "direction": "lower_better"}
+      }
+    },
+    "treasury": {
+      "score": 58.37,
+      "scored_factors": 3,
+      "factors": {
+        "dgs30_dgs10":            {"weight": 0.35, "pctl": 92.2,  "direction": "higher_better"},
+        "dgs10_vol_21d":          {"weight": 0.35, "pctl": 51.0,  "direction": "lower_better"},
+        "curve_curvature_abs":    {"weight": 0.30, "pctl": 30.1,  "direction": "lower_better"}
+      }
+    },
+    "rates": {
+      "score": 70.16,
+      "scored_factors": 3,
+      "factors": {
+        "real_rate_level":        {"weight": 0.50, "pctl": 60.2,  "direction": "lower_better"},
+        "real_curve":             {"weight": 0.15, "pctl": 79.6,  "direction": "higher_better"},
+        "t10yie":                 {"weight": 0.35, "pctl": 79.6,  "direction": "neutral"}
+      }
+    },
+    "credit": {
+      "score": 73.60,
+      "scored_factors": 4,
+      "factors": {
+        "nfci":                   {"weight": 0.40, "pctl": 83.1,  "direction": "lower_better"},
+        "hy_credit":              {"weight": 0.25, "pctl": 60.4,  "direction": "higher_better"},
+        "ig_credit":              {"weight": 0.15, "pctl": 57.4,  "direction": "higher_better"},
+        "kre_spy":                {"weight": 0.20, "pctl": 80.5,  "direction": "higher_better"}
+      }
+    },
+    "risk": {
+      "score": 58.20,
+      "scored_factors": 4,
+      "factors": {
+        "vix":                    {"weight": 0.30, "pctl": 49.2,  "direction": "lower_better"},
+        "vix_term_structure":     {"weight": 0.25, "pctl": 50.3,  "direction": "lower_better"},
+        "risk_vs_safe":           {"weight": 0.25, "pctl": 43.2,  "direction": "higher_better"},
+        "high_beta_pref":         {"weight": 0.20, "pctl": 97.5,  "direction": "higher_better"}
+      }
+    },
+    "external": {
+      "score": 50.68,
+      "scored_factors": 5,
+      "factors": {
+        "dxy":                    {"weight": 0.25, "pctl": 77.1,  "direction": "lower_better"},
+        "fx_vol":                 {"weight": 0.20, "pctl": 77.2,  "direction": "lower_better"},
+        "wti":                    {"weight": 0.20, "pctl": 29.0,  "direction": "lower_better"},
+        "ovx_dev":                {"weight": 0.25, "pctl": 2.8,   "direction": "lower_better"},
+        "natgas":                 {"weight": 0.10, "pctl": 100.0, "direction": "lower_better"}
+      }
+    }
+  }
+}

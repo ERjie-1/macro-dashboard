@@ -45,16 +45,46 @@
 - 新增 `components/RelativeTime.tsx` 客户端组件（"Xh ago" / "Xd ago" 动态更新）
 - 主页和模块详情页时间戳从 "Updated Feb 27, 2026" 改为相对时间格式
 
+### Session 6：UI 重构 + 因子级权重校准
+
+**Part 1: UI 对齐**
+- `globals.css`：移除 `font-family: Arial, STKaiti` 覆盖 + 移除 dark mode CSS → Geist Sans 为唯一字体
+- `ModuleCard.tsx`：重构布局（名称左上 + 分数右上 text-4xl + 7D 变化右对齐在下方）
+- `TrendChart.tsx`：LineChart → AreaChart（半透明渐变填充），period 非活跃按钮加细边框
+
+**Part 2: 数值校准**
+- `MODULE_WEIGHTS` 改为等权 1/7（验证 bhadial = 简单平均）
+- 逆向工程 bhadial API（`https://macro-dashboard-backend-f0x7.onrender.com/api/v1`），获取全部因子权重和百分位
+- 添加 `FACTOR_WEIGHTS` 字典（每模块内因子加权），替换原来的因子等权平均
+- `build_module_obj` / overall TS / lift-drag 归因全部改用因子加权
+- 保存 bhadial 参考数据至 `data/bhadial_reference.json`
+
+**关键发现**：bhadial API 的 `direction=null` 不代表不反转（10Y Breakeven pctl=79.6 证实内部反转）
+
+**校准后分数**（因子加权后）：Overall 49.3 | Liquidity 26.4 | Funding 19.9 | Treasury 67.7 | Rates 67.6 | Credit 67.0 | Risk 51.4 | External 45.2
+
+### Session 6b：逐因子百分位对比（进行中）
+
+逐模块对比我们的因子百分位 vs bhadial 精确百分位，定位偏差来源。
+
 ---
 
-## 已知问题 & 残差
+## 已知问题 & 残差（Session 6 更新）
 
-| 模块 | 我们 vs bhadial | 原因 |
-|------|----------------|------|
-| Funding | 差 ~22pt | corridor-friction-1 历史百分位受 2021 极端宽松压制 |
-| Credit | 差 ~10pt | 市场时差（bhadial 截图比我们早 17h）|
-| Risk | 差 ~10pt | VIX 上涨 + 权益表现变差 |
-| External | 差 ~5pt | DHHNGSP 天然气 FRED 数据有延迟 |
+| 模块 | 我们 vs bhadial | 差距 | 分析 |
+|------|----------------|------|------|
+| Liquidity | 26.4 vs 20.4 | +6.0 | 需逐因子对比百分位 |
+| **Funding** | **19.9 vs 41.9** | **-22.0** | 百分位窗口问题（5Y 含 2021 QE 极端期） |
+| Treasury | 67.7 vs 58.4 | +9.3 | curve-curvature pctl 可能偏高 |
+| Rates | 67.6 vs 70.2 | -2.6 | 基本到位 |
+| Credit | 67.0 vs 73.6 | -6.6 | NFCI 周度 fill-forward 延迟 |
+| Risk | 51.4 vs 58.2 | -6.8 | VIX/term-structure 百分位可能偏差 |
+| External | 45.2 vs 50.7 | -5.5 | WTI/OVX 数据时差 |
+
+### 踩坑备忘
+- bhadial API `direction=null` ≠ 不反转（10Y Breakeven 确认内部做了反转）
+- 因子等权 vs 因子加权差异巨大（Rates 从 71→52 再回 67，全因 breakeven 权重 0.35 + real_rate 0.50）
+- bhadial 后端：Render + Supabase，前端 Vite+React SPA，数据通过 `/api/v1` REST API 提供
 
 ---
 

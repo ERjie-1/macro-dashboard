@@ -2,13 +2,15 @@
 
 import { useState } from 'react'
 import {
-  LineChart,
-  Line,
+  AreaChart,
+  Area,
   XAxis,
   YAxis,
   CartesianGrid,
   ResponsiveContainer,
   Tooltip,
+  LineChart,
+  Line,
 } from 'recharts'
 import { TrendPoint } from '@/types'
 
@@ -70,7 +72,7 @@ export default function TrendChart({ data, color, mini = false }: TrendChartProp
             className={`px-2 py-0.5 text-xs rounded font-medium transition-colors ${
               period === p
                 ? 'bg-gray-900 text-white'
-                : 'text-gray-500 hover:text-gray-700'
+                : 'text-gray-500 hover:text-gray-700 border border-gray-200'
             }`}
           >
             {p}
@@ -81,7 +83,13 @@ export default function TrendChart({ data, color, mini = false }: TrendChartProp
       {/* Chart */}
       <div className="flex-1 min-h-0">
         <ResponsiveContainer width="100%" height="100%">
-          <LineChart data={filtered} margin={{ top: 8, right: 16, left: 8, bottom: 8 }}>
+          <AreaChart data={filtered} margin={{ top: 8, right: 16, left: 8, bottom: 8 }}>
+            <defs>
+              <linearGradient id="areaFill" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor={color} stopOpacity={0.15} />
+                <stop offset="100%" stopColor={color} stopOpacity={0.02} />
+              </linearGradient>
+            </defs>
             <CartesianGrid
               strokeDasharray="3 3"
               stroke="#f3f4f6"
@@ -113,15 +121,16 @@ export default function TrendChart({ data, color, mini = false }: TrendChartProp
               labelStyle={{ color: '#374151', fontWeight: 600 }}
               formatter={(value: number | undefined) => [value != null ? value.toFixed(1) : '', 'Score']}
             />
-            <Line
+            <Area
               type="monotone"
               dataKey="value"
               stroke={color}
               strokeWidth={2}
+              fill="url(#areaFill)"
               dot={false}
               activeDot={{ r: 4, fill: color }}
             />
-          </LineChart>
+          </AreaChart>
         </ResponsiveContainer>
       </div>
     </div>

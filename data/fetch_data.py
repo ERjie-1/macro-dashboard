@@ -46,15 +46,9 @@ OUTPUT_PATH = Path(__file__).parent.parent / "public" / "data" / "dashboard.json
 
 # ── Module weights ───────────────────────────────────────────────────────────
 
-MODULE_WEIGHTS = {
-    "liquidity": 0.20,
-    "funding":   0.18,
-    "treasury":  0.15,
-    "rates":     0.15,
-    "credit":    0.15,
-    "risk":      0.12,
-    "external":  0.05,
-}
+MODULE_WEIGHTS = {k: 1/7 for k in [
+    "liquidity", "funding", "treasury", "rates", "credit", "risk", "external",
+]}
 
 MODULE_COLORS = {
     "liquidity": "#ef4444",
@@ -64,6 +58,41 @@ MODULE_COLORS = {
     "credit":    "#14b8a6",
     "risk":      "#f97316",
     "external":  "#f97316",
+}
+
+# Factor weights within each module (from bhadial.com reference)
+FACTOR_WEIGHTS = {
+    "liquidity": {
+        "fed-net-liquidity": 0.30, "bank-reserves": 0.20,
+        "net-liquidity-momentum": 0.25, "tga-deviation": 0.15,
+        "on-rrp-buffer-risk": 0.10,
+    },
+    "funding": {
+        "collateral-repo-friction": 0.18, "corridor-friction-1": 0.22,
+        "corridor-friction-2": 0.18, "effr-iorb-spread": 0.12,
+        "cp-tbill-spread": 0.20, "funding-fragmentation": 0.10,
+    },
+    "treasury": {
+        "30y-10y-term-premium": 0.35, "10y-rate-volatility": 0.35,
+        "curve-curvature": 0.30,
+    },
+    "rates": {
+        "real-rate-level": 0.50, "real-curve": 0.15,
+        "10y-breakeven": 0.35,
+    },
+    "credit": {
+        "nfci": 0.40, "hy-credit": 0.25,
+        "ig-credit": 0.15, "regional-banks-spy": 0.20,
+    },
+    "risk": {
+        "vix": 0.30, "vix-term-structure": 0.25,
+        "risk-vs-safe": 0.25, "high-beta-preference": 0.20,
+    },
+    "external": {
+        "dxy": 0.25, "fx-realized-volatility": 0.20,
+        "wti-oil": 0.20, "oil-volatility-deviation": 0.25,
+        "natural-gas": 0.10,
+    },
 }
 
 # Factors where lower raw value = better conditions (score = 100 - percentile)
@@ -80,7 +109,7 @@ INVERT_FACTORS = {
     # "wti-oil" removed: bhadial treats low oil price as restrictive (demand signal)
     "natural-gas",
     "dxy",                                             # strong dollar = tighter global conditions
-    "10y-breakeven",                                   # high inflation expectations = worse conditions
+    "10y-breakeven",                                   # bhadial API shows direction=null but pctl=79.6 confirms inversion
 }
 
 # ── Helpers ──────────────────────────────────────────────────────────────────
@@ -424,21 +453,32 @@ def build_module_obj(slug: str, name: str, factor_specs: list) -> tuple:
             factors.append(f)
             factor_score_series[fid] = make_score_series(fseries, fid)
 
-    # Module score = mean of scored (non-extra) factors
+    # Module score = weighted average of scored (non-extra) factors
     scored = [f for f in factors if not f["isExtra"]]
     if not scored:
         return None, {}
 
-    module_score = round(float(np.mean([f["historicalPercentile5Y"] if fid not in INVERT_FACTORS
-                                         else 100 - f["historicalPercentile5Y"]
-                                         for f in scored
-                                         for fid in [f["id"]]])), 1)
+    fw = FACTOR_WEIGHTS.get(slug, {})
+    scored_scores = []
+    scored_weights = []
+    for f in scored:
+        fid = f["id"]
+        s = score_from_pct(f["historicalPercentile5Y"], fid)
+        w = fw.get(fid, 1.0 / len(scored))
+        scored_scores.append(s)
+        scored_weights.append(w)
+    w_total = sum(scored_weights)
+    module_score = round(sum(s * w for s, w in zip(scored_scores, scored_weights)) / w_total, 1)
 
-    # Build module score time series (mean of scored factor score series, daily)
+    # Build module score time series (weighted average of scored factor score series)
     scored_ids = [f["id"] for f in scored]
-    ss_list = [factor_score_series[fid] for fid in scored_ids if fid in factor_score_series and len(factor_score_series[fid]) > 0]
+    valid_ids = [fid for fid in scored_ids if fid in factor_score_series and len(factor_score_series[fid]) > 0]
+    ss_list = [factor_score_series[fid] for fid in valid_ids]
     if ss_list:
-        mod_score_ts = pd.concat(ss_list, axis=1).mean(axis=1).dropna()
+        df = pd.concat(ss_list, axis=1)
+        weights = np.array([fw.get(fid, 1.0 / len(valid_ids)) for fid in valid_ids])
+        weights = weights / weights.sum()
+        mod_score_ts = (df * weights).sum(axis=1).dropna()
     else:
         mod_score_ts = pd.Series(dtype=float)
 
@@ -584,16 +624,21 @@ prev_overall = round(sum(
     if slug in modules
 ), 1)
 
-# Overall score trend series (weighted average of module score series)
+# Overall score trend series (factor-weighted module scores, then module-weighted)
 overall_score_ts_parts = []
 for slug, w in MODULE_WEIGHTS.items():
     if slug not in modules:
         continue
+    fw = FACTOR_WEIGHTS.get(slug, {})
     scored_ids = [f["id"] for f in modules[slug]["factors"] if not f["isExtra"]]
-    ss_list = [all_factor_score_series[fid] for fid in scored_ids
-               if fid in all_factor_score_series and len(all_factor_score_series[fid]) > 0]
+    valid_ids = [fid for fid in scored_ids
+                 if fid in all_factor_score_series and len(all_factor_score_series[fid]) > 0]
+    ss_list = [all_factor_score_series[fid] for fid in valid_ids]
     if ss_list:
-        mod_ts = pd.concat(ss_list, axis=1).mean(axis=1) * w
+        df = pd.concat(ss_list, axis=1)
+        f_weights = np.array([fw.get(fid, 1.0 / len(valid_ids)) for fid in valid_ids])
+        f_weights = f_weights / f_weights.sum()
+        mod_ts = (df * f_weights).sum(axis=1) * w
         overall_score_ts_parts.append(mod_ts)
 
 if overall_score_ts_parts:
@@ -623,8 +668,8 @@ lift_drag = []
 for slug, w in MODULE_WEIGHTS.items():
     if slug not in modules:
         continue
+    fw = FACTOR_WEIGHTS.get(slug, {})
     scored = [f for f in modules[slug]["factors"] if not f["isExtra"]]
-    factor_w = w / max(len(scored), 1)
     for f in scored:
         fid = f["id"]
         if fid not in all_factor_score_series:
@@ -632,6 +677,7 @@ for slug, w in MODULE_WEIGHTS.items():
         ss = all_factor_score_series[fid].dropna()
         if len(ss) < 9:
             continue
+        factor_w = fw.get(fid, 1.0 / len(scored)) * w
         score_now  = float(ss.iloc[-1])
         score_7d   = float(ss.iloc[-8]) if len(ss) > 8 else score_now
         contrib    = (score_now - score_7d) * factor_w
@@ -665,3 +711,52 @@ print(f"\n✓ Done! Written to {OUTPUT_PATH}")
 print(f"  Overall Score: {overall_score} (prev: {prev_overall})")
 for slug, mod in modules.items():
     print(f"  {mod['name']:12s}: {mod['score']:.1f}")
+
+# ── Factor-level comparison vs bhadial.com (2026-02-26 snapshot) ─────────────
+
+BHADIAL_PCTL = {
+    # Liquidity (bhadial pctl = factor score, already direction-adjusted)
+    "fed-net-liquidity": 4.60, "bank-reserves": 4.60,
+    "net-liquidity-momentum": 63.98, "tga-deviation": 6.90,
+    "on-rrp-buffer-risk": 2.30,
+    # Funding
+    "collateral-repo-friction": 20.84, "corridor-friction-1": 34.37,
+    "corridor-friction-2": 21.03, "effr-iorb-spread": 5.44,
+    "cp-tbill-spread": 66.08, "funding-fragmentation": 100.00,
+    # Treasury
+    "30y-10y-term-premium": 92.16, "10y-rate-volatility": 51.04,
+    "curve-curvature": 30.06,
+    # Rates
+    "real-rate-level": 60.16, "real-curve": 79.60, "10y-breakeven": 79.60,
+    # Credit
+    "nfci": 83.14, "hy-credit": 60.35, "ig-credit": 57.40,
+    "regional-banks-spy": 80.49,
+    # Risk
+    "vix": 49.18, "vix-term-structure": 50.27,
+    "risk-vs-safe": 43.15, "high-beta-preference": 97.45,
+    # External
+    "dxy": 77.08, "fx-realized-volatility": 77.25,
+    "wti-oil": 29.03, "oil-volatility-deviation": 2.84,
+    "natural-gas": 100.00,
+}
+
+print("\n── Factor Comparison: Ours vs Bhadial ──────────────────────────")
+print(f"{'Module':<12} {'Factor':<28} {'Our Score':>9} {'Bhadial':>9} {'Δ':>7}")
+print("─" * 70)
+for slug, mod in modules.items():
+    scored = [f for f in mod["factors"] if not f["isExtra"]]
+    for f in scored:
+        fid = f["id"]
+        our_score = score_from_pct(f["historicalPercentile5Y"], fid)
+        bh = BHADIAL_PCTL.get(fid)
+        if bh is not None:
+            delta = our_score - bh
+            flag = " ◀" if abs(delta) > 10 else ""
+            print(f"  {slug:<10} {f['name']:<28} {our_score:>8.1f} {bh:>8.1f} {delta:>+7.1f}{flag}")
+    # Module total
+    bh_mod = {"liquidity": 20.40, "funding": 41.93, "treasury": 58.37,
+              "rates": 70.16, "credit": 73.60, "risk": 58.20, "external": 50.68}
+    bm = bh_mod.get(slug, 0)
+    md = mod["score"] - bm
+    print(f"  {'':10} {'MODULE TOTAL':<28} {mod['score']:>8.1f} {bm:>8.1f} {md:>+7.1f}")
+    print()

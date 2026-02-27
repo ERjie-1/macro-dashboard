@@ -14,12 +14,16 @@ export default function ModuleCard({ module }: ModuleCardProps) {
   return (
     <Link href={`/module/${module.slug}`} className="block">
       <div className="bg-white rounded-xl border border-gray-100 p-4 hover:shadow-md transition-shadow cursor-pointer">
-        <div className="text-sm text-gray-500 font-medium mb-2">{module.name}</div>
-        <div className="flex items-end justify-between mb-1">
-          <span className="text-3xl font-bold" style={{ color }}>
+        {/* Row 1: name left, score right */}
+        <div className="flex items-start justify-between">
+          <span className="text-sm text-gray-500 font-medium">{module.name}</span>
+          <span className="text-4xl font-bold leading-none" style={{ color }}>
             {module.score.toFixed(1)}
           </span>
-          <span className={`text-sm font-medium ${isUp ? 'text-green-500' : 'text-red-500'}`}>
+        </div>
+        {/* Row 2: 7D change right-aligned below score */}
+        <div className="flex justify-end mt-1">
+          <span className={`text-xs font-medium ${isUp ? 'text-green-500' : 'text-red-500'}`}>
             {isUp ? '↗' : '↘'} 7D {changeStr}
           </span>
         </div>
