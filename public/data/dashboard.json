@@ -5,7 +5,7 @@
   "trendDirection": "declining",
   "percentile5Y": 31.5,
   "lastUpdated": "Updated Feb 27, 2026",
-  "updatedAt": "2026-02-27T03:18:28Z",
+  "updatedAt": "2026-02-27T03:48:34Z",
   "trendData": [
     {
       "date": "11/29",
@@ -45,7 +45,7 @@
     },
     {
       "date": "12/8",
-      "value": 44.7037
+      "value": 44.7066
     },
     {
       "date": "12/9",
@@ -161,7 +161,7 @@
     },
     {
       "date": "1/6",
-      "value": 49.6826
+      "value": 49.6797
     },
     {
       "date": "1/7",
@@ -365,7 +365,7 @@
     },
     {
       "date": "2/26",
-      "value": 20.4543
+      "value": 20.4579
     }
   ],
   "modules": [
@@ -379,7 +379,7 @@
       "trendDirection": "declining",
       "percentile5Y": 0.2,
       "lastUpdated": "Updated Feb 27, 2026",
-      "updatedAt": "2026-02-27T03:18:27Z",
+      "updatedAt": "2026-02-27T03:48:33Z",
       "color": "#ef4444",
       "trendData": [
         {
@@ -4076,7 +4076,7 @@
       "trendDirection": "improving",
       "percentile5Y": 39.5,
       "lastUpdated": "Updated Feb 27, 2026",
-      "updatedAt": "2026-02-27T03:18:28Z",
+      "updatedAt": "2026-02-27T03:48:34Z",
       "color": "#ef4444",
       "trendData": [
         {
@@ -9018,7 +9018,7 @@
       "trendDirection": "declining",
       "percentile5Y": 80.0,
       "lastUpdated": "Updated Feb 27, 2026",
-      "updatedAt": "2026-02-27T03:18:28Z",
+      "updatedAt": "2026-02-27T03:48:34Z",
       "color": "#14b8a6",
       "trendData": [
         {
@@ -12715,7 +12715,7 @@
       "trendDirection": "declining",
       "percentile5Y": 8.8,
       "lastUpdated": "Updated Feb 27, 2026",
-      "updatedAt": "2026-02-27T03:18:28Z",
+      "updatedAt": "2026-02-27T03:48:34Z",
       "color": "#14b8a6",
       "trendData": [
         {
@@ -15167,7 +15167,7 @@
       "trendDirection": "declining",
       "percentile5Y": 40.7,
       "lastUpdated": "Updated Feb 27, 2026",
-      "updatedAt": "2026-02-27T03:18:28Z",
+      "updatedAt": "2026-02-27T03:48:34Z",
       "color": "#14b8a6",
       "trendData": [
         {
@@ -17204,7 +17204,7 @@
       "trendDirection": "improving",
       "percentile5Y": 49.3,
       "lastUpdated": "Updated Feb 27, 2026",
-      "updatedAt": "2026-02-27T03:18:28Z",
+      "updatedAt": "2026-02-27T03:48:34Z",
       "color": "#f97316",
       "trendData": [
         {
@@ -17349,7 +17349,7 @@
         },
         {
           "date": "12/8",
-          "value": 64.895
+          "value": 64.915
         },
         {
           "date": "12/9",
@@ -17425,7 +17425,7 @@
         },
         {
           "date": "1/6",
-          "value": 70.59
+          "value": 70.57
         },
         {
           "date": "1/7",
@@ -19649,14 +19649,14 @@
     {
       "slug": "external",
       "name": "External",
-      "score": 45.2,
+      "score": 45.3,
       "prevScore": 47.3,
-      "sevenDayChangePct": -4.44,
+      "sevenDayChangePct": -4.23,
       "trendDays": 2,
       "trendDirection": "stable",
       "percentile5Y": 14.7,
       "lastUpdated": "Updated Feb 27, 2026",
-      "updatedAt": "2026-02-27T03:18:28Z",
+      "updatedAt": "2026-02-27T03:48:34Z",
       "color": "#f97316",
       "trendData": [
         {
@@ -20017,17 +20017,17 @@
         },
         {
           "date": "2/26",
-          "value": 35.38
+          "value": 35.405
         }
       ],
       "factors": [
         {
           "id": "dxy",
           "name": "US Dollar Index (DXY)",
-          "value": "97.73",
-          "sevenDayChange": "\u2198 -0.20%",
+          "value": "97.71",
+          "sevenDayChange": "\u2198 -0.22%",
           "changeDirection": "down",
-          "historicalPercentile5Y": 24.1,
+          "historicalPercentile5Y": 23.9,
           "status": "supportive",
           "velocity": "falling",
           "trendData": [
@@ -20389,7 +20389,7 @@
             },
             {
               "date": "2/26",
-              "value": 97.731
+              "value": 97.714
             }
           ],
           "percentileData": [

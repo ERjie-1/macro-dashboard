@@ -63,7 +63,7 @@
 
 **校准后分数**（因子加权后）：Overall 49.3 | Liquidity 26.4 | Funding 19.9 | Treasury 67.7 | Rates 67.6 | Credit 67.0 | Risk 51.4 | External 45.2
 
-### Session 6b：逐因子百分位对比（进行中）
+### Session 6b：逐因子百分位对比（完成）
 
 逐模块对比我们的因子百分位 vs bhadial 精确百分位，定位偏差来源。
 
