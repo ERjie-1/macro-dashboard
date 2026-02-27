@@ -85,6 +85,12 @@
 - Curve Curvature：16.3 vs 30.1 (-13.8) — raw value 一致（0.05 pct points），百分位窗口/算法不同
 - 两个偏差因子均指向 bhadial 使用非 rank-based 百分位（可能 z-score 或分段归一化）
 
+**Credit（-6.6pt）→ 结论：百分位算法差异**
+- NFCI：83.1 vs 83.1 (0.0) ✓ 完美匹配
+- HY Credit：38.2 vs 60.4 (-22.1) — log returns 和 simple returns 结果相同，计算方法无误，百分位归一化差异
+- IG Credit：45.1 vs 57.4 (-12.3) — 同上
+- Regional Banks vs SPY：87.4 vs 80.5 (+6.9) — 数据时差可解释
+
 ---
 
 ## 已知问题 & 残差（Session 6 更新）
