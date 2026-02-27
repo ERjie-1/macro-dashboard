@@ -73,11 +73,14 @@ INVERT_FACTORS = {
     "corridor-friction-1", "corridor-friction-2",
     "effr-iorb-spread", "cp-tbill-spread",
     "funding-fragmentation", "10y-rate-volatility",
-    "curve-curvature", "real-rate-level",
+    # "curve-curvature" removed: bhadial treats low curvature as restrictive (raw pct used directly)
+    "real-rate-level",
     "nfci", "vix", "vix-term-structure",
     "fx-realized-volatility", "oil-volatility-deviation",
-    "wti-oil", "natural-gas",
+    # "wti-oil" removed: bhadial treats low oil price as restrictive (demand signal)
+    "natural-gas",
     "dxy",                                             # strong dollar = tighter global conditions
+    "10y-breakeven",                                   # high inflation expectations = worse conditions
 }
 
 # ── Helpers ──────────────────────────────────────────────────────────────────
@@ -228,8 +231,9 @@ nfci   = fetch_fred("NFCI").resample("D").last().ffill()
 wti    = fetch_fred("DCOILWTICO")
 ng     = fetch_fred("DHHNGSP")
 
-# ON RRP award rate ≈ lower bound of fed funds = 5bps below IORB (approx)
-rrp_rate = iorb - 0.0005
+# ON RRP award rate = lower bound of fed funds target range
+# Historically set ~15bps below IORB (upper bound). e.g. IORB=3.65% → RRP=3.50%
+rrp_rate = iorb - 0.0015
 
 print("Fetching Yahoo Finance data...")
 
@@ -302,19 +306,23 @@ effr_iorb   = dff  - iorb
 cp_tbill = (dcpf3m - dgs3m).dropna()
 
 # Funding fragmentation: 21-day std of spread triad
+# Scale to percent-point form (*100) so values match bhadial's ~0.1 range
+# (rates are in decimal; *100 brings back to percent-point units)
 spread_triad = pd.DataFrame({
-    "cf_repo": coll_repo,
-    "cf1":     corr_fric_1,
-    "cf2":     corr_fric_2,
+    "cf_repo": coll_repo   * 100,
+    "cf1":     corr_fric_1 * 100,
+    "cf2":     corr_fric_2 * 100,
 }).dropna()
 frag_mean = spread_triad.mean(axis=1)
 funding_frag = frag_mean.rolling(21).std()
 
 # Treasury
 term_30_10 = dgs30 - dgs10
-dgs10_chg  = dgs10.diff()
-rate_vol_21 = realized_vol(dgs10_chg, 21)
-curve_curv  = (2 * dgs10 - dgs2 - dgs30).abs()
+# Rate vol: use percent-point changes (not annualized) to match bhadial's scale (~0.09 range)
+# dgs10 is in decimal (0.0404); multiply by 100 to get percent-point daily changes
+dgs10_chg_pct = dgs10.diff() * 100
+rate_vol_21   = dgs10_chg_pct.rolling(21).std()
+curve_curv    = (2 * dgs10 - dgs2 - dgs30).abs()
 
 # Rates
 real_level = 0.6 * dfii5 + 0.4 * dfii10
