@@ -73,6 +73,12 @@
 - 周频 FRED 数据（WALCL, WDTGAL, WRESBAL）的发布延迟是差异根源
 - 已验证 daily vs weekly 频率对百分位计算无影响（差 <0.5pt）
 
+**Funding（-22pt）→ 结论：算法差异，非简单调参可修**
+- Corridor Friction 1/2：raw values 一致（+2bps），但我们 raw_pct=94.4 vs bhadial 65.6。原因：5Y 数据中 81% 是 2021 QE 期间 -10～-12bps，当前 +2bps 数学上确实排 94th。即使缩窗到 3.5Y 或排除 2021 也无改善（~93%）。bhadial 可能用了 z-score 归一化或分段百分位
+- Fragmentation：raw value 完全不同（我们 0.023 vs bhadial 0.103），计算公式有根本差异
+- CP-TBill：raw value 不同（我们 -0.03% vs bhadial 0.06%），DCPF3M 数据延迟
+- 需要多天 bhadial 数据来反推其 corridor friction 的百分位算法
+
 ---
 
 ## 已知问题 & 残差（Session 6 更新）
