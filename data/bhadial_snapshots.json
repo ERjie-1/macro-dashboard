@@ -1,0 +1,51 @@
+{
+  "_note": "Daily bhadial.com snapshots for percentile algorithm reverse-engineering. Collect for 7-15 trading days.",
+  "_howto": "Open bhadial.com/dashboard in browser → DevTools Network → find request to /api/v1/dashboard → copy the JSON response → paste to Claude",
+  "snapshots": [
+    {
+      "date": "2026-02-26",
+      "overall": 53.14,
+      "modules": {
+        "liquidity": 20.40,
+        "funding": 41.93,
+        "treasury": 58.37,
+        "rates": 70.16,
+        "credit": 73.60,
+        "risk": 58.20,
+        "external": 50.68
+      },
+      "factors": {
+        "fed_net_liquidity": {"pctl": 4.6, "value": null},
+        "bank_reserves": {"pctl": 4.6, "value": null},
+        "delta_net_liq_13w": {"pctl": 64.0, "value": null},
+        "tga_dev_signed": {"pctl": 6.9, "value": null},
+        "onrrp_near_zero_risk": {"pctl": 2.3, "value": null},
+        "collateral_friction": {"pctl": 20.8, "value": null},
+        "corridor_friction_1": {"pctl": 34.4, "value": null},
+        "corridor_friction_2": {"pctl": 21.0, "value": null},
+        "effr_iorb": {"pctl": 5.4, "value": null},
+        "cp_tbill_spread": {"pctl": 66.1, "value": null},
+        "fragmentation_21d": {"pctl": 100.0, "value": null},
+        "dgs30_dgs10": {"pctl": 92.2, "value": null},
+        "dgs10_vol_21d": {"pctl": 51.0, "value": null},
+        "curve_curvature_abs": {"pctl": 30.1, "value": null},
+        "real_rate_level": {"pctl": 60.2, "value": null},
+        "real_curve": {"pctl": 79.6, "value": null},
+        "t10yie": {"pctl": 79.6, "value": null},
+        "nfci": {"pctl": 83.1, "value": null},
+        "hy_credit": {"pctl": 60.4, "value": null},
+        "ig_credit": {"pctl": 57.4, "value": null},
+        "kre_spy": {"pctl": 80.5, "value": null},
+        "vix": {"pctl": 49.2, "value": null},
+        "vix_term_structure": {"pctl": 50.3, "value": null},
+        "risk_vs_safe": {"pctl": 43.2, "value": null},
+        "high_beta_pref": {"pctl": 97.5, "value": null},
+        "dxy": {"pctl": 77.1, "value": null},
+        "fx_vol": {"pctl": 77.2, "value": null},
+        "wti": {"pctl": 29.0, "value": null},
+        "ovx_dev": {"pctl": 2.8, "value": null},
+        "natgas": {"pctl": 100.0, "value": null}
+      }
+    }
+  ]
+}
