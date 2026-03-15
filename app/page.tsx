@@ -55,7 +55,7 @@ export default function HomePage() {
             <div className="flex flex-col">
               <h2 className="text-lg font-semibold text-gray-800 mb-2">Historical Trend</h2>
               <div className="flex-1" style={{ minHeight: 220 }}>
-                <TrendChart data={d.trendData} color="#d97706" />
+                <TrendChart data={d.trendData} color={scoreColor} />
               </div>
             </div>
           </div>

@@ -56,7 +56,7 @@ export default function GaugeDial({ score, size = 'md' }: GaugeDialProps) {
           fill="none"
           stroke="#e5e7eb"
           strokeWidth={strokeWidth}
-          strokeLinecap="butt"
+          strokeLinecap="round"
         />
 
         {/* Filled colored arc */}
@@ -66,7 +66,7 @@ export default function GaugeDial({ score, size = 'md' }: GaugeDialProps) {
             fill="none"
             stroke={color}
             strokeWidth={strokeWidth}
-            strokeLinecap="butt"
+            strokeLinecap="round"
           />
         )}
 

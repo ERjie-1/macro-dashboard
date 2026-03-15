@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useId, useState } from 'react'
 import {
   AreaChart,
   Area,
@@ -34,6 +34,7 @@ function filterData(data: TrendPoint[], period: Period): TrendPoint[] {
 }
 
 export default function TrendChart({ data, color, mini = false }: TrendChartProps) {
+  const gradientId = useId().replace(/:/g, '')
   const [period, setPeriod] = useState<Period>('1M')
 
   const filtered = filterData(data, period)
@@ -85,7 +86,7 @@ export default function TrendChart({ data, color, mini = false }: TrendChartProp
         <ResponsiveContainer width="100%" height="100%">
           <AreaChart data={filtered} margin={{ top: 8, right: 16, left: 8, bottom: 8 }}>
             <defs>
-              <linearGradient id="areaFill" x1="0" y1="0" x2="0" y2="1">
+              <linearGradient id={`areaFill-${gradientId}`} x1="0" y1="0" x2="0" y2="1">
                 <stop offset="0%" stopColor={color} stopOpacity={0.15} />
                 <stop offset="100%" stopColor={color} stopOpacity={0.02} />
               </linearGradient>
@@ -126,7 +127,7 @@ export default function TrendChart({ data, color, mini = false }: TrendChartProp
               dataKey="value"
               stroke={color}
               strokeWidth={2}
-              fill="url(#areaFill)"
+              fill={`url(#areaFill-${gradientId})`}
               dot={false}
               activeDot={{ r: 4, fill: color }}
             />
