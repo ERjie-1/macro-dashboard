@@ -137,9 +137,73 @@
 
 ---
 
+## 2026-03-16
+
+### Session 7：Positioning & Flow 新 Tab
+
+**Part 1: 规划与 Codex Review**
+- 设计完整方案：期权链分析（GEX/PCR/Skew/VRP/MaxPain/OI Wall）+ CFTC COT 持仓 + ETF 资金流
+- 经 Codex 3 轮 review 修正：GEX 符号约定（per-$1-move, dealer hedge flow）、Gamma Flip 算法（假设 spot 迭代法而非 strike 累积）、DST 时区问题（cron 改 UTC 21:30）、冷启动 sentinel（updatedAt: null）、全到期日聚合口径、COT 历史内嵌策略
+- bhadial API 采集改为手动（避免留痕）
+
+**Part 2: 技术债务清理**
+- 提交未 commit 的 UI 改动（趋势图颜色动态化、GaugeDial 圆角、TrendChart gradient ID 冲突修复）
+- bhadial_snapshots.json 纳入 git track
+- GitHub Actions 近 10 天全部成功运行
+
+**Part 3: Python 数据管道 `data/fetch_positioning.py`**
+- 期权链：yfinance 拉 SPY/QQQ/IWM 所有 expiry（~30个），Black-Scholes 计算 Gamma/Delta
+- GEX：向量化 numpy 计算，符号约定 call 正 put 负，Flip 用假设 spot 迭代 + 线性插值
+- PCR：双维度（月度 OPEX + 全到期日聚合），OI 和 Volume 各一
+- 25Δ Skew：线性插值找 delta≈0.25 的 call/put，Risk Reversal = put IV - call IV
+- VRP：ATM IV - HV21（60d 历史数据一次性拉取，复用给 VRP 避免重复 API 调用）
+- Max Pain：向量化 numpy dot product（原 O(n²) Python loops）
+- Key Levels：Put Wall / Call Wall / Top 10 OI
+- VIX 期限结构：9D/30D/3M/6M/1Y 批量下载 + CBOE SKEW index
+- CFTC COT：Financial Futures 报告（ES/NQ/ZN/ZB/6E）+ Disaggregated 报告（GC/CL），修复 403 Forbidden（加 User-Agent header），列名映射正确
+- ETF 资金流：OBV / MFI(14D) / Volume vs 20D Avg，7 个 ETF
+
+**Part 4: 前端**
+- 顶部 Tab 导航（Macro Conditions / Positioning & Flow）
+- 8 个新组件：TabNav, VixCurve, GexChart, OptionsMetrics, OptionsSection, KeyLevels, CotSection, EtfFlowGrid
+- TypeScript 类型系统 `types/positioning.ts`
+- 冷启动保护：种子文件 updatedAt=null → getPositioningData() 返回 null → fallback UI
+
+**Part 5: CI/CD**
+- GitHub Actions cron 从 UTC 20:00 改为 21:30（全年 DST-safe）
+- 新增 fetch_positioning.py 步骤 + positioning.json 提交
+
+**Part 6: Simplify 代码审阅**
+- 提取共享 `lib/format.ts`（消除 formatB 重复）
+- GexChart 改用 `TickerOptions['gex']` 类型（消除本地重复接口）
+- 删除死代码（OptionsMetrics 的 gexColor、fetch_positioning.py 的 _empty_cot）
+- 向量化 compute_gex() 和 compute_max_pain()
+- 消除 VRP 重复 API 调用（fetch_option_chains 拉 60d 复用）
+- VIX6M/VIX1Y 纳入批量下载
+- 修复 _parse_cot_contract 的脆弱 date column fallback
+
+**数据验证结果**（2026-03-15 快照）：
+| Ticker | GEX | Flip | PCR OI (OPEX) | 25Δ Skew | VRP | Max Pain |
+|--------|-----|------|---------------|----------|-----|----------|
+| SPY | -$2.13B | $684.64 | 2.48 | 9.8 | +14.47 | $835 |
+| QQQ | -$0.88B | $611.01 | 1.48 | 8.7 | +13.11 | $656 |
+| IWM | -$1.36B | $265.10 | 2.81 | 12.2 | +16.94 | $254 |
+
+与 Oreo 3/9 周报对比：三大指数全面负 Gamma 一致，IWM PCR Vol 极端（5.37）和 Skew 最高（12.2）符合"IWM 最脆弱"的判断。
+
+### 踩坑备忘（Session 7 新增）
+- python3.12 Framework 安装在 macOS 上有代码签名问题（numpy/pyexpat dlopen 失败）→ 用 `brew install python@3.12` 创建 venv 解决
+- CFTC 数据分两个报告：Financial Futures（`fut_fin_txt_YYYY.zip`，有 Lev/AM/Dealer）用于股指/债券/FX；Disaggregated（`fut_disagg_txt_YYYY.zip`，有 M_Money/Swap）用于商品
+- CFTC 下载需要 User-Agent header，否则 403 Forbidden
+- E-mini S&P 500 的 CFTC 代码是 `13874A`，在 Financial Futures 报告里而非 Disaggregated
+- yfinance `Ticker.options` 返回所有 expiry（含 2 年后的），远期对 GEX 影响极小（gamma ∝ 1/√T）
+- Gamma Flip 不能用 strike 累积法——必须在假设 spot 上重算全链 BS gamma
+
+---
+
 ## 技术备忘
 
-- **Python 环境**：用 `python3.12`（Homebrew 3.14 有 PEP 668 限制无法 pip install）
+- **Python 环境**：本地用 Homebrew python3.12 venv（`/tmp/macro-venv-hb/`），CI 用 python 3.11；Framework python3.12 有签名问题不可用
 - **macOS SSL**：`ssl._create_unverified_context`，已加 `platform.system() == "Darwin"` 判断
 - **git 强制提交 gitignored 文件**：`git add -f public/data/dashboard.json`
 - **Vercel 触发**：每次 push main 自动重新部署
