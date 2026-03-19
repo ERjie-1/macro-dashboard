@@ -2,8 +2,10 @@ name: Refresh Dashboard Data
 
 on:
   schedule:
-    # Run daily at 20:00 UTC (04:00 Beijing time next day)
-    - cron: '0 20 * * *'
+    # Run daily at 21:30 UTC — always after US market close
+    # EDT (Mar-Nov): 21:30 UTC = 17:30 EDT (close +1.5h)
+    # EST (Nov-Mar): 21:30 UTC = 16:30 EST (close +0.5h)
+    - cron: '30 21 * * *'
   workflow_dispatch: # Allow manual trigger
 
 jobs:
@@ -24,15 +26,21 @@ jobs:
       - name: Install dependencies
         run: pip install -r data/requirements.txt
 
-      - name: Fetch data and compute scores
+      - name: Fetch macro dashboard data
         env:
           FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
         run: python data/fetch_data.py
 
-      - name: Commit updated dashboard.json
+      - name: Fetch positioning & flow data
+        env:
+          FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
+        run: python data/fetch_positioning.py
+
+      - name: Commit updated data
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add -f public/data/dashboard.json
+          git add -f public/data/positioning.json
           git diff --cached --quiet && echo "No changes" || git commit -m "chore: auto-update dashboard data $(date -u +%Y-%m-%d)"
           git push
