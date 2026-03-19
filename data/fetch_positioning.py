@@ -50,8 +50,8 @@ VIX_TICKERS = {
     "9D":  "^VIX9D",
     "30D": "^VIX",
     "3M":  "^VIX3M",
-    # "6M":  "^VIX6M",   # may not be available
-    # "1Y":  "^VIX1Y",   # may not be available
+    "6M":  "^VIX6M",
+    "1Y":  "^VIX1Y",
 }
 
 SKEW_TICKER = "^SKEW"
@@ -157,11 +157,11 @@ def fetch_option_chains(ticker_symbol: str):
     """Fetch all available option chains for a ticker."""
     ticker = yf.Ticker(ticker_symbol)
 
-    # Get spot price
-    hist = ticker.history(period="5d")
+    # Get price history (60d for HV21 reuse, avoids duplicate fetch in VRP)
+    hist = ticker.history(period="60d")
     if hist.empty:
         print(f"  WARN: No price data for {ticker_symbol}")
-        return None, None, None
+        return None, None, None, None
     spot = float(hist["Close"].iloc[-1])
 
     # Get all expiry dates
@@ -169,11 +169,11 @@ def fetch_option_chains(ticker_symbol: str):
         expiries = ticker.options
     except Exception as e:
         print(f"  WARN: No options for {ticker_symbol}: {e}")
-        return spot, None, None
+        return spot, None, None, hist
 
     if not expiries:
         print(f"  WARN: No expiry dates for {ticker_symbol}")
-        return spot, None, None
+        return spot, None, None, hist
 
     print(f"  {ticker_symbol}: spot=${spot:.2f}, {len(expiries)} expiries")
 
@@ -205,40 +205,47 @@ def fetch_option_chains(ticker_symbol: str):
                 all_puts.append(df)
 
     if not all_calls or not all_puts:
-        return spot, None, None
+        return spot, None, None, hist
 
     calls_df = pd.concat(all_calls, ignore_index=True)
     puts_df = pd.concat(all_puts, ignore_index=True)
 
-    return spot, calls_df, puts_df
+    return spot, calls_df, puts_df, hist
 
 
 def compute_gex(calls_df, puts_df, spot, r, q):
     """
-    Compute Gamma Exposure.
+    Compute Gamma Exposure (vectorised).
     Convention: per-$1-move, call positive (stabilising), put negative (amplifying).
     """
     gex_by_strike = {}
     gex_by_expiry = {}
 
     for df, sign in [(calls_df, 1), (puts_df, -1)]:
-        # Filter valid rows
         mask = (df["openInterest"] > 0) & (df["impliedVolatility"] > 0) & (df["T"] > 0)
         valid = df[mask]
+        if valid.empty:
+            continue
 
-        for _, row in valid.iterrows():
-            gamma = bs_gamma(spot, row["strike"], row["T"], r,
-                             row["impliedVolatility"], q)
-            gex_val = sign * row["openInterest"] * gamma * 100 * spot
+        strikes = valid["strike"].values
+        Ts = valid["T"].values
+        ivs = valid["impliedVolatility"].values
+        ois = valid["openInterest"].values
 
-            strike = row["strike"]
+        with np.errstate(divide="ignore", invalid="ignore"):
+            d1 = (np.log(spot / strikes) + (r - q + ivs**2 / 2) * Ts) / (ivs * np.sqrt(Ts))
+            gammas = np.exp(-q * Ts) * norm.pdf(d1) / (spot * ivs * np.sqrt(Ts))
+            gammas = np.nan_to_num(gammas, 0.0)
+
+        gex_vals = sign * ois * gammas * 100 * spot
+
+        for i, (strike, expiry, gex_val) in enumerate(
+            zip(valid["strike"], valid["expiry"], gex_vals)
+        ):
             gex_by_strike[strike] = gex_by_strike.get(strike, 0) + gex_val
-
-            expiry = row["expiry"]
             gex_by_expiry[expiry] = gex_by_expiry.get(expiry, 0) + gex_val
 
     total_gex = sum(gex_by_strike.values())
-
     return total_gex, gex_by_strike, gex_by_expiry
 
 
@@ -327,7 +334,7 @@ def compute_pcr(calls_df, puts_df, target_expiry=None):
     return result
 
 
-def compute_skew_and_vrp(calls_df, puts_df, spot, r, q, ticker_symbol,
+def compute_skew_and_vrp(calls_df, puts_df, spot, r, q, price_hist,
                          target_expiry=None):
     """
     Compute 25Δ Risk Reversal (Skew) and VRP.
@@ -415,16 +422,11 @@ def compute_skew_and_vrp(calls_df, puts_df, spot, r, q, ticker_symbol,
         "atmIV": round(atm_iv, 2),
     }
 
-    # VRP = ATM IV - HV21
-    try:
-        hist = yf.Ticker(ticker_symbol).history(period="60d")
-        if len(hist) >= HV_WINDOW:
-            returns = hist["Close"].pct_change().dropna()
-            hv21 = returns.tail(HV_WINDOW).std() * sqrt(252) * 100
-        else:
-            hv21 = 0
-    except Exception:
-        hv21 = 0
+    # VRP = ATM IV - HV21 (reuse price_hist passed from fetch_option_chains)
+    hv21 = 0
+    if price_hist is not None and len(price_hist) >= HV_WINDOW:
+        returns = price_hist["Close"].pct_change().dropna()
+        hv21 = returns.tail(HV_WINDOW).std() * sqrt(252) * 100
 
     vrp_result = {
         "iv": round(atm_iv, 2),
@@ -436,7 +438,7 @@ def compute_skew_and_vrp(calls_df, puts_df, spot, r, q, ticker_symbol,
 
 
 def compute_max_pain(calls_df, puts_df, target_expiry):
-    """Compute Max Pain for a target expiry."""
+    """Compute Max Pain for a target expiry (vectorised)."""
     exp_str = str(target_expiry)
     t_calls = calls_df[calls_df["expiry"] == exp_str]
     t_puts = puts_df[puts_df["expiry"] == exp_str]
@@ -444,29 +446,25 @@ def compute_max_pain(calls_df, puts_df, target_expiry):
     if t_calls.empty and t_puts.empty:
         return 0
 
-    all_strikes = sorted(set(
+    all_strikes = np.array(sorted(set(
         list(t_calls["strike"].unique()) + list(t_puts["strike"].unique())
-    ))
+    )))
 
-    min_pain = float("inf")
-    max_pain_strike = 0
+    call_strikes = t_calls["strike"].values
+    call_oi = t_calls["openInterest"].values
+    put_strikes = t_puts["strike"].values
+    put_oi = t_puts["openInterest"].values
 
-    for test_price in all_strikes:
-        total_pain = 0
-        # Call pain: holders lose when test_price < strike
-        for _, row in t_calls.iterrows():
-            if test_price > row["strike"]:
-                total_pain += (test_price - row["strike"]) * row["openInterest"]
-        # Put pain: holders lose when test_price > strike
-        for _, row in t_puts.iterrows():
-            if test_price < row["strike"]:
-                total_pain += (row["strike"] - test_price) * row["openInterest"]
+    # For each test_price, compute total pain vectorised
+    # call_pain = sum(max(test_price - call_strike, 0) * call_oi)
+    # put_pain  = sum(max(put_strike - test_price, 0) * put_oi)
+    pain = np.zeros(len(all_strikes))
+    for i, tp in enumerate(all_strikes):
+        call_pain = np.maximum(tp - call_strikes, 0) @ call_oi
+        put_pain = np.maximum(put_strikes - tp, 0) @ put_oi
+        pain[i] = call_pain + put_pain
 
-        if total_pain < min_pain:
-            min_pain = total_pain
-            max_pain_strike = test_price
-
-    return float(max_pain_strike)
+    return float(all_strikes[np.argmin(pain)])
 
 
 def compute_key_levels(calls_df, puts_df, target_expiry):
@@ -521,7 +519,7 @@ def analyse_ticker(ticker_symbol: str, r: float):
     print(f"\n  Analysing {ticker_symbol}...")
     q = DIV_YIELDS.get(ticker_symbol, 0.01)
 
-    spot, calls_df, puts_df = fetch_option_chains(ticker_symbol)
+    spot, calls_df, puts_df, price_hist = fetch_option_chains(ticker_symbol)
     if spot is None or calls_df is None or puts_df is None:
         print(f"  WARN: Skipping {ticker_symbol}, no chain data")
         return None
@@ -554,7 +552,7 @@ def analyse_ticker(ticker_symbol: str, r: float):
     # Skew & VRP
     print(f"    Computing Skew & VRP...")
     skew, vrp = compute_skew_and_vrp(calls_df, puts_df, spot, r, q,
-                                      ticker_symbol, target_opex)
+                                      price_hist, target_opex)
 
     # Max Pain
     print(f"    Computing Max Pain...")
@@ -610,16 +608,6 @@ def fetch_vix_term_structure():
                 series = raw["Close"].dropna()
             if not series.empty:
                 points.append({"tenor": tenor, "value": round(float(series.iloc[-1]), 2)})
-        except Exception:
-            pass
-
-    # Also try VIX6M and VIX1Y separately (may not be in bulk download)
-    for tenor, symbol in [("6M", "^VIX6M"), ("1Y", "^VIX1Y")]:
-        try:
-            t = yf.Ticker(symbol)
-            h = t.history(period="5d")
-            if not h.empty:
-                points.append({"tenor": tenor, "value": round(float(h["Close"].iloc[-1]), 2)})
         except Exception:
             pass
 
@@ -796,8 +784,11 @@ def _parse_cot_contract(df, code, info, report_type="tff"):
     # Parse dates
     date_col = "Report_Date_as_YYYY-MM-DD"
     if date_col not in contract_df.columns:
-        date_col = [c for c in contract_df.columns if "Date" in c and "YYYY" in c]
-        date_col = date_col[0] if date_col else contract_df.columns[2]
+        candidates = [c for c in contract_df.columns if "Date" in c and "YYYY" in c]
+        if not candidates:
+            print(f"    WARN: No date column found for {info['name']}")
+            return _empty_cot_contract(info)
+        date_col = candidates[0]
 
     contract_df["date"] = pd.to_datetime(contract_df[date_col], format="mixed")
     contract_df = contract_df.sort_values("date")
@@ -859,12 +850,6 @@ def _parse_cot_contract(df, code, info, report_type="tff"):
         "history": history,
     }
 
-
-def _empty_cot():
-    contracts = {}
-    for key, info in COT_CONTRACTS.items():
-        contracts[key] = _empty_cot_contract(info)
-    return {"asOfDate": "", "contracts": contracts}
 
 
 def _empty_cot_contract(info):

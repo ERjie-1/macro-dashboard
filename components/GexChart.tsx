@@ -1,23 +1,12 @@
 'use client'
 
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, ReferenceLine, Cell } from 'recharts'
-
-interface GexData {
-  total: number
-  byStrike: { strike: number; gex: number }[]
-  byExpiry: { expiry: string; gex: number; dte: number }[]
-  flipPrice: number | null
-}
+import type { TickerOptions } from '@/types/positioning'
+import { formatB } from '@/lib/format'
 
 interface Props {
-  gex: GexData
+  gex: TickerOptions['gex']
   spot: number
-}
-
-function formatB(val: number): string {
-  if (Math.abs(val) >= 1e9) return `$${(val / 1e9).toFixed(2)}B`
-  if (Math.abs(val) >= 1e6) return `$${(val / 1e6).toFixed(0)}M`
-  return `$${val.toFixed(0)}`
 }
 
 export default function GexChart({ gex, spot }: Props) {

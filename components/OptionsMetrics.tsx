@@ -1,4 +1,5 @@
 import type { TickerOptions } from '@/types/positioning'
+import { formatB } from '@/lib/format'
 
 interface Props {
   data: TickerOptions
@@ -14,15 +15,7 @@ function Metric({ label, value, sub }: { label: string; value: string; sub?: str
   )
 }
 
-function formatB(val: number): string {
-  if (Math.abs(val) >= 1e9) return `$${(val / 1e9).toFixed(2)}B`
-  if (Math.abs(val) >= 1e6) return `$${(val / 1e6).toFixed(0)}M`
-  return `$${val.toFixed(0)}`
-}
-
 export default function OptionsMetrics({ data }: Props) {
-  const gexColor = data.gex.total >= 0 ? 'text-emerald-600' : 'text-red-500'
-
   return (
     <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
       <Metric label="Total GEX" value={formatB(data.gex.total)} sub={data.gex.flipPrice ? `Flip: $${data.gex.flipPrice}` : undefined} />
