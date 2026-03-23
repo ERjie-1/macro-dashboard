@@ -4,12 +4,20 @@ import TrendChart from '@/components/TrendChart'
 import ModuleCard from '@/components/ModuleCard'
 import ScoreLiftDrag from '@/components/ScoreLiftDrag'
 import RelativeTime from '@/components/RelativeTime'
+import TodayBrief from '@/components/TodayBrief'
 
 export default function HomePage() {
   const d = dashboardData
   const scoreColor = getScoreColor(d.score)
-  const delta = d.score - d.prevScore
-  const isUp = delta >= 0
+  const delta1D = d.score - d.prevScore
+  const len = d.trendData.length
+  const delta7D = len >= 7 ? d.score - d.trendData[len - 7].value : delta1D
+
+  const pctColor = d.percentile5Y >= 60
+    ? 'bg-green-100 text-green-700'
+    : d.percentile5Y >= 40
+      ? 'bg-orange-100 text-orange-700'
+      : 'bg-red-100 text-red-700'
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -32,18 +40,21 @@ export default function HomePage() {
                   {d.score.toFixed(1)}
                 </div>
                 <div className="text-sm text-gray-400">/ 100</div>
-                <div className="text-sm text-gray-500">
-                  {d.prevScore.toFixed(1)} → {d.score.toFixed(1)}
-                  <span className={`ml-2 font-medium ${isUp ? 'text-green-500' : 'text-red-500'}`}>
-                    ({isUp ? '+' : ''}{delta.toFixed(1)})
+                <div className="flex items-center justify-center gap-3 text-sm">
+                  <span className={`font-medium ${delta1D >= 0 ? 'text-green-600' : 'text-red-500'}`}>
+                    1D {delta1D >= 0 ? '+' : ''}{delta1D.toFixed(1)} pts
+                  </span>
+                  <span className="text-gray-300">|</span>
+                  <span className={`font-medium ${delta7D >= 0 ? 'text-green-600' : 'text-red-500'}`}>
+                    7D {delta7D >= 0 ? '+' : ''}{delta7D.toFixed(1)} pts
                   </span>
                 </div>
-                <div className="text-xs text-gray-400 flex items-center justify-center gap-2">
-                  <span>{isUp ? '↗' : '↘'} {Math.abs(delta).toFixed(1)} pts 7D</span>
+                <div className="flex items-center justify-center gap-2 text-xs text-gray-400">
+                  <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${pctColor}`}>
+                    {d.percentile5Y}th pctl
+                  </span>
                   <span>·</span>
                   <span>{d.trendDays}d {d.trendDirection}</span>
-                  <span>·</span>
-                  <span>5Y Percentile: {d.percentile5Y}th</span>
                 </div>
                 <div className="text-xs text-gray-400">
                   {d.updatedAt ? <RelativeTime isoString={d.updatedAt} /> : d.lastUpdated}
@@ -61,22 +72,22 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Module cards */}
+        {/* Today Brief */}
+        <TodayBrief data={d} delta1D={delta1D} delta7D={delta7D} />
+
+        {/* Module Pulse — single-row horizontal */}
         <div>
           <div className="flex items-center justify-between mb-3">
             <span className="text-xs font-semibold text-gray-500 uppercase tracking-widest">
-              Modules
+              Module Pulse
             </span>
             <span className="text-xs text-gray-400">7D Change</span>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-            {d.modules.slice(0, 4).map((m) => (
-              <ModuleCard key={m.slug} module={m} />
-            ))}
-          </div>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mt-3">
-            {d.modules.slice(4).map((m) => (
-              <ModuleCard key={m.slug} module={m} />
+          <div className="flex gap-3 overflow-x-auto pb-2">
+            {d.modules.map((m) => (
+              <div key={m.slug} className="flex-1 min-w-[130px]">
+                <ModuleCard module={m} />
+              </div>
             ))}
           </div>
         </div>
