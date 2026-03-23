@@ -108,11 +108,13 @@ export async function GET() {
   try {
     text = await callDeepSeek(prompt)
     source = 'deepseek'
-  } catch {
+  } catch (e) {
+    console.error('[brief] DeepSeek failed:', e instanceof Error ? e.message : e)
     try {
       text = await callKimi(prompt)
       source = 'kimi'
-    } catch {
+    } catch (e2) {
+      console.error('[brief] Kimi failed:', e2 instanceof Error ? e2.message : e2)
       // Silent fallback — return empty, client uses mock
     }
   }
