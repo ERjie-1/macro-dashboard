@@ -1,18 +1,54 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f6f6f6;
+  --foreground: #3c3c43;
+  --score-green: hsl(142, 72%, 42%);
+  --score-yellow: hsl(38, 92%, 50%);
+  --score-red: hsl(0, 80%, 55%);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-inter);
+  --font-mono: "SF Mono", "Menlo", "IBM Plex Mono", monospace;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
+  font-size: 15px;
+  line-height: 1.65;
+}
+
+/* bhadial-style card */
+.dial-card {
+  background: #fff;
+  border-radius: 10px;
+  border: 0.5px solid rgba(0,0,0,0.12);
+  box-shadow: 0 0.5px rgba(0,0,0,0.04), 0 1px 3px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.04);
+  transition: all 0.2s ease;
+}
+.dial-card-hover:hover {
+  box-shadow: 0 0.5px rgba(0,0,0,0.04), 0 2px 8px rgba(0,0,0,0.08), 0 8px 24px rgba(0,0,0,0.06);
+  transform: translateY(-1px);
+}
+
+/* Score colors */
+.score-text {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+
+/* Headings */
+h1, h2, h3 {
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
 }

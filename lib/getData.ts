@@ -24,9 +24,9 @@ export function getModuleBySlug(slug: string): Module | undefined {
 }
 
 export function getScoreColor(score: number): string {
-  if (score < 40) return '#dc2626'
-  if (score < 60) return '#ea580c'
-  return '#16a34a'
+  if (score < 40) return '#e63333'   // hsl(0, 80%, 55%)
+  if (score < 60) return '#f5a406'   // hsl(38, 92%, 50%)
+  return '#1e9e3f'                   // hsl(142, 72%, 42%)
 }
 
 export function getStatusColor(status: string): string {

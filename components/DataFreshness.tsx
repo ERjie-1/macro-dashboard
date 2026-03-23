@@ -30,7 +30,7 @@ export default function DataFreshness({ modules, dashboardUpdatedAt }: Props) {
   const dashboardHours = hoursAgo(dashboardUpdatedAt)
 
   return (
-    <div className="bg-white rounded-xl border border-gray-100 p-5">
+    <div className="dial-card p-5">
       <div className="flex items-center justify-between mb-3">
         <h3 className="text-sm font-semibold text-gray-700">Data Freshness</h3>
         <div className="flex items-center gap-1.5 text-xs text-gray-400">

@@ -61,7 +61,7 @@ export default function TodayBrief({ data, delta1D, delta7D }: Props) {
   const narrativeText = aiText || mockText
 
   return (
-    <div className="bg-white rounded-2xl border border-gray-100 p-6">
+    <div className="dial-card p-6">
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-lg font-semibold text-gray-800">Today Brief</h2>
         <div className="flex items-center gap-3 text-xs text-gray-400">

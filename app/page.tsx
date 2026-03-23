@@ -25,7 +25,7 @@ export default function HomePage() {
       <div className="max-w-5xl mx-auto px-4 py-8 space-y-6">
 
         {/* Top card: Score + Historical Trend */}
-        <div className="bg-white rounded-2xl border border-gray-100 p-6">
+        <div className="dial-card p-6">
           <div className="grid grid-cols-2 gap-6">
 
             {/* Left: Gauge */}
@@ -37,7 +37,7 @@ export default function HomePage() {
                 <GaugeDial score={d.score} />
               </div>
               <div className="text-center mt-2 space-y-1">
-                <div className="text-5xl font-bold" style={{ color: scoreColor }}>
+                <div className="text-5xl font-bold score-text" style={{ color: scoreColor }}>
                   {d.score.toFixed(1)}
                 </div>
                 <div className="text-sm text-gray-400">/ 100</div>
