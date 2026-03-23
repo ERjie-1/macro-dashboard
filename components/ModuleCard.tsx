@@ -17,7 +17,7 @@ export default function ModuleCard({ module }: ModuleCardProps) {
         {/* Row 1: name + score left-aligned baseline */}
         <div className="flex items-baseline gap-1.5">
           <span className="text-[11px] text-gray-400 font-semibold uppercase tracking-widest">{module.name}</span>
-          <span className="text-3xl font-bold leading-none" style={{ color }}>
+          <span className="text-4xl font-bold leading-none" style={{ color }}>
             {module.score.toFixed(1)}
           </span>
         </div>
