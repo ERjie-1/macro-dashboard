@@ -63,7 +63,7 @@ export default function ModuleFactorsSection({ factors, moduleColor }: Props) {
       {/* Filtered factor table */}
       <FactorTable
         factors={filtered}
-        title={filter === 'all' ? 'Scored Factors' : `Scored Factors — ${filter}`}
+        title={filter === 'all' ? 'Scored Factors' : `Scored Factors — ${filter.charAt(0).toUpperCase() + filter.slice(1)}`}
         moduleColor={moduleColor}
       />
     </div>
