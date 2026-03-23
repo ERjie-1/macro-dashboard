@@ -16,8 +16,8 @@ export default function ModuleCard({ module }: ModuleCardProps) {
       <div className="bg-white rounded-xl border border-gray-100 p-4 hover:shadow-md transition-shadow cursor-pointer">
         {/* Row 1: name left, score right */}
         <div className="flex items-start justify-between">
-          <span className="text-sm text-gray-500 font-medium">{module.name}</span>
-          <span className="text-4xl font-bold leading-none" style={{ color }}>
+          <span className="text-xs text-gray-500 font-medium uppercase tracking-wide">{module.name}</span>
+          <span className="text-3xl font-bold leading-none" style={{ color }}>
             {module.score.toFixed(1)}
           </span>
         </div>

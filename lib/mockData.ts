@@ -4,12 +4,20 @@ import { MacroDashboard, Module, Factor, TrendPoint } from '@/types'
 function genTrend(base: number, volatility: number, days = 30): TrendPoint[] {
   const now = new Date('2026-02-25')
   const points: TrendPoint[] = []
-  let val = base - volatility * 2
+  // Use seeded random for deterministic output
+  let seed = Math.round(base * 100 + volatility * 10)
+  const seededRandom = () => {
+    seed = (seed * 16807 + 0) % 2147483647
+    return seed / 2147483647
+  }
+  let val = base - volatility * 0.5
   for (let i = days; i >= 0; i--) {
     const d = new Date(now)
     d.setDate(d.getDate() - i)
-    val = val + (Math.random() - 0.45) * volatility
-    val = Math.max(0, Math.min(100, val))
+    // Mean-revert toward base with small noise
+    const pull = (base - val) * 0.1
+    val = val + pull + (seededRandom() - 0.5) * volatility * 0.4
+    val = Math.max(base - volatility * 1.5, Math.min(base + volatility * 1.5, val))
     const label = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
     points.push({ date: label, value: parseFloat(val.toFixed(1)) })
   }
@@ -844,9 +852,9 @@ export function getModuleBySlug(slug: string): Module | undefined {
 }
 
 export function getScoreColor(score: number): string {
-  if (score < 33) return '#ef4444'
-  if (score < 66) return '#f97316'
-  return '#14b8a6'
+  if (score < 40) return '#dc2626'
+  if (score < 60) return '#ea580c'
+  return '#16a34a'
 }
 
 export function getStatusColor(status: string): string {

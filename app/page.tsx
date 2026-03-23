@@ -37,7 +37,7 @@ export default function HomePage() {
                 <GaugeDial score={d.score} />
               </div>
               <div className="text-center mt-2 space-y-1">
-                <div className="text-4xl font-bold" style={{ color: scoreColor }}>
+                <div className="text-5xl font-bold" style={{ color: scoreColor }}>
                   {d.score.toFixed(1)}
                 </div>
                 <div className="text-sm text-gray-400">/ 100</div>

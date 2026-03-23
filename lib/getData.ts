@@ -24,9 +24,9 @@ export function getModuleBySlug(slug: string): Module | undefined {
 }
 
 export function getScoreColor(score: number): string {
-  if (score < 33) return '#ef4444'
-  if (score < 66) return '#f97316'
-  return '#14b8a6'
+  if (score < 40) return '#dc2626'
+  if (score < 60) return '#ea580c'
+  return '#16a34a'
 }
 
 export function getStatusColor(status: string): string {
