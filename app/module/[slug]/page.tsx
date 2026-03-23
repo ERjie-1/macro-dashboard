@@ -21,10 +21,15 @@ export default async function ModulePage({ params }: Props) {
   if (!module) notFound()
 
   const scoreColor = getScoreColor(module.score)
-  const delta = module.score - module.prevScore
-  const isUp = delta >= 0
-  const changePct = module.sevenDayChangePct
-  const changePctStr = `${changePct > 0 ? '+' : ''}${changePct.toFixed(2)}%`
+  const delta1D = module.score - module.prevScore
+  const tLen = module.trendData.length
+  const delta7D = tLen >= 7 ? module.score - module.trendData[tLen - 7].value : delta1D
+
+  const pctColor = module.percentile5Y >= 60
+    ? 'bg-green-100 text-green-700'
+    : module.percentile5Y >= 40
+      ? 'bg-orange-100 text-orange-700'
+      : 'bg-red-100 text-red-700'
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -54,20 +59,21 @@ export default async function ModulePage({ params }: Props) {
                   {module.score.toFixed(1)}
                 </div>
                 <div className="text-sm text-gray-400">/ 100</div>
-                {module.prevScore !== module.score && (
-                  <div className="text-sm text-gray-500">
-                    {module.prevScore.toFixed(1)} → {module.score.toFixed(1)}
-                    <span className={`ml-2 font-medium ${isUp ? 'text-green-500' : 'text-red-500'}`}>
-                      ({isUp ? '+' : ''}{delta.toFixed(1)})
-                    </span>
-                  </div>
-                )}
-                <div className="text-xs text-gray-400 flex items-center justify-center gap-2 flex-wrap">
-                  <span>{changePct > 0 ? '↗' : '↘'} {changePctStr} 7D</span>
+                <div className="flex items-center justify-center gap-3 text-sm">
+                  <span className={`font-medium ${delta1D >= 0 ? 'text-green-600' : 'text-red-500'}`}>
+                    1D {delta1D >= 0 ? '+' : ''}{delta1D.toFixed(1)} pts
+                  </span>
+                  <span className="text-gray-300">|</span>
+                  <span className={`font-medium ${delta7D >= 0 ? 'text-green-600' : 'text-red-500'}`}>
+                    7D {delta7D >= 0 ? '+' : ''}{delta7D.toFixed(1)} pts
+                  </span>
+                </div>
+                <div className="flex items-center justify-center gap-2 text-xs text-gray-400">
+                  <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${pctColor}`}>
+                    {module.percentile5Y}th pctl
+                  </span>
                   <span>·</span>
                   <span>{module.trendDays}d {module.trendDirection}</span>
-                  <span>·</span>
-                  <span>5Y Percentile: {module.percentile5Y}th</span>
                 </div>
                 <div className="text-xs text-gray-400">
                   {module.updatedAt ? <RelativeTime isoString={module.updatedAt} /> : module.lastUpdated}
@@ -77,7 +83,7 @@ export default async function ModulePage({ params }: Props) {
 
             {/* Right: Trend Chart */}
             <div className="flex flex-col">
-              <h2 className="text-lg font-semibold text-gray-800 mb-2">Historical Trend</h2>
+              <h2 className="text-lg font-semibold text-gray-800 mb-2">{module.name} Score Trend</h2>
               <div className="flex-1" style={{ minHeight: 220 }}>
                 <TrendChart data={module.trendData} color={module.color} />
               </div>
