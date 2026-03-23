@@ -14,24 +14,21 @@ export default function ModuleCard({ module }: ModuleCardProps) {
   return (
     <Link href={`/module/${module.slug}`} className="block">
       <div className="dial-card dial-card-hover cursor-pointer overflow-hidden">
-        <div className="px-3.5 pt-3 pb-2.5">
-          {/* Name + score baseline-aligned (bhadial layout) */}
-          <div className="flex items-baseline gap-1">
-            <span className="text-[11px] text-gray-400 font-semibold uppercase tracking-widest leading-none shrink-0">
-              {module.name}
-            </span>
-            <span
-              className="text-3xl font-semibold leading-none tracking-tight"
-              style={{ color, fontVariantNumeric: 'tabular-nums' }}
-            >
-              {module.score.toFixed(1)}
-            </span>
+        <div className="px-3 pt-3 pb-2">
+          {/* Module name — own line */}
+          <div className="text-[10px] text-gray-400 font-semibold uppercase tracking-widest truncate">
+            {module.name}
+          </div>
+          {/* Score — own line, left-aligned */}
+          <div
+            className="text-[28px] font-semibold leading-tight mt-0.5"
+            style={{ color, fontVariantNumeric: 'tabular-nums', letterSpacing: '-0.02em' }}
+          >
+            {module.score.toFixed(1)}
           </div>
           {/* 7D change */}
-          <div className="mt-1.5">
-            <span className={`text-xs font-medium ${isUp ? 'text-green-500' : 'text-red-500'}`}>
-              {isUp ? '↗' : '↘'} 7D {changeStr}
-            </span>
+          <div className={`text-[11px] font-medium mt-0.5 ${isUp ? 'text-green-500' : 'text-red-500'}`}>
+            {isUp ? '↗' : '↘'} 7D {changeStr}
           </div>
         </div>
         {/* Bottom color bar */}
