@@ -76,24 +76,20 @@ export default function HomePage() {
         {/* Today Brief */}
         <TodayBrief data={d} delta1D={delta1D} delta7D={delta7D} />
 
-        {/* Module Pulse — single-row horizontal */}
-        <div>
-          <div className="flex items-center justify-between mb-3">
-            <span className="text-xs font-semibold text-gray-500 uppercase tracking-widest">
-              Module Pulse
-            </span>
-            <span className="text-xs text-gray-400">7D Change</span>
+        {/* Module Pulse — bhadial: single card, 7-col grid, divide-x */}
+        <div className="dial-card overflow-hidden">
+          <div className="px-5 py-4">
+            <h3 className="text-[15px] font-semibold leading-snug">
+              Module Pulse{' '}
+              <span className="text-gray-400 font-normal">(7D)</span>
+            </h3>
           </div>
-          <div className="relative">
-            <div className="flex gap-3 overflow-x-auto pb-2">
+          <div className="overflow-x-auto">
+            <div className="grid grid-cols-7 min-w-[600px] divide-x divide-gray-200">
               {d.modules.map((m) => (
-                <div key={m.slug} className="flex-1 min-w-[130px]">
-                  <ModuleCard module={m} />
-                </div>
+                <ModuleCard key={m.slug} module={m} />
               ))}
             </div>
-            {/* Scroll fade indicator (mobile) */}
-            <div className="absolute right-0 top-0 bottom-2 w-8 bg-gradient-to-l from-gray-50 to-transparent pointer-events-none md:hidden" />
           </div>
         </div>
 
