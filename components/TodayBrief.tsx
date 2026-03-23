@@ -1,7 +1,7 @@
 'use client'
 
-import { useState } from 'react'
-import type { MacroDashboard, Module } from '@/types'
+import { useState, useEffect } from 'react'
+import type { MacroDashboard } from '@/types'
 
 interface Props {
   data: MacroDashboard
@@ -9,10 +9,22 @@ interface Props {
   delta7D: number
 }
 
+function ShimmerLines() {
+  return (
+    <div className="space-y-2 animate-pulse">
+      <div className="h-3.5 bg-gray-200 rounded w-full" />
+      <div className="h-3.5 bg-gray-200 rounded w-11/12" />
+      <div className="h-3.5 bg-gray-200 rounded w-4/5" />
+    </div>
+  )
+}
+
 export default function TodayBrief({ data, delta1D, delta7D }: Props) {
   const [expanded, setExpanded] = useState(false)
+  const [aiText, setAiText] = useState<string | null>(null)
+  const [loading, setLoading] = useState(true)
 
-  // Find biggest 1D movers (approximate from module score - prevScore)
+  // Find biggest 1D movers
   const moduleDeltas = data.modules
     .map((m) => ({ name: m.name, delta: m.score - m.prevScore }))
     .sort((a, b) => Math.abs(b.delta) - Math.abs(a.delta))
@@ -25,6 +37,28 @@ export default function TodayBrief({ data, delta1D, delta7D }: Props) {
     month: 'short',
     day: 'numeric',
   })
+
+  // Mock fallback text
+  const mockText = `今日宏观环境总分${delta1D >= 0 ? '小幅回升' : '继续承压'}，供给侧压力${biggestDown ? `主要来自${biggestDown.name}模块` : '相对均衡'}。${biggestUp ? `${biggestUp.name}模块有所改善，` : ''}短期趋势需要关注流动性和利率变化的方向。`
+
+  const expandedMockText = `当前处于5年${data.percentile5Y}百分位，表明整体环境处于历史中等偏${data.percentile5Y > 50 ? '好' : '差'}水平。市场定价反映出投资者对宏观前景的${data.score > 50 ? '相对乐观' : '谨慎'}态度。`
+
+  // Fetch AI brief on mount
+  useEffect(() => {
+    let cancelled = false
+    fetch('/api/brief')
+      .then((r) => r.json())
+      .then((d) => {
+        if (!cancelled && d.text) setAiText(d.text)
+      })
+      .catch(() => {})
+      .finally(() => {
+        if (!cancelled) setLoading(false)
+      })
+    return () => { cancelled = true }
+  }, [])
+
+  const narrativeText = aiText || mockText
 
   return (
     <div className="bg-white rounded-2xl border border-gray-100 p-6">
@@ -73,30 +107,30 @@ export default function TodayBrief({ data, delta1D, delta7D }: Props) {
 
       <hr className="border-gray-100 mb-4" />
 
-      {/* AI narrative placeholder */}
+      {/* AI narrative */}
       <div className="text-sm text-gray-600 leading-relaxed space-y-2">
-        <p>
-          今日宏观环境总分{delta1D >= 0 ? '小幅回升' : '继续承压'}，
-          供给侧压力{biggestDown ? `主要来自${biggestDown.name}模块` : '相对均衡'}。
-          {biggestUp ? `${biggestUp.name}模块有所改善，` : ''}
-          短期趋势需要关注流动性和利率变化的方向。
-        </p>
-        {expanded && (
-          <p>
-            当前处于5年{data.percentile5Y}百分位，表明整体环境处于历史中等偏{data.percentile5Y > 50 ? '好' : '差'}水平。
-            市场定价反映出投资者对宏观前景的{data.score > 50 ? '相对乐观' : '谨慎'}态度。
-          </p>
+        {loading ? (
+          <ShimmerLines />
+        ) : (
+          <>
+            <p>{narrativeText}</p>
+            {expanded && (
+              <p>{aiText ? '' : expandedMockText}</p>
+            )}
+          </>
         )}
       </div>
 
       {/* Action buttons */}
       <div className="flex flex-wrap gap-2 mt-4">
-        <button
-          onClick={() => setExpanded(!expanded)}
-          className="px-3 py-1.5 text-xs font-medium text-gray-600 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
-        >
-          {expanded ? '收起展望' : '未来展望'}
-        </button>
+        {!loading && !aiText && (
+          <button
+            onClick={() => setExpanded(!expanded)}
+            className="px-3 py-1.5 text-xs font-medium text-gray-600 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
+          >
+            {expanded ? '收起展望' : '未来展望'}
+          </button>
+        )}
         <button className="px-3 py-1.5 text-xs font-medium text-gray-600 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors">
           ↑7D变化
         </button>
