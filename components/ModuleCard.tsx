@@ -13,22 +13,22 @@ export default function ModuleCard({ module }: ModuleCardProps) {
 
   return (
     <Link href={`/module/${module.slug}`} className="block">
-      <div className="bg-white rounded-xl border border-gray-100 p-4 hover:shadow-md transition-shadow cursor-pointer">
-        {/* Row 1: name left, score right */}
-        <div className="flex items-start justify-between">
-          <span className="text-xs text-gray-500 font-medium uppercase tracking-wide">{module.name}</span>
+      <div className="bg-white rounded-xl border border-gray-200 p-4 hover:shadow-md transition-shadow cursor-pointer shadow-sm">
+        {/* Row 1: name + score left-aligned baseline */}
+        <div className="flex items-baseline gap-1.5">
+          <span className="text-[11px] text-gray-400 font-semibold uppercase tracking-widest">{module.name}</span>
           <span className="text-3xl font-bold leading-none" style={{ color }}>
             {module.score.toFixed(1)}
           </span>
         </div>
-        {/* Row 2: 7D change right-aligned below score */}
-        <div className="flex justify-end mt-1">
+        {/* Row 2: 7D change left-aligned */}
+        <div className="mt-1">
           <span className={`text-xs font-medium ${isUp ? 'text-green-500' : 'text-red-500'}`}>
             {isUp ? '↗' : '↘'} 7D {changeStr}
           </span>
         </div>
         {/* Color bar */}
-        <div className="mt-3 h-1 bg-gray-100 rounded-full overflow-hidden">
+        <div className="mt-3 h-1.5 bg-gray-100 rounded-full overflow-hidden">
           <div
             className="h-full rounded-full transition-all"
             style={{ width: `${module.score}%`, backgroundColor: color }}
