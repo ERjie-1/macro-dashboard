@@ -4,8 +4,7 @@ import { getModuleBySlug, getScoreColor } from '@/lib/getData'
 import { dashboardData } from '@/lib/getData'
 import GaugeDial from '@/components/GaugeDial'
 import TrendChart from '@/components/TrendChart'
-import FactorsOverview from '@/components/FactorsOverview'
-import FactorTable from '@/components/FactorTable'
+import ModuleFactorsSection from '@/components/ModuleFactorsSection'
 import RelativeTime from '@/components/RelativeTime'
 
 interface Props {
@@ -86,15 +85,8 @@ export default async function ModulePage({ params }: Props) {
           </div>
         </div>
 
-        {/* Factors Overview */}
-        <FactorsOverview factors={module.factors} />
-
-        {/* Factor Tables */}
-        <FactorTable
-          factors={module.factors}
-          title="Scored Factors"
-          moduleColor={module.color}
-        />
+        {/* Factors Overview + Factor Tables (with filter) */}
+        <ModuleFactorsSection factors={module.factors} moduleColor={module.color} />
 
         {/* Footer */}
         <div className="text-center text-xs text-gray-400 pb-4">

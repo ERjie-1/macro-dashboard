@@ -3,6 +3,7 @@ import GaugeDial from '@/components/GaugeDial'
 import TrendChart from '@/components/TrendChart'
 import ModuleCard from '@/components/ModuleCard'
 import ScoreLiftDrag from '@/components/ScoreLiftDrag'
+import DataFreshness from '@/components/DataFreshness'
 import RelativeTime from '@/components/RelativeTime'
 import TodayBrief from '@/components/TodayBrief'
 
@@ -64,7 +65,7 @@ export default function HomePage() {
 
             {/* Right: Historical Trend */}
             <div className="flex flex-col">
-              <h2 className="text-lg font-semibold text-gray-800 mb-2">Historical Trend</h2>
+              <h2 className="text-lg font-semibold text-gray-800 mb-2">MEC Score Trend</h2>
               <div className="flex-1" style={{ minHeight: 220 }}>
                 <TrendChart data={d.trendData} color={scoreColor} />
               </div>
@@ -83,24 +84,34 @@ export default function HomePage() {
             </span>
             <span className="text-xs text-gray-400">7D Change</span>
           </div>
-          <div className="flex gap-3 overflow-x-auto pb-2">
-            {d.modules.map((m) => (
-              <div key={m.slug} className="flex-1 min-w-[130px]">
-                <ModuleCard module={m} />
-              </div>
-            ))}
+          <div className="relative">
+            <div className="flex gap-3 overflow-x-auto pb-2">
+              {d.modules.map((m) => (
+                <div key={m.slug} className="flex-1 min-w-[130px]">
+                  <ModuleCard module={m} />
+                </div>
+              ))}
+            </div>
+            {/* Scroll fade indicator (mobile) */}
+            <div className="absolute right-0 top-0 bottom-2 w-8 bg-gradient-to-l from-gray-50 to-transparent pointer-events-none md:hidden" />
           </div>
         </div>
 
-        {/* Factors at a Glance */}
+        {/* Top Drivers */}
         <div>
           <div className="mb-3">
             <span className="text-xs font-semibold text-gray-500 uppercase tracking-widest">
-              Factors at a Glance
+              Top Drivers
             </span>
+            <p className="text-xs text-gray-400 mt-0.5">
+              Factors with the largest positive and negative contribution to score change
+            </p>
           </div>
           <ScoreLiftDrag lift={d.scoreLift} drag={d.scoreDrag} />
         </div>
+
+        {/* Data Freshness */}
+        <DataFreshness modules={d.modules} dashboardUpdatedAt={d.updatedAt} />
 
       </div>
     </div>
