@@ -201,6 +201,19 @@
 
 ---
 
+## 2026-03-23
+
+### Session 8：UI 像素级对齐 bhadial.com
+
+**ModuleCard 重写（`c1b26c3`）**
+- 问题：前版 (commit `00e7f58`) 用了居中布局且移除了底部进度条，Ejay_ 要求 100% follow bhadial 英文版
+- 改动：`ModuleCard.tsx` — 名称（顶部小字灰色）+ 分数和 pts 变化同行左对齐 baseline 对齐 + 底部 `h-1.5` 彩色进度条（宽度 = score%，颜色跟随 score）
+- 移除：居中布局、text-center、因子箭头（bhadial 无此元素）
+
+**当前状态**：已 push，等 Vercel 重新部署后 Ejay_ 验收
+
+---
+
 ## 技术备忘
 
 - **Python 环境**：本地用 Homebrew python3.12 venv（`/tmp/macro-venv-hb/`），CI 用 python 3.11；Framework python3.12 有签名问题不可用
