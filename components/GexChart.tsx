@@ -25,7 +25,7 @@ export default function GexChart({ gex, spot }: Props) {
             <XAxis dataKey="strike" tick={{ fontSize: 10 }} interval="preserveStartEnd" />
             <YAxis tick={{ fontSize: 10 }} tickFormatter={(v) => `${(v / 1e6).toFixed(0)}M`} />
             <Tooltip
-              formatter={(value: number) => [formatB(value), 'GEX']}
+              formatter={(value: number | undefined) => [formatB(value ?? 0), 'GEX']}
               labelFormatter={(label) => `Strike: $${label}`}
             />
             <ReferenceLine y={0} stroke="#94a3b8" strokeDasharray="3 3" />

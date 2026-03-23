@@ -42,7 +42,7 @@ function ContractCard({ symbol, contract }: { symbol: string; contract: CotContr
               <YAxis domain={['auto', 'auto']} tick={false} />
               <Tooltip
                 labelFormatter={(label) => `Week: ${label}`}
-                formatter={(value: number) => [value.toLocaleString(), 'Leveraged Net']}
+                formatter={(value: number | undefined) => [(value ?? 0).toLocaleString(), 'Leveraged Net']}
               />
               <Area
                 type="monotone"
