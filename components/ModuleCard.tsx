@@ -8,32 +8,36 @@ interface ModuleCardProps {
 
 export default function ModuleCard({ module }: ModuleCardProps) {
   const color = getScoreColor(module.score)
-  const isUp = module.sevenDayChangePct > 0
-  const changeStr = `${isUp ? '+' : ''}${module.sevenDayChangePct.toFixed(2)}%`
+
+  // Compute 7D pts change from trendData
+  const len = module.trendData.length
+  const prev7D = len >= 8 ? module.trendData[len - 8].value : module.prevScore
+  const ptsChange = module.score - prev7D
+
+  // Count factor directions
+  const factorsUp = module.factors.filter((f) => !f.isExtra && f.changeDirection === 'up').length
+  const factorsDown = module.factors.filter((f) => !f.isExtra && f.changeDirection === 'down').length
 
   return (
     <Link href={`/module/${module.slug}`} className="block">
-      <div className="dial-card dial-card-hover p-4 cursor-pointer">
-        {/* Row 1: name + score left-aligned baseline */}
-        <div className="flex items-baseline gap-1.5">
-          <span className="text-[11px] text-gray-400 font-semibold uppercase tracking-widest">{module.name}</span>
-          <span className="text-4xl font-bold leading-none score-text" style={{ color }}>
-            {module.score.toFixed(1)}
-          </span>
+      <div className="dial-card dial-card-hover p-4 cursor-pointer text-center">
+        {/* Module name */}
+        <div className="text-xs text-gray-400 font-medium">{module.name}</div>
+        {/* Score */}
+        <div className="text-4xl font-semibold score-text mt-2 mb-1" style={{ color }}>
+          {module.score.toFixed(1)}
         </div>
-        {/* Row 2: 7D change left-aligned */}
-        <div className="mt-1">
-          <span className={`text-xs font-medium ${isUp ? 'text-green-500' : 'text-red-500'}`}>
-            {isUp ? '↗' : '↘'} 7D {changeStr}
-          </span>
+        {/* Pts change */}
+        <div className={`text-xs font-medium ${ptsChange >= 0 ? 'text-green-600' : 'text-red-500'}`}>
+          {ptsChange >= 0 ? '+' : ''}{ptsChange.toFixed(1)} pts
         </div>
-        {/* Color bar */}
-        <div className="mt-3 h-1.5 bg-gray-100 rounded-full overflow-hidden">
-          <div
-            className="h-full rounded-full transition-all"
-            style={{ width: `${module.score}%`, backgroundColor: color }}
-          />
-        </div>
+        {/* Factor arrows */}
+        {(factorsUp > 0 || factorsDown > 0) && (
+          <div className="mt-1.5 text-xs space-x-1">
+            {factorsUp > 0 && <span className="text-green-600">{factorsUp}▲</span>}
+            {factorsDown > 0 && <span className="text-red-500">{factorsDown}▼</span>}
+          </div>
+        )}
       </div>
     </Link>
   )
