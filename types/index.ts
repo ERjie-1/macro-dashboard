@@ -15,8 +15,10 @@ export interface PercentileBar {
 
 export interface Factor {
   id: string
+  factorId?: string
   name: string
   value: string
+  score?: number
   sevenDayChange: string
   changeDirection: ChangeDirection
   historicalPercentile5Y: number
@@ -50,6 +52,14 @@ export interface LiftDragItem {
 }
 
 export interface MacroDashboard {
+  calibrationVersion?: string
+  asOfTradingDate?: string
+  generatedAtUtc?: string
+  generatedAtEt?: string
+  sessionScope?: 'post_close' | 'intraday'
+  sourceFreshness?: Record<string, { lastDate: string | null; lagTradingDays: number | null }>
+  marketCloseInputs?: Record<string, unknown>
+  scoredFactors?: Record<string, unknown>
   score: number
   prevScore: number
   trendDays: number
