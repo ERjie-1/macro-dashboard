@@ -16,13 +16,31 @@ function Metric({ label, value, sub }: { label: string; value: string; sub?: str
   )
 }
 
+function fmtNum(v: number | null | undefined, digits = 1, suffix = '', signed = false): string {
+  if (v == null || Number.isNaN(v)) return 'N/A'
+  const sign = signed && v >= 0 ? '+' : ''
+  return `${sign}${v.toFixed(digits)}${suffix}`
+}
+
 export default function OptionsMetrics({ data, tab }: Props) {
   if (tab === 'volatility') {
     return (
       <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-        <Metric label="ATM IV" value={`${data.skew.atmIV.toFixed(1)}%`} sub={`HV21: ${data.vrp.hv21.toFixed(1)}%`} />
-        <Metric label="25Δ Skew" value={data.skew.riskReversal25d.toFixed(1)} sub={`Put: ${data.skew.putIV25d.toFixed(1)}% / Call: ${data.skew.callIV25d.toFixed(1)}%`} />
-        <Metric label="VRP" value={`${data.vrp.premium >= 0 ? '+' : ''}${data.vrp.premium.toFixed(1)}`} sub={`IV ${data.vrp.iv.toFixed(1)}% − HV ${data.vrp.hv21.toFixed(1)}%`} />
+        <Metric
+          label="ATM IV"
+          value={fmtNum(data.skew.atmIV, 1, '%')}
+          sub={`HV21: ${fmtNum(data.vrp.hv21, 1, '%')}`}
+        />
+        <Metric
+          label="25Δ Skew"
+          value={fmtNum(data.skew.riskReversal25d, 1)}
+          sub={`Put: ${fmtNum(data.skew.putIV25d, 1, '%')} / Call: ${fmtNum(data.skew.callIV25d, 1, '%')}`}
+        />
+        <Metric
+          label="VRP"
+          value={fmtNum(data.vrp.premium, 1, '', true)}
+          sub={`IV ${fmtNum(data.vrp.iv, 1, '%')} − HV ${fmtNum(data.vrp.hv21, 1, '%')}`}
+        />
       </div>
     )
   }

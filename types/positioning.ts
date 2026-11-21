@@ -1,4 +1,10 @@
 export interface PositioningDashboard {
+  calibrationVersion?: string
+  asOfTradingDate?: string
+  generatedAtUtc?: string
+  generatedAtEt?: string
+  sessionScope?: 'post_close' | 'intraday'
+  sourceFreshness?: Record<string, unknown>
   updatedAt: string | null
   vixTermStructure: VixTermStructure
   skewIndex: SkewIndex
@@ -36,15 +42,15 @@ export interface TickerOptions {
     allExpVolRatio: number
   }
   skew: {
-    riskReversal25d: number
-    putIV25d: number
-    callIV25d: number
-    atmIV: number
+    riskReversal25d: number | null
+    putIV25d: number | null
+    callIV25d: number | null
+    atmIV: number | null
   }
   vrp: {
-    iv: number
-    hv21: number
-    premium: number
+    iv: number | null
+    hv21: number | null
+    premium: number | null
   }
   maxPain: number
   keyLevels: {

@@ -8,6 +8,20 @@ interface Props {
 }
 
 export default function SkewChart({ skew }: Props) {
+  if (skew.putIV25d == null || skew.callIV25d == null || skew.riskReversal25d == null) {
+    return (
+      <div>
+        <div className="flex items-center justify-between mb-3">
+          <h3 className="text-sm font-semibold text-gray-700">25Δ Skew</h3>
+          <span className="text-xs text-gray-400">Risk Reversal: N/A</span>
+        </div>
+        <div className="h-[160px] flex items-center justify-center text-sm text-gray-400 bg-gray-50 rounded-lg">
+          25Δ Skew unavailable for current expiry
+        </div>
+      </div>
+    )
+  }
+
   const data = [
     { name: 'Put 25Δ', iv: skew.putIV25d, fill: '#ef4444' },
     { name: 'Call 25Δ', iv: skew.callIV25d, fill: '#14b8a6' },
@@ -33,7 +47,9 @@ export default function SkewChart({ skew }: Props) {
             <XAxis type="number" tick={{ fontSize: 10 }} tickFormatter={(v) => `${v.toFixed(0)}%`} />
             <YAxis type="category" dataKey="name" tick={{ fontSize: 11 }} width={56} />
             <Tooltip formatter={(value: number | undefined) => [`${(value ?? 0).toFixed(1)}%`, 'IV']} />
-            <ReferenceLine x={skew.atmIV} stroke="#6366f1" strokeDasharray="4 4" label={{ value: `ATM ${skew.atmIV.toFixed(1)}%`, fontSize: 9, fill: '#6366f1' }} />
+            {skew.atmIV != null && (
+              <ReferenceLine x={skew.atmIV} stroke="#6366f1" strokeDasharray="4 4" label={{ value: `ATM ${skew.atmIV.toFixed(1)}%`, fontSize: 9, fill: '#6366f1' }} />
+            )}
             <Bar dataKey="iv" barSize={20} radius={[0, 4, 4, 0]}>
               {data.map((entry, i) => (
                 <Cell key={i} fill={entry.fill} fillOpacity={0.8} />

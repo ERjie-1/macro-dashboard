@@ -8,19 +8,21 @@ and ETF fund flow data. Outputs public/data/positioning.json.
 Designed to run daily via GitHub Actions at UTC 21:30 (post US market close).
 """
 
+import io
 import json
 import os
 import platform
 import ssl
 import sys
 import time
-import io
 import zipfile
 from datetime import datetime, timedelta, timezone
-from math import log, sqrt, exp
+from math import exp, log, sqrt
+from zoneinfo import ZoneInfo
 
 import numpy as np
 import pandas as pd
+import requests
 import yfinance as yf
 from scipy.stats import norm, percentileofscore
 
@@ -70,12 +72,17 @@ COT_CONTRACTS = {
     "6E":  {"code": "099741", "name": "Euro FX",              "category": "fx"},
 }
 
-TODAY = datetime.now(timezone.utc).date()
+CALIBRATION_VERSION = "v2-20261121"
+ET_TZ = ZoneInfo("America/New_York")
+NOW_UTC = datetime.now(timezone.utc)
+NOW_ET = NOW_UTC.astimezone(ET_TZ)
+TODAY = NOW_ET.date()
 
 # Output path
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 PROJECT_ROOT = os.path.dirname(SCRIPT_DIR)
 OUTPUT_PATH = os.path.join(PROJECT_ROOT, "public", "data", "positioning.json")
+HISTORY_PATH = os.path.join(PROJECT_ROOT, "public", "data", "positioning_history.jsonl")
 
 
 # ===========================================================================
@@ -108,22 +115,37 @@ def bs_delta(S: float, K: float, T: float, r: float, sigma: float,
 # ===========================================================================
 
 def get_risk_free_rate() -> float:
-    """Get current effective federal funds rate. Fallback to 4.5%."""
+    """Get current effective federal funds rate via fredapi or public FRED CSV."""
     try:
-        from fredapi import Fred
         from dotenv import load_dotenv
         load_dotenv()
-        api_key = os.getenv("FRED_API_KEY")
-        if not api_key:
-            print("  WARN: No FRED_API_KEY, using r=0.045 fallback")
-            return 0.045
-        fred = Fred(api_key=api_key)
-        effr = fred.get_series("DFF")
-        rate = effr.dropna().iloc[-1] / 100.0
-        print(f"  Risk-free rate (EFFR): {rate:.4f}")
+        api_key = os.getenv("FRED_API_KEY", "").strip()
+        if api_key:
+            from fredapi import Fred
+            fred = Fred(api_key=api_key)
+            effr = fred.get_series("DFF")
+            rate = float(effr.dropna().iloc[-1]) / 100.0
+            print(f"  Risk-free rate (EFFR/API): {rate:.4f}")
+            return rate
+    except Exception as e:
+        print(f"  WARN: FRED API failed ({e}), trying public CSV...")
+
+    try:
+        cosd = (TODAY - timedelta(days=30)).strftime("%Y-%m-%d")
+        url = f"https://fred.stlouisfed.org/graph/fredgraph.csv?id=DFF&cosd={cosd}"
+        resp = requests.get(
+            url,
+            headers={"User-Agent": "Mozilla/5.0 (compatible; MacroDashboard/2.0)"},
+            timeout=20,
+        )
+        resp.raise_for_status()
+        df = pd.read_csv(io.StringIO(resp.text))
+        vals = pd.to_numeric(df[df.columns[1]], errors="coerce").dropna()
+        rate = float(vals.iloc[-1]) / 100.0
+        print(f"  Risk-free rate (EFFR/CSV): {rate:.4f}")
         return rate
     except Exception as e:
-        print(f"  WARN: FRED failed ({e}), using r=0.045 fallback")
+        print(f"  WARN: FRED public CSV failed ({e}), using r=0.045 fallback")
         return 0.045
 
 
@@ -131,26 +153,61 @@ def get_risk_free_rate() -> float:
 # Options Chain Analysis
 # ===========================================================================
 
-def get_monthly_opex(from_date=None):
-    """Find the next monthly OPEX (3rd Friday of the month)."""
+def get_monthly_opex(from_date=None, min_dte: int = 5):
+    """Find the next monthly OPEX (3rd Friday of the month) with at least min_dte days left."""
     if from_date is None:
         from_date = TODAY
     d = from_date.replace(day=1)
-    # Try current month and next month
-    for _ in range(3):
-        # Find 3rd Friday
+    for _ in range(4):
         first_day_weekday = d.weekday()
-        # First Friday
         first_friday = d + timedelta(days=(4 - first_day_weekday) % 7)
         third_friday = first_friday + timedelta(weeks=2)
-        if third_friday >= from_date:
+        if (third_friday - from_date).days >= min_dte:
             return third_friday
-        # Next month
         if d.month == 12:
             d = d.replace(year=d.year + 1, month=1)
         else:
             d = d.replace(month=d.month + 1)
     return None
+
+
+def resolve_target_expiry(calls_df, puts_df, preferred_opex=None, min_dte: int = 5):
+    """Resolve an available common expiry matching OPEX or closest expiry with dte >= min_dte."""
+    if calls_df is None or puts_df is None or calls_df.empty or puts_df.empty:
+        return None
+    common = sorted(set(calls_df["expiry"].unique()) & set(puts_df["expiry"].unique()))
+    if not common:
+        return None
+    if preferred_opex is not None:
+        pref_str = str(preferred_opex)
+        if pref_str in common:
+            return pref_str
+
+    dte_map = (
+        calls_df[calls_df["expiry"].isin(common)]
+        .groupby("expiry")["dte"]
+        .first()
+        .to_dict()
+    )
+    candidates_ge_min = [(exp_str, dte) for exp_str, dte in dte_map.items() if dte >= min_dte]
+    if candidates_ge_min:
+        if preferred_opex is not None:
+            pref_dt = datetime.strptime(str(preferred_opex), "%Y-%m-%d").date()
+            candidates_ge_min.sort(
+                key=lambda x: (
+                    abs((datetime.strptime(x[0], "%Y-%m-%d").date() - pref_dt).days),
+                    x[1],
+                )
+            )
+        else:
+            candidates_ge_min.sort(key=lambda x: x[1])
+        return candidates_ge_min[0][0]
+
+    candidates_ge_1 = sorted(
+        [(exp_str, dte) for exp_str, dte in dte_map.items() if dte >= 1],
+        key=lambda x: x[1],
+    )
+    return candidates_ge_1[0][0] if candidates_ge_1 else None
 
 
 def fetch_option_chains(ticker_symbol: str):
@@ -338,12 +395,17 @@ def compute_skew_and_vrp(calls_df, puts_df, spot, r, q, price_hist,
                          target_expiry=None):
     """
     Compute 25Δ Risk Reversal (Skew) and VRP.
-    Uses the target expiry chain for skew calculation.
+    Uses fail-closed None (JSON null) whenever valid IV quotes are absent.
     """
-    skew_result = {"riskReversal25d": 0, "putIV25d": 0, "callIV25d": 0, "atmIV": 0}
-    vrp_result = {"iv": 0, "hv21": 0, "premium": 0}
+    hv21 = None
+    if price_hist is not None and len(price_hist) >= HV_WINDOW:
+        returns = price_hist["Close"].pct_change().dropna()
+        if len(returns) >= HV_WINDOW:
+            hv21 = round(float(returns.tail(HV_WINDOW).std() * sqrt(252) * 100), 2)
 
-    # Select chain for target expiry (or closest monthly)
+    skew_result = {"riskReversal25d": None, "putIV25d": None, "callIV25d": None, "atmIV": None}
+    vrp_result = {"iv": None, "hv21": hv21, "premium": None}
+
     exp_str = str(target_expiry) if target_expiry else None
     if exp_str:
         t_calls = calls_df[calls_df["expiry"] == exp_str].copy()
@@ -355,83 +417,62 @@ def compute_skew_and_vrp(calls_df, puts_df, spot, r, q, price_hist,
     if t_calls.empty or t_puts.empty:
         return skew_result, vrp_result
 
-    # ATM IV: closest strike to spot
-    t_calls_valid = t_calls[t_calls["impliedVolatility"] > 0]
+    t_calls_valid = t_calls[(t_calls["impliedVolatility"] > 0.005) & (t_calls["impliedVolatility"] < 5.0)]
+    t_puts_valid = t_puts[(t_puts["impliedVolatility"] > 0.005) & (t_puts["impliedVolatility"] < 5.0)]
+
+    # ATM IV: average of nearest-to-spot valid call & put IV (or whichever is valid)
+    atm_candidates = []
     if not t_calls_valid.empty:
-        atm_idx = (t_calls_valid["strike"] - spot).abs().idxmin()
-        atm_iv = t_calls_valid.loc[atm_idx, "impliedVolatility"] * 100
-    else:
-        atm_iv = 0
-
-    # 25Δ Skew: find strikes with delta ≈ 0.25
-    # For calls: find strike where delta ≈ 0.25
-    # For puts: find strike where delta ≈ -0.25
-    T_val = t_calls["T"].iloc[0] if not t_calls.empty else 30 / 365.0
-
-    call_25d_iv = 0
-    put_25d_iv = 0
-
-    # Compute deltas for all call strikes
-    if not t_calls_valid.empty:
-        call_deltas = []
-        for _, row in t_calls_valid.iterrows():
-            d = bs_delta(spot, row["strike"], row["T"], r,
-                         row["impliedVolatility"], q, "call")
-            call_deltas.append({"strike": row["strike"], "delta": d,
-                                "iv": row["impliedVolatility"] * 100})
-        call_delta_df = pd.DataFrame(call_deltas)
-
-        # Find 25Δ call (interpolate)
-        above = call_delta_df[call_delta_df["delta"] >= 0.25]
-        below = call_delta_df[call_delta_df["delta"] < 0.25]
-        if not above.empty and not below.empty:
-            closest_above = above.loc[(above["delta"] - 0.25).abs().idxmin()]
-            closest_below = below.loc[(below["delta"] - 0.25).abs().idxmin()]
-            # Linear interpolation
-            w = abs(closest_above["delta"] - 0.25) / max(
-                abs(closest_above["delta"] - closest_below["delta"]), 1e-6)
-            call_25d_iv = closest_above["iv"] * (1 - w) + closest_below["iv"] * w
-
-    # Compute deltas for all put strikes
-    t_puts_valid = t_puts[t_puts["impliedVolatility"] > 0]
+        atm_c_idx = (t_calls_valid["strike"] - spot).abs().idxmin()
+        atm_candidates.append(float(t_calls_valid.loc[atm_c_idx, "impliedVolatility"]) * 100.0)
     if not t_puts_valid.empty:
-        put_deltas = []
-        for _, row in t_puts_valid.iterrows():
-            d = bs_delta(spot, row["strike"], row["T"], r,
-                         row["impliedVolatility"], q, "put")
-            put_deltas.append({"strike": row["strike"], "delta": d,
-                               "iv": row["impliedVolatility"] * 100})
-        put_delta_df = pd.DataFrame(put_deltas)
+        atm_p_idx = (t_puts_valid["strike"] - spot).abs().idxmin()
+        atm_candidates.append(float(t_puts_valid.loc[atm_p_idx, "impliedVolatility"]) * 100.0)
+    atm_iv = float(np.mean(atm_candidates)) if atm_candidates else None
 
-        # Find 25Δ put (delta ≈ -0.25)
-        above = put_delta_df[put_delta_df["delta"] >= -0.25]
-        below = put_delta_df[put_delta_df["delta"] < -0.25]
+    def _solve_25d_iv(df_valid: pd.DataFrame, opt_type: str, target_delta: float):
+        if df_valid.empty:
+            return None
+        deltas = []
+        for _, row in df_valid.iterrows():
+            d = bs_delta(spot, row["strike"], row["T"], r, row["impliedVolatility"], q, opt_type)
+            deltas.append({"strike": row["strike"], "delta": d, "iv": float(row["impliedVolatility"]) * 100.0})
+        ddf = pd.DataFrame(deltas)
+        above = ddf[ddf["delta"] >= target_delta]
+        below = ddf[ddf["delta"] < target_delta]
         if not above.empty and not below.empty:
-            closest_above = above.loc[(above["delta"] + 0.25).abs().idxmin()]
-            closest_below = below.loc[(below["delta"] + 0.25).abs().idxmin()]
-            w = abs(closest_above["delta"] + 0.25) / max(
-                abs(closest_above["delta"] - closest_below["delta"]), 1e-6)
-            put_25d_iv = closest_above["iv"] * (1 - w) + closest_below["iv"] * w
+            closest_above = above.loc[(above["delta"] - target_delta).abs().idxmin()]
+            closest_below = below.loc[(below["delta"] - target_delta).abs().idxmin()]
+            w = abs(closest_above["delta"] - target_delta) / max(
+                abs(closest_above["delta"] - closest_below["delta"]), 1e-6
+            )
+            return float(closest_above["iv"] * (1.0 - w) + closest_below["iv"] * w)
+        closest = ddf.loc[(ddf["delta"] - target_delta).abs().idxmin()]
+        if abs(closest["delta"] - target_delta) <= 0.08:
+            return float(closest["iv"])
+        return None
 
-    risk_reversal = round(put_25d_iv - call_25d_iv, 2)
+    call_25d_iv = _solve_25d_iv(t_calls_valid, "call", 0.25)
+    put_25d_iv = _solve_25d_iv(t_puts_valid, "put", -0.25)
+
+    risk_reversal = (
+        round(put_25d_iv - call_25d_iv, 2)
+        if (put_25d_iv is not None and call_25d_iv is not None)
+        else None
+    )
 
     skew_result = {
         "riskReversal25d": risk_reversal,
-        "putIV25d": round(put_25d_iv, 2),
-        "callIV25d": round(call_25d_iv, 2),
-        "atmIV": round(atm_iv, 2),
+        "putIV25d": round(put_25d_iv, 2) if put_25d_iv is not None else None,
+        "callIV25d": round(call_25d_iv, 2) if call_25d_iv is not None else None,
+        "atmIV": round(atm_iv, 2) if atm_iv is not None else None,
     }
 
-    # VRP = ATM IV - HV21 (reuse price_hist passed from fetch_option_chains)
-    hv21 = 0
-    if price_hist is not None and len(price_hist) >= HV_WINDOW:
-        returns = price_hist["Close"].pct_change().dropna()
-        hv21 = returns.tail(HV_WINDOW).std() * sqrt(252) * 100
-
+    iv_val = round(atm_iv, 2) if atm_iv is not None else None
     vrp_result = {
-        "iv": round(atm_iv, 2),
-        "hv21": round(hv21, 2),
-        "premium": round(atm_iv - hv21, 2),
+        "iv": iv_val,
+        "hv21": hv21,
+        "premium": round(atm_iv - hv21, 2) if (atm_iv is not None and hv21 is not None) else None,
     }
 
     return skew_result, vrp_result
@@ -524,8 +565,14 @@ def analyse_ticker(ticker_symbol: str, r: float):
         print(f"  WARN: Skipping {ticker_symbol}, no chain data")
         return None
 
-    target_opex = get_monthly_opex()
-    target_expiry_str = str(target_opex) if target_opex else None
+    last_idx = pd.to_datetime(price_hist.index[-1])
+    if last_idx.tzinfo is not None:
+        last_idx = last_idx.tz_localize(None)
+    latest_price_date = last_idx.date()
+
+    preferred_opex = get_monthly_opex(from_date=latest_price_date, min_dte=5)
+    target_expiry = resolve_target_expiry(calls_df, puts_df, preferred_opex, min_dte=5)
+    print(f"    Preferred OPEX: {preferred_opex}, resolved expiry: {target_expiry}")
 
     # GEX
     print(f"    Computing GEX...")
@@ -547,26 +594,27 @@ def analyse_ticker(ticker_symbol: str, r: float):
 
     # PCR
     print(f"    Computing PCR...")
-    pcr = compute_pcr(calls_df, puts_df, target_opex)
+    pcr = compute_pcr(calls_df, puts_df, target_expiry)
 
     # Skew & VRP
     print(f"    Computing Skew & VRP...")
     skew, vrp = compute_skew_and_vrp(calls_df, puts_df, spot, r, q,
-                                      price_hist, target_opex)
+                                      price_hist, target_expiry)
 
     # Max Pain
     print(f"    Computing Max Pain...")
-    max_pain = compute_max_pain(calls_df, puts_df, target_opex) if target_opex else 0
+    max_pain = compute_max_pain(calls_df, puts_df, target_expiry) if target_expiry else 0
 
     # Key Levels
     print(f"    Computing Key Levels...")
-    key_levels = compute_key_levels(calls_df, puts_df, target_opex) if target_opex else {
+    key_levels = compute_key_levels(calls_df, puts_df, target_expiry) if target_expiry else {
         "putWall": {"strike": 0, "oi": 0},
         "callWall": {"strike": 0, "oi": 0},
         "topLevels": [],
     }
 
     return {
+        "_asOfDate": latest_price_date,
         "spot": round(spot, 2),
         "gex": {
             "total": round(total_gex, 0),
@@ -954,6 +1002,36 @@ def fetch_etf_flows():
 # Main
 # ===========================================================================
 
+def _upsert_positioning_history(record: dict, history_path: str):
+    """Idempotently upsert one trading-day summary line into positioning_history.jsonl."""
+    by_date = {}
+    if os.path.exists(history_path):
+        with open(history_path, "r") as hf:
+            for line in hf:
+                line = line.strip()
+                if not line:
+                    continue
+                try:
+                    existing = json.loads(line)
+                    dt = existing.get("asOfTradingDate")
+                    if dt:
+                        by_date[dt] = existing
+                except Exception:
+                    continue
+
+    dt_key = record["asOfTradingDate"]
+    existing = by_date.get(dt_key)
+    if existing and existing.get("sessionScope") == "post_close" and record.get("sessionScope") == "intraday":
+        print(f"  Preserving existing post_close record for {dt_key} in positioning_history.jsonl")
+    else:
+        by_date[dt_key] = record
+
+    os.makedirs(os.path.dirname(history_path), exist_ok=True)
+    with open(history_path, "w") as hf:
+        for dt_sorted in sorted(by_date.keys()):
+            hf.write(json.dumps(by_date[dt_sorted], sort_keys=True) + "\n")
+
+
 def main():
     print("=" * 60)
     print(f"Positioning & Flow Pipeline — {TODAY}")
@@ -965,9 +1043,13 @@ def main():
     # --- Options Analysis ---
     print("\n--- Options Chain Analysis ---")
     options_data = {}
+    observed_dates = []
     for ticker in OPTION_TICKERS:
         result = analyse_ticker(ticker, r)
         if result:
+            as_of = result.pop("_asOfDate", None)
+            if as_of is not None:
+                observed_dates.append(as_of)
             options_data[ticker] = result
 
     # --- VIX Term Structure ---
@@ -979,9 +1061,29 @@ def main():
     # --- ETF Flows ---
     etf_flows = fetch_etf_flows()
 
+    # --- Freshness & session scope ---
+    as_of_date = max(observed_dates) if observed_dates else TODAY
+    close_cutoff_et = datetime(as_of_date.year, as_of_date.month, as_of_date.day, 16, 0, tzinfo=ET_TZ)
+    session_scope = "post_close" if NOW_ET > close_cutoff_et else "intraday"
+    generated_at_utc = NOW_UTC.strftime("%Y-%m-%dT%H:%M:%SZ")
+    generated_at_et = NOW_ET.isoformat()
+    as_of_str = as_of_date.strftime("%Y-%m-%d")
+
+    source_freshness = {
+        "optionsSpotDate": as_of_str if observed_dates else None,
+        "cotAsOfDate": cot_data.get("asOfDate") or None,
+        "riskFreeRate": round(float(r), 4),
+    }
+
     # --- Assemble output ---
     positioning = {
-        "updatedAt": datetime.now(timezone.utc).isoformat(),
+        "calibrationVersion": CALIBRATION_VERSION,
+        "asOfTradingDate": as_of_str,
+        "generatedAtUtc": generated_at_utc,
+        "generatedAtEt": generated_at_et,
+        "sessionScope": session_scope,
+        "sourceFreshness": source_freshness,
+        "updatedAt": NOW_UTC.isoformat(),
         "vixTermStructure": vix_data,
         "skewIndex": skew_data,
         "options": options_data,
@@ -994,10 +1096,42 @@ def main():
     with open(OUTPUT_PATH, "w") as f:
         json.dump(positioning, f, indent=2, default=str)
 
+    # Upsert daily history summary
+    options_summary = {}
+    for tk, tk_data in options_data.items():
+        options_summary[tk] = {
+            "spot": tk_data.get("spot"),
+            "targetExpiry": tk_data.get("pcr", {}).get("targetExpiry"),
+            "gexTotal": tk_data.get("gex", {}).get("total"),
+            "flipPrice": tk_data.get("gex", {}).get("flipPrice"),
+            "pcrOi": tk_data.get("pcr", {}).get("oiRatio"),
+            "pcrAllOi": tk_data.get("pcr", {}).get("allExpOiRatio"),
+            "skew": tk_data.get("skew"),
+            "vrp": tk_data.get("vrp"),
+            "maxPain": tk_data.get("maxPain"),
+            "putWallStrike": tk_data.get("keyLevels", {}).get("putWall", {}).get("strike"),
+            "callWallStrike": tk_data.get("keyLevels", {}).get("callWall", {}).get("strike"),
+        }
+
+    history_row = {
+        "asOfTradingDate": as_of_str,
+        "calibrationVersion": CALIBRATION_VERSION,
+        "generatedAtUtc": generated_at_utc,
+        "sessionScope": session_scope,
+        "vixShape": vix_data.get("shape"),
+        "vixPoints": {p["tenor"]: p["value"] for p in vix_data.get("points", [])},
+        "vixPercentile1Y": vix_data.get("vixPercentile1Y"),
+        "skewIndexCurrent": skew_data.get("current"),
+        "cotAsOfDate": cot_data.get("asOfDate"),
+        "options": options_summary,
+    }
+    _upsert_positioning_history(history_row, HISTORY_PATH)
+
     print(f"\n{'=' * 60}")
-    print(f"Output written to {OUTPUT_PATH}")
+    print(f"Output written to {OUTPUT_PATH} & {HISTORY_PATH}")
     file_size = os.path.getsize(OUTPUT_PATH)
     print(f"File size: {file_size / 1024:.1f} KB")
+    print(f"As-Of Trading Date: {as_of_str} | Session Scope: {session_scope}")
     print(f"Tickers: {list(options_data.keys())}")
     print(f"COT contracts: {list(cot_data.get('contracts', {}).keys())}")
     print(f"ETF flows: {list(etf_flows.keys())}")
