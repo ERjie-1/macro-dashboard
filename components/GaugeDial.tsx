@@ -1,56 +1,94 @@
 'use client'
 
-import { getScoreColor } from '@/lib/mockData'
+import { useId } from 'react'
 
 interface GaugeDialProps {
   score: number
   size?: 'sm' | 'md'
 }
 
+function getNeedleColor(score: number): string {
+  if (score < 35) return '#dc2626'
+  if (score < 50) return '#ca8a04'
+  if (score < 65) return '#84cc16'
+  return '#16a34a'
+}
+
 export default function GaugeDial({ score, size = 'md' }: GaugeDialProps) {
+  const gradId = useId().replace(/:/g, '')
   const isSm = size === 'sm'
-  const W = isSm ? 220 : 280
-  const H = isSm ? 130 : 165
+  const clamped = Math.max(0, Math.min(100, score))
+
+  // Generous viewBox padding so 0 and 100 labels are never clipped
+  const W = isSm ? 260 : 320
+  const H = isSm ? 148 : 178
   const cx = W / 2
-  const cy = isSm ? 120 : 150
-  const R = isSm ? 90 : 115
-  const strokeWidth = isSm ? 10 : 14
+  const cy = isSm ? 132 : 158
+  const R = isSm ? 86 : 108
+  const strokeWidth = isSm ? 6 : 7.5
 
-  const color = getScoreColor(score)
-
-  // Convert score (0-100) to angle in radians
-  // 0 = leftmost (180°), 100 = rightmost (0°)
-  // angle from left: score/100 * π
-  const scoreAngle = Math.PI - (score / 100) * Math.PI
-
-  // Arc endpoint for filled arc
+  const scoreAngle = Math.PI - (clamped / 100) * Math.PI
   const arcX = cx + R * Math.cos(scoreAngle)
   const arcY = cy - R * Math.sin(scoreAngle)
 
-  // Full arc endpoints
-  const startX = cx - R  // 0 score (left)
+  const startX = cx - R
   const startY = cy
-  const endX = cx + R    // 100 score (right)
+  const endX = cx + R
   const endY = cy
 
-  // Always use small arc (0) — filled arc never exceeds 180°
-  const largeArc = 0
+  // Major & minor inner tick marks (matching MacroDial)
+  const majorTicks = [0, 25, 50, 75, 100]
+  const minorTicks = [12.5, 37.5, 62.5, 87.5]
 
-  // Tick marks
-  const ticks = [0, 25, 50, 75, 100]
-  const tickInner = R - strokeWidth / 2 - 4
-  const tickOuter = R + strokeWidth / 2 + 4
-  const labelR = R + strokeWidth / 2 + (isSm ? 14 : 18)
+  const majorInner = R - strokeWidth / 2 - (isSm ? 9 : 11)
+  const majorOuter = R - strokeWidth / 2 - 2
+  const minorInner = R - strokeWidth / 2 - (isSm ? 5.5 : 7)
+  const minorOuter = R - strokeWidth / 2 - 2
+  const labelR = R + strokeWidth / 2 + (isSm ? 14 : 17)
 
-  // Needle
-  const needleLength = R - strokeWidth / 2 - 8
+  // Fine tapered needle
+  const needleLength = R - strokeWidth / 2 - (isSm ? 10 : 13)
   const needleX = cx + needleLength * Math.cos(scoreAngle)
   const needleY = cy - needleLength * Math.sin(scoreAngle)
+  const needleColor = getNeedleColor(clamped)
 
   return (
-    <div className="flex flex-col items-center">
-      <svg width={W} height={H} viewBox={`0 0 ${W} ${H}`}>
-        {/* Background arc (gray) */}
+    <div className="flex flex-col items-center w-full">
+      <svg
+        viewBox={`0 0 ${W} ${H}`}
+        className={isSm ? 'w-full max-w-[250px] h-auto overflow-visible' : 'w-full max-w-[300px] h-auto overflow-visible'}
+        role="img"
+        aria-label={`Macro-Economic Conditions Score ${clamped.toFixed(1)} out of 100`}
+      >
+        <defs>
+          <linearGradient
+            id={`gauge-grad-${gradId}`}
+            gradientUnits="userSpaceOnUse"
+            x1={startX}
+            y1={cy}
+            x2={endX}
+            y2={cy}
+          >
+            <stop offset="0%" stopColor="#dc2626" />
+            <stop offset="35%" stopColor="#ea580c" />
+            <stop offset="62%" stopColor="#ca8a04" />
+            <stop offset="100%" stopColor="#16a34a" />
+          </linearGradient>
+          <linearGradient
+            id={`needle-grad-${gradId}`}
+            gradientUnits="userSpaceOnUse"
+            x1={cx}
+            y1={cy}
+            x2={needleX}
+            y2={needleY}
+          >
+            <stop offset="0%" stopColor="#1f2937" />
+            <stop offset="35%" stopColor={needleColor} />
+            <stop offset="100%" stopColor={needleColor} />
+          </linearGradient>
+        </defs>
+
+        {/* Background track */}
         <path
           d={`M ${startX} ${startY} A ${R} ${R} 0 0 1 ${endX} ${endY}`}
           fill="none"
@@ -59,36 +97,56 @@ export default function GaugeDial({ score, size = 'md' }: GaugeDialProps) {
           strokeLinecap="round"
         />
 
-        {/* Filled colored arc */}
-        {score > 0 && (
+        {/* Filled gradient arc */}
+        {clamped > 0 && (
           <path
-            d={`M ${startX} ${startY} A ${R} ${R} 0 ${largeArc} 1 ${arcX} ${arcY}`}
+            d={`M ${startX} ${startY} A ${R} ${R} 0 0 1 ${arcX} ${arcY}`}
             fill="none"
-            stroke={color}
+            stroke={`url(#gauge-grad-${gradId})`}
             strokeWidth={strokeWidth}
             strokeLinecap="round"
           />
         )}
 
-        {/* Tick marks & labels */}
-        {ticks.map((tick) => {
+        {/* Minor inner ticks */}
+        {minorTicks.map((tick) => {
           const a = Math.PI - (tick / 100) * Math.PI
-          const ix = cx + tickInner * Math.cos(a)
-          const iy = cy - tickInner * Math.sin(a)
-          const ox = cx + tickOuter * Math.cos(a)
-          const oy = cy - tickOuter * Math.sin(a)
+          return (
+            <line
+              key={tick}
+              x1={cx + minorInner * Math.cos(a)}
+              y1={cy - minorInner * Math.sin(a)}
+              x2={cx + minorOuter * Math.cos(a)}
+              y2={cy - minorOuter * Math.sin(a)}
+              stroke="#d1d5db"
+              strokeWidth={1}
+            />
+          )
+        })}
+
+        {/* Major inner ticks & outer labels */}
+        {majorTicks.map((tick) => {
+          const a = Math.PI - (tick / 100) * Math.PI
+          const ix = cx + majorInner * Math.cos(a)
+          const iy = cy - majorInner * Math.sin(a)
+          const ox = cx + majorOuter * Math.cos(a)
+          const oy = cy - majorOuter * Math.sin(a)
           const lx = cx + labelR * Math.cos(a)
           const ly = cy - labelR * Math.sin(a)
+          const anchor = tick === 0 ? 'end' : tick === 100 ? 'start' : 'middle'
+          const xOffset = tick === 0 ? 4 : tick === 100 ? -4 : 0
+
           return (
             <g key={tick}>
-              <line x1={ix} y1={iy} x2={ox} y2={oy} stroke="#9ca3af" strokeWidth={1.5} />
+              <line x1={ix} y1={iy} x2={ox} y2={oy} stroke="#9ca3af" strokeWidth={1.25} />
               <text
-                x={lx}
+                x={lx + xOffset}
                 y={ly}
-                textAnchor="middle"
+                textAnchor={anchor}
                 dominantBaseline="middle"
-                fontSize={isSm ? 9 : 11}
-                fill="#9ca3af"
+                fontSize={isSm ? 9.5 : 10.5}
+                fontFamily="var(--font-mono), monospace"
+                fill="#6b7280"
               >
                 {tick}
               </text>
@@ -96,18 +154,19 @@ export default function GaugeDial({ score, size = 'md' }: GaugeDialProps) {
           )
         })}
 
-        {/* Needle */}
+        {/* Fine gradient needle */}
         <line
           x1={cx}
           y1={cy}
           x2={needleX}
           y2={needleY}
-          stroke="#374151"
-          strokeWidth={isSm ? 1.5 : 2}
+          stroke={`url(#needle-grad-${gradId})`}
+          strokeWidth={isSm ? 1.8 : 2.1}
           strokeLinecap="round"
         />
-        {/* Needle base dot */}
-        <circle cx={cx} cy={cy} r={isSm ? 4 : 5} fill="#374151" />
+
+        {/* Needle center hub */}
+        <circle cx={cx} cy={cy} r={isSm ? 4 : 4.8} fill="#1f2937" />
       </svg>
     </div>
   )

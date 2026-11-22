@@ -1,0 +1,16 @@
+const fs=require('fs'),ts=require('typescript'),vm=require('vm'),assert=require('node:assert/strict');
+const source=fs.readFileSync('lib/scoreMetrics.ts','utf8');
+const code=ts.transpileModule(source,{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022}}).outputText;
+const sandbox={exports:{}};vm.runInNewContext(code,sandbox);const {computeSeriesDeltas:calc,parseTrendPointDate,displayScore}=sandbox.exports;
+const data=JSON.parse(fs.readFileSync('public/data/dashboard.json'));
+const real=calc(data.score,data.trendData,data.asOfTradingDate,data.prevScore);
+assert.equal(real.prev1DDate,'2026-11-19');assert.equal(real.prev7DDate,'2026-11-13');
+assert.ok(Math.abs(real.delta1D+2.2)<1e-6);assert.ok(Math.abs(real.delta7D+3.7)<1e-6);
+const rows=[{date:'2026-11-20',value:42.8},{date:'2026-11-23',value:99},{date:'2026-11-13',value:46.5},{date:'2026-11-19',value:45}];
+assert.equal(calc(42.8,rows,'2026-11-20').prev1DDate,'2026-11-19');
+assert.equal(calc(42.8,rows,'2026-11-20').prev7DDate,'2026-11-13');
+const missing=calc(42.8,[{date:'2026-11-20',value:42.8}],'2026-11-20',46.5);
+assert.ok(Number.isNaN(missing.delta1D));assert.ok(Number.isNaN(missing.delta7D));assert.equal(displayScore(missing.delta1D),'N/A');
+const year=calc(3,[{date:'12/31',value:2},{date:'12/26',value:1}],'2027-01-02');assert.equal(year.prev1DDate,'2026-12-31');assert.equal(year.prev7DDate,'2026-12-26');
+assert.equal(parseTrendPointDate('02/30',new Date('2026-11-20')),null);
+console.log('scoreMetrics: actual 11/20, unsorted/future, missing and year boundary passed');
