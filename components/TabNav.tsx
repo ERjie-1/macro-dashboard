@@ -13,7 +13,7 @@ export default function TabNav() {
 
   return (
     <nav className="bg-white border-b border-gray-200">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+      <div className="max-w-[1340px] mx-auto px-4 sm:px-6">
         <div className="flex items-center gap-8 h-12">
           {tabs.map((tab) => {
             const isActive =

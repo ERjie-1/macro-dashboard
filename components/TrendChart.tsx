@@ -106,9 +106,9 @@ export default function TrendChart({
   return (
     <div className="flex flex-col h-full">
       {/* Header row: optional title + Auto/Full | Range selector */}
-      <div className="flex items-center justify-between gap-3 mb-3 flex-wrap">
+      <div className="flex items-center justify-between gap-3 mb-3 flex-wrap xl:flex-nowrap">
         {title && (
-          <h2 className="text-lg font-semibold text-gray-900">{title}</h2>
+          <h2 className="text-base font-semibold text-gray-900 whitespace-nowrap">{title}</h2>
         )}
         <div className="flex items-center gap-1 flex-wrap ml-auto">
           {(['Auto', 'Full'] as ScaleMode[]).map((mode) => (
@@ -148,14 +148,14 @@ export default function TrendChart({
       <p className="text-xs text-gray-500 mb-2">{filtered[0]?.date} – {filtered.at(-1)?.date} · {filtered.length} trading-day observations</p>
 
       {/* Chart */}
-      <div className="flex-1 min-h-[220px]">
+      <div className="flex-1 min-h-[220px] border border-gray-200 rounded-sm">
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={filtered} margin={{ top: 8, right: 32, left: 0, bottom: 4 }}>
             <CartesianGrid
               strokeDasharray="3 3"
               stroke="#e5e7eb"
               horizontal={true}
-              vertical={false}
+              vertical={true}
             />
             <XAxis
               dataKey="date"
