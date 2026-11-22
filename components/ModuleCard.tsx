@@ -1,3 +1,4 @@
+import { displayScore } from '@/lib/scoreMetrics'
 import Link from 'next/link'
 import { Module } from '@/types'
 import { getScoreColor } from '@/lib/getData'
@@ -17,7 +18,7 @@ export default function ModuleCard({ module, asOfTradingDate }: ModuleCardProps)
     asOfTradingDate,
     module.prevScore
   )
-  const changeStr = `${delta7D >= 0 ? '+' : ''}${delta7D.toFixed(1)} pts`
+  const changeStr = `${delta7D >= 0 ? '+' : ''}${displayScore(delta7D)} pts`
   const changeColor = delta7D > 0.05
     ? 'text-green-600'
     : delta7D < -0.05

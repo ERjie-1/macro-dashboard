@@ -17,7 +17,7 @@ interface Props {
 }
 
 function formatSignedPts(val: number): string {
-  return `${val >= 0 ? '+' : ''}${val.toFixed(1)} pts`
+  return Number.isFinite(val) ? `${val >= 0 ? '+' : ''}${val.toFixed(1)} pts` : 'N/A'
 }
 
 function deltaTextClass(val: number): string {
@@ -43,7 +43,7 @@ export default function TodayBrief({
   const asOfLabel = data.asOfTradingDate || data.lastUpdated
 
   const badge =
-    delta1D <= -0.3
+    !Number.isFinite(delta1D) ? {text:'1D UNKNOWN',cls:'text-gray-500'} : delta1D <= -0.3
       ? {
           text: '1D DETERIORATING',
           cls: 'text-red-600 border-red-200 bg-red-50/70',

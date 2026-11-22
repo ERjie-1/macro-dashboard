@@ -1,3 +1,4 @@
+import { displayScore } from '@/lib/scoreMetrics'
 import { dashboardData } from '@/lib/getData'
 import {
   computeSeriesDeltas,
@@ -59,11 +60,11 @@ export default function HomePage() {
                   {/* Status line 1: prev -> curr (1D) [Regime] · Data freshness */}
                   <div className="flex items-center justify-center flex-wrap gap-x-2 gap-y-1 text-xs font-mono text-gray-600 pt-1">
                     <span title={prev1DDate ? `1D baseline: ${prev1DDate}` : undefined}>
-                      <span className="text-gray-500">{prev1DValue.toFixed(1)}</span>
+                      <span className="text-gray-500">{displayScore(prev1DValue)}</span>
                       <span className="mx-1 text-gray-400">→</span>
                       <span className="font-semibold text-gray-900">{d.score.toFixed(1)}</span>{' '}
                       <span className={`font-medium ${delta1DClass}`}>
-                        ({delta1D >= 0 ? '+' : ''}{delta1D.toFixed(1)})
+                        ({delta1D >= 0 ? '+' : ''}{displayScore(delta1D)})
                       </span>
                     </span>
                     <span className={`px-2 py-0.5 rounded text-[11px] font-sans font-medium ${regime.pillClass}`}>
@@ -84,8 +85,8 @@ export default function HomePage() {
                       className="font-mono"
                       title={prev7DDate ? `7D baseline: ${prev7DDate}` : undefined}
                     >
-                      {delta7D >= 0 ? '▲' : '▼'} {delta7D >= 0 ? '+' : ''}
-                      {delta7D.toFixed(1)} pts 7D
+                      {!Number.isFinite(delta7D) ? '' : delta7D >= 0 ? '▲' : '▼'} {delta7D >= 0 ? '+' : ''}
+                      {displayScore(delta7D)} pts 7D
                     </span>
                     <span className="text-gray-300">·</span>
                     <span>

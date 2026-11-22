@@ -131,7 +131,9 @@ export default function TrendChart({
               key={r}
               type="button"
               onClick={() => setRange(r)}
-              className={`px-2 py-1 text-xs rounded-md font-medium transition-colors ${
+              disabled={data.length < TRADING_DAYS_BY_RANGE[r]}
+              title={data.length < TRADING_DAYS_BY_RANGE[r] ? `Only ${data.length} trading-day observations available` : undefined}
+              className={`px-2 py-1 text-xs rounded-md font-medium transition-colors disabled:opacity-30 disabled:cursor-not-allowed ${
                 range === r
                   ? 'bg-gray-900 text-white'
                   : 'text-gray-500 hover:text-gray-900 hover:bg-gray-100'
@@ -143,10 +145,12 @@ export default function TrendChart({
         </div>
       </div>
 
+      <p className="text-xs text-gray-500 mb-2">{filtered[0]?.date} – {filtered.at(-1)?.date} · {filtered.length} trading-day observations</p>
+
       {/* Chart */}
       <div className="flex-1 min-h-[220px]">
         <ResponsiveContainer width="100%" height="100%">
-          <LineChart data={filtered} margin={{ top: 8, right: 14, left: 0, bottom: 4 }}>
+          <LineChart data={filtered} margin={{ top: 8, right: 32, left: 0, bottom: 4 }}>
             <CartesianGrid
               strokeDasharray="3 3"
               stroke="#e5e7eb"

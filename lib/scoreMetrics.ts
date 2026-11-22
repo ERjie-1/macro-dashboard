@@ -26,7 +26,8 @@ function parseIsoDate(iso?: string | null): Date | null {
   if (!iso) return null
   const m = iso.match(/^(\d{4})-(\d{2})-(\d{2})/)
   if (!m) return null
-  return new Date(Date.UTC(Number(m[1]), Number(m[2]) - 1, Number(m[3])))
+  const d = new Date(Date.UTC(Number(m[1]), Number(m[2]) - 1, Number(m[3])))
+  return d.toISOString().slice(0,10) === m[0] ? d : null
 }
 
 export function parseTrendPointDate(dateStr: string, asOfDate: Date | null): Date | null {
@@ -37,11 +38,11 @@ export function parseTrendPointDate(dateStr: string, asOfDate: Date | null): Dat
   const month = Number(md[1])
   const day = Number(md[2])
   let year = asOfDate.getUTCFullYear()
-  const asOfMonth = asOfDate.getUTCMonth() + 1
-  if (month > asOfMonth + 1) {
+  if (new Date(Date.UTC(year, month - 1, day)).getTime() > asOfDate.getTime()) {
     year -= 1
   }
-  return new Date(Date.UTC(year, month - 1, day))
+  const parsed = new Date(Date.UTC(year, month - 1, day))
+  return parsed.getUTCMonth() === month - 1 && parsed.getUTCDate() === day ? parsed : null
 }
 
 export function formatShortMonthDay(dateStr: string, asOfIso?: string | null): string {
@@ -74,34 +75,19 @@ export function computeSeriesDeltas(
   asOfTradingDate?: string | null,
   fallbackPrevScore?: number
 ): BaselineDelta {
-  const len = trendData.length
   const asOfDate = parseIsoDate(asOfTradingDate)
-
-  // 1D baseline: previous trading day (len - 2)
-  const prev1DPoint = len >= 2 ? trendData[len - 2] : null
-  const prev1DValue = prev1DPoint ? prev1DPoint.value : (fallbackPrevScore ?? score)
-  const prev1DDate = prev1DPoint ? prev1DPoint.date : null
+  const points = asOfDate ? trendData.map(p => ({...p, parsed: parseTrendPointDate(p.date, asOfDate)}))
+    .filter(p => p.parsed && p.parsed.getTime() < asOfDate.getTime() && Number.isFinite(p.value))
+    .sort((a,b) => a.parsed!.getTime()-b.parsed!.getTime()) : []
+  const prev1DPoint = points.at(-1)
+  const prev7DPoint = asOfDate ? points.filter(p => p.parsed!.getTime() <= asOfDate.getTime()-7*86400000).at(-1) : undefined
+  // An absent dated baseline is unknown; never manufacture a zero change or
+  // silently substitute a different interval from array position/prevScore.
+  const prev1DValue = prev1DPoint?.value ?? NaN
+  const prev7DValue = prev7DPoint?.value ?? NaN
+  const prev1DDate = prev1DPoint?.parsed?.toISOString().slice(0,10) ?? null
+  const prev7DDate = prev7DPoint?.parsed?.toISOString().slice(0,10) ?? null
   const delta1D = score - prev1DValue
-
-  // 7D baseline: latest trading day on or before (asOfDate - 7 calendar days)
-  let prev7DPoint: TrendPoint | null = null
-  if (len >= 2 && asOfDate) {
-    const targetMs = asOfDate.getTime() - 7 * 86400 * 1000
-    for (let i = len - 2; i >= 0; i--) {
-      const ptDate = parseTrendPointDate(trendData[i].date, asOfDate)
-      if (ptDate && ptDate.getTime() <= targetMs) {
-        prev7DPoint = trendData[i]
-        break
-      }
-    }
-  }
-  if (!prev7DPoint && len >= 2) {
-    // 5 trading days back ≈ 1 calendar week
-    prev7DPoint = trendData[Math.max(0, len - 6)]
-  }
-
-  const prev7DValue = prev7DPoint ? prev7DPoint.value : prev1DValue
-  const prev7DDate = prev7DPoint ? prev7DPoint.date : prev1DDate
   const delta7D = score - prev7DValue
 
   return {
@@ -157,8 +143,8 @@ export function getModuleMovers(
 
   for (const m of modules) {
     const d = computeSeriesDeltas(m.score, m.trendData, asOfTradingDate, m.prevScore)
-    movers1D.push({ name: m.name, slug: m.slug, delta: d.delta1D, baseDate: d.prev1DDate })
-    movers7D.push({ name: m.name, slug: m.slug, delta: d.delta7D, baseDate: d.prev7DDate })
+    if (Number.isFinite(d.delta1D)) movers1D.push({ name: m.name, slug: m.slug, delta: d.delta1D, baseDate: d.prev1DDate })
+    if (Number.isFinite(d.delta7D)) movers7D.push({ name: m.name, slug: m.slug, delta: d.delta7D, baseDate: d.prev7DDate })
   }
 
   movers1D.sort((a, b) => Math.abs(b.delta) - Math.abs(a.delta))
@@ -193,11 +179,12 @@ export function getExtremeFactors(dashboard: MacroDashboard): {
       if (f.isExtra) continue
       // f.score is direction-aligned (100 = most supportive, 0 = most restrictive),
       // whereas historicalPercentile5Y is raw uninverted percentile.
-      const alignedScore = typeof f.score === 'number' ? f.score : f.historicalPercentile5Y
+      if (typeof f.score !== 'number' || !Number.isFinite(f.score)) continue
+      const alignedScore = f.score
       all.push({
         name: f.name,
         moduleName: m.name,
-        percentile: Math.max(1, Math.min(100, Math.round(alignedScore))),
+        percentile: Math.max(0, Math.min(100, Math.round(alignedScore))),
         status: f.status,
       })
     }
@@ -217,3 +204,5 @@ export function getExtremeFactors(dashboard: MacroDashboard): {
 
   return { supportive, restrictive, thresholdObservations }
 }
+
+export function displayScore(n: number): string { return Number.isFinite(n) ? n.toFixed(1) : 'N/A' }
