@@ -80,13 +80,13 @@ export default function GlobalFactorOverview({
     for (const m of modules) {
       for (const f of m.factors) {
         if (f.isExtra) continue
-        const rawAligned = typeof f.score === 'number' ? f.score : f.historicalPercentile5Y
+        const rawAligned = f.historicalPercentile5Y
         list.push({
           factor: f,
           moduleName: m.name,
           moduleSlug: m.slug,
           moduleColor: m.color,
-          alignedPctl: Math.max(0, Math.min(100, Math.round(rawAligned))),
+          alignedPctl: Math.max(0, Math.min(100, rawAligned)),
           contrib7D: contribMap.has(f.name) ? (contribMap.get(f.name) ?? null) : null,
           orderIndex: idx++,
         })
@@ -282,8 +282,7 @@ export default function GlobalFactorOverview({
 
                       {/* 7D Change */}
                       <div className="text-xs font-mono text-gray-500 pr-2 truncate">
-                        <ChangeArrow direction={row.factor.changeDirection} />
-                        {row.factor.sevenDayChange}
+                        <span title="Change units are not verified">N/A</span>
                       </div>
 
                       {/* 7D Contribution */}
@@ -309,7 +308,7 @@ export default function GlobalFactorOverview({
                       {/* Direction-aligned 5Y Percentile bar */}
                       <div
                         className="flex items-center gap-2 pr-2"
-                        title={`Macro-aligned score: ${row.alignedPctl}th (raw 5Y pctl: ${row.factor.historicalPercentile5Y}th)`}
+                        title={`Historical percentile: ${row.alignedPctl}%`}
                       >
                         <div className="w-20 h-1.5 bg-gray-100 rounded-full overflow-hidden shrink-0">
                           <div
@@ -321,7 +320,7 @@ export default function GlobalFactorOverview({
                           />
                         </div>
                         <span className="text-xs font-mono text-gray-500 w-9">
-                          {formatOrdinal(row.alignedPctl)}
+                          {row.alignedPctl.toFixed(1)}%
                         </span>
                       </div>
 

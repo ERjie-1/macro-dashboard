@@ -81,12 +81,12 @@ export default function CotSection({ cot }: Props) {
 
   return (
     <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-5">
-      <div className="flex items-center justify-between mb-4">
+      <div className="flex flex-wrap gap-3 items-center justify-between mb-4">
         <div>
           <h2 className="text-lg font-semibold text-gray-800">CFTC Positioning</h2>
           {cot.asOfDate && <span className="text-xs text-gray-500">As of {cot.asOfDate}</span>}
         </div>
-        <div className="flex gap-1 bg-gray-100 rounded-lg p-0.5">
+        <div className="flex flex-wrap gap-1 bg-gray-100 rounded-lg p-0.5">
           {CATEGORIES.map((cat) => (
             <button
               key={cat.key}

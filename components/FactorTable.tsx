@@ -29,8 +29,8 @@ function ChangeArrow({ direction }: { direction: string }) {
 }
 
 function getAlignedPercentile(factor: Factor): number {
-  const raw = typeof factor.score === 'number' ? factor.score : factor.historicalPercentile5Y
-  return Math.max(1, Math.min(100, Math.round(raw)))
+  const raw = factor.historicalPercentile5Y
+  return Math.max(0, Math.min(100, raw))
 }
 
 function FactorRow({
@@ -45,7 +45,7 @@ function FactorRow({
   const [expanded, setExpanded] = useState(false)
   const statusColor = getStatusColor(factor.status)
   const displayPctl = isExtra
-    ? Math.max(1, Math.min(100, Math.round(factor.historicalPercentile5Y)))
+    ? Math.max(0, Math.min(100, factor.historicalPercentile5Y))
     : getAlignedPercentile(factor)
 
   return (
@@ -65,8 +65,7 @@ function FactorRow({
         <td className="py-3 px-4 text-sm font-mono text-gray-700 font-medium">{factor.value}</td>
         {/* 7D Change */}
         <td className="py-3 px-4 text-sm font-mono text-gray-500">
-          <ChangeArrow direction={factor.changeDirection} />
-          {factor.sevenDayChange}
+          <span title="Change units are not verified">N/A</span>
         </td>
         {/* Historical Percentile (5Y) */}
         <td
@@ -74,7 +73,7 @@ function FactorRow({
           title={
             isExtra
               ? `Raw 5Y percentile: ${factor.historicalPercentile5Y}th`
-              : `Macro-aligned 5Y score: ${displayPctl}th (raw 5Y pctl: ${factor.historicalPercentile5Y}th)`
+              : `Historical percentile: ${displayPctl}%`
           }
         >
           <div className="flex items-center gap-2">
@@ -87,7 +86,7 @@ function FactorRow({
                 }}
               />
             </div>
-            <span className="text-xs font-mono text-gray-500">{formatOrdinal(displayPctl)}</span>
+            <span className="text-xs font-mono text-gray-500">{displayPctl.toFixed(1)}%</span>
           </div>
         </td>
         {/* Status */}
