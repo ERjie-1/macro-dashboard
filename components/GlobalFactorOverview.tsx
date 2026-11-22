@@ -1,18 +1,10 @@
 'use client'
 
+import FactorHistory from './FactorHistory'
+
 import { useMemo, useState } from 'react'
 import Link from 'next/link'
 import type { Factor, LiftDragItem, Module, Status } from '@/types'
-import { formatOrdinal } from '@/lib/scoreMetrics'
-import TrendChart from './TrendChart'
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  ResponsiveContainer,
-  Cell,
-} from 'recharts'
 
 interface GlobalFactorOverviewProps {
   modules: Module[]
@@ -358,57 +350,7 @@ export default function GlobalFactorOverview({
                           </Link>
                         </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                          <div>
-                            <div className="text-[11px] font-semibold text-gray-500 uppercase tracking-wide mb-2">
-                              Historical Trend ({row.factor.trendData.length}d)
-                            </div>
-                            <div className="h-28">
-                              <TrendChart
-                                data={row.factor.trendData.slice(-90)}
-                                color={barColor}
-                                mini={true}
-                                asOfTradingDate={asOfTradingDate}
-                              />
-                            </div>
-                          </div>
-
-                          <div>
-                            <div className="text-[11px] font-semibold text-gray-500 uppercase tracking-wide mb-2">
-                              Historical Percentile Distribution (5Y)
-                            </div>
-                            <div className="h-28">
-                              <ResponsiveContainer width="100%" height="100%">
-                                <BarChart
-                                  data={row.factor.percentileData}
-                                  margin={{ top: 4, right: 4, left: -20, bottom: 4 }}
-                                >
-                                  <XAxis
-                                    dataKey="range"
-                                    tick={{ fontSize: 9, fill: '#9ca3af' }}
-                                    axisLine={false}
-                                    tickLine={false}
-                                  />
-                                  <YAxis hide />
-                                  <Bar dataKey="freq" radius={[2, 2, 0, 0]}>
-                                    {row.factor.percentileData.map((_, index) => {
-                                      const pct = index * 10 + 5
-                                      const isCurrent =
-                                        pct >= row.factor.historicalPercentile5Y - 5 &&
-                                        pct < row.factor.historicalPercentile5Y + 5
-                                      return (
-                                        <Cell
-                                          key={index}
-                                          fill={isCurrent ? barColor : '#e5e7eb'}
-                                        />
-                                      )
-                                    })}
-                                  </Bar>
-                                </BarChart>
-                              </ResponsiveContainer>
-                            </div>
-                          </div>
-                        </div>
+                        <FactorHistory factor={row.factor} color={barColor} />
                       </div>
                     )}
                   </td>
