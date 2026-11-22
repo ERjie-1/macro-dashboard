@@ -30,7 +30,7 @@ export default function FactorHistory({ factor, color }: { factor: Factor; color
         {valid && <span className="absolute top-[-4px] h-6 w-1 -translate-x-1/2 rounded" style={{ left: `${p}%`, backgroundColor: color }} />}
       </div>
       <div className="flex justify-between text-xs text-gray-500"><span>0 · 历史低位</span><span>50</span><span>100 · 历史高位</span></div>
-      <p className="text-sm text-gray-600">{valid ? `当前值处于过去五年样本的第 ${p.toFixed(1)} 百分位。` : '当前历史位置未知。'}这是原始数值的位置，高低不直接代表宏观环境好坏。</p>
+      <p className="text-sm text-gray-600">{valid ? `该因子评分输入序列处于过去五年样本的第 ${p.toFixed(1)} 百分位。` : '当前历史位置未知。'}这是评分输入序列的五年分位（方向调整前）；可能经过转换，与左侧展示数值的分位不同，高低不直接代表宏观环境好坏。</p>
       <p className="text-xs text-gray-500">原来的柱图按十分位等频分桶，柱高接近是分桶结果，并非原始数值分布；此处改为显示当前历史位置。</p>
     </div>
   </div>

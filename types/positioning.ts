@@ -27,7 +27,7 @@ export interface SkewIndex {
 }
 
 export interface TickerOptions {
-  expiryDetails?: Record<string, { keyLevels: TickerOptions['keyLevels']; maxPain: number; pcr: TickerOptions['pcr'] }>
+  expiryDetails?: Record<string, ExpiryDetail | null>
   spot: number
   gex: {
     total: number
@@ -37,10 +37,10 @@ export interface TickerOptions {
   }
   pcr: {
     targetExpiry: string
-    oiRatio: number
-    volRatio: number
-    allExpOiRatio: number
-    allExpVolRatio: number
+    oiRatio: number | null
+    volRatio: number | null
+    allExpOiRatio: number | null
+    allExpVolRatio: number | null
   }
   skew: {
     riskReversal25d: number | null
@@ -53,10 +53,10 @@ export interface TickerOptions {
     hv21: number | null
     premium: number | null
   }
-  maxPain: number
+  maxPain: number | null
   keyLevels: {
-    putWall: { strike: number; oi: number }
-    callWall: { strike: number; oi: number }
+    putWall: { strike: number; oi: number } | null
+    callWall: { strike: number; oi: number } | null
     topLevels: { strike: number; type: 'put' | 'call'; oi: number }[]
   }
 }
@@ -82,4 +82,10 @@ export interface EtfFlow {
   mfi14: number
   volumeVsAvg: number
   history30D: { date: string; obv: number; mfi: number }[]
+}
+
+export interface ExpiryDetail {
+  keyLevels: { putWall: {strike: number; oi: number} | null; callWall: {strike: number; oi: number} | null; topLevels: TickerOptions['keyLevels']['topLevels'] }
+  maxPain: number | null
+  pcr: {targetExpiry: string; oiRatio: number | null; volRatio: number | null}
 }

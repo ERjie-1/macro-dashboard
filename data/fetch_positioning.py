@@ -537,7 +537,7 @@ def compute_key_levels(calls_df, puts_df, target_expiry):
     for df, opt_type in [(t_calls, "call"), (t_puts, "put")]:
         if df.empty:
             continue
-        top = df.nlargest(5, "openInterest")
+        top = df.nlargest(10, "openInterest")
         for _, row in top.iterrows():
             top_levels.append({
                 "strike": float(row["strike"]),
@@ -556,16 +556,34 @@ def compute_key_levels(calls_df, puts_df, target_expiry):
 
 
 def compute_expiry_details(calls_df, puts_df):
-    # Reuse already fetched chains; never substitute the monthly chain for another date.
-    expiry_details = {}
-    for expiry in sorted(set(calls_df["expiry"]) & set(puts_df["expiry"])):
-        expiry_details[str(expiry)] = {
-            "keyLevels": compute_key_levels(calls_df, puts_df, expiry),
-            "maxPain": compute_max_pain(calls_df, puts_df, expiry),
-            "pcr": compute_pcr(calls_df, puts_df, expiry),
+    """Per-date results; incomplete chains cannot contaminate another date."""
+    result = {}
+    for expiry in sorted(set(calls_df["expiry"]) | set(puts_df["expiry"])):
+        c = calls_df[calls_df["expiry"] == expiry].reset_index(drop=True)
+        p = puts_df[puts_df["expiry"] == expiry].reset_index(drop=True)
+        def valid(frame, column):
+            return (not frame.empty and column in frame and
+                    np.isfinite(frame[column]).all() and (frame[column] >= 0).all())
+        # Missing strike/OI means peaks, payout and OI ratios are unknown.
+        if not all(valid(frame, col) for frame in (c, p) for col in ("strike", "openInterest")):
+            result[str(expiry)] = None
+            continue
+        levels = compute_key_levels(c, p, expiry)
+        for side, frame in (("callWall", c), ("putWall", p)):
+            if frame["openInterest"].sum() == 0:
+                levels[side] = None
+        levels["topLevels"] = [row for row in levels["topLevels"] if row["oi"] > 0]
+        def ratio(column):
+            if not all(valid(frame, column) for frame in (c, p)) or c[column].sum() == 0:
+                return None
+            return round(float(p[column].sum() / c[column].sum()), 2)
+        total_oi = c["openInterest"].sum() + p["openInterest"].sum()
+        result[str(expiry)] = {
+            "keyLevels": levels,
+            "maxPain": compute_max_pain(c, p, expiry) if total_oi > 0 else None,
+            "pcr": {"targetExpiry": str(expiry), "oiRatio": ratio("openInterest"), "volRatio": ratio("volume")},
         }
-
-    return expiry_details
+    return result
 
 
 def analyse_ticker(ticker_symbol: str, r: float):
@@ -607,7 +625,12 @@ def analyse_ticker(ticker_symbol: str, r: float):
 
     # PCR
     print(f"    Computing PCR...")
-    pcr = compute_pcr(calls_df, puts_df, target_expiry)
+    expiry_details = compute_expiry_details(calls_df, puts_df)
+    target_detail = expiry_details.get(str(target_expiry))
+    pcr = dict(target_detail["pcr"]) if target_detail else {"targetExpiry": str(target_expiry or ""), "oiRatio": None, "volRatio": None}
+    for field, column in (("allExpOiRatio", "openInterest"), ("allExpVolRatio", "volume")):
+        complete = all(not df.empty and column in df and np.isfinite(df[column]).all() and (df[column] >= 0).all() for df in (calls_df, puts_df))
+        pcr[field] = round(float(puts_df[column].sum() / calls_df[column].sum()), 2) if complete and calls_df[column].sum() > 0 else None
 
     # Skew & VRP
     print(f"    Computing Skew & VRP...")
@@ -616,17 +639,8 @@ def analyse_ticker(ticker_symbol: str, r: float):
 
     # Max Pain
     print(f"    Computing Max Pain...")
-    max_pain = compute_max_pain(calls_df, puts_df, target_expiry) if target_expiry else 0
-
-    # Key Levels
-    print(f"    Computing Key Levels...")
-    key_levels = compute_key_levels(calls_df, puts_df, target_expiry) if target_expiry else {
-        "putWall": {"strike": 0, "oi": 0},
-        "callWall": {"strike": 0, "oi": 0},
-        "topLevels": [],
-    }
-
-    expiry_details = compute_expiry_details(calls_df, puts_df)
+    max_pain = target_detail["maxPain"] if target_detail else None
+    key_levels = target_detail["keyLevels"] if target_detail else {"putWall": None, "callWall": None, "topLevels": []}
 
     return {
         "expiryDetails": expiry_details,
@@ -1125,8 +1139,8 @@ def main():
             "skew": tk_data.get("skew"),
             "vrp": tk_data.get("vrp"),
             "maxPain": tk_data.get("maxPain"),
-            "putWallStrike": tk_data.get("keyLevels", {}).get("putWall", {}).get("strike"),
-            "callWallStrike": tk_data.get("keyLevels", {}).get("callWall", {}).get("strike"),
+            "putWallStrike": (tk_data.get("keyLevels", {}).get("putWall") or {}).get("strike"),
+            "callWallStrike": (tk_data.get("keyLevels", {}).get("callWall") or {}).get("strike"),
         }
 
     history_row = {

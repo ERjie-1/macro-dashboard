@@ -1,15 +1,15 @@
 {
   "calibrationVersion": "v2-20261121",
   "asOfTradingDate": "2026-11-20",
-  "generatedAtUtc": "2026-11-21T07:57:32Z",
-  "generatedAtEt": "2026-11-21T02:57:32.806170-05:00",
+  "generatedAtUtc": "2026-11-22T16:06:49Z",
+  "generatedAtEt": "2026-11-22T11:06:49.830084-05:00",
   "sessionScope": "post_close",
   "sourceFreshness": {
     "optionsSpotDate": "2026-11-20",
     "cotAsOfDate": "2026-11-17",
     "riskFreeRate": 0.0388
   },
-  "updatedAt": "2026-11-21T07:57:32.806170+00:00",
+  "updatedAt": "2026-11-22T16:06:49.830084+00:00",
   "vixTermStructure": {
     "points": [
       {
@@ -851,342 +851,2099 @@
   },
   "options": {
     "SPY": {
+      "expiryDetails": {
+        "2026-11-23": null,
+        "2026-11-24": null,
+        "2026-11-25": null,
+        "2026-11-27": null,
+        "2026-11-30": {
+          "keyLevels": {
+            "putWall": {
+              "strike": 675.0,
+              "oi": 75494
+            },
+            "callWall": {
+              "strike": 806.0,
+              "oi": 22584
+            },
+            "topLevels": [
+              {
+                "strike": 675.0,
+                "type": "put",
+                "oi": 75494
+              },
+              {
+                "strike": 570.0,
+                "type": "put",
+                "oi": 75476
+              },
+              {
+                "strike": 685.0,
+                "type": "put",
+                "oi": 24863
+              },
+              {
+                "strike": 727.0,
+                "type": "put",
+                "oi": 23287
+              },
+              {
+                "strike": 806.0,
+                "type": "call",
+                "oi": 22584
+              },
+              {
+                "strike": 612.0,
+                "type": "put",
+                "oi": 21604
+              },
+              {
+                "strike": 700.0,
+                "type": "put",
+                "oi": 19554
+              },
+              {
+                "strike": 760.0,
+                "type": "call",
+                "oi": 19396
+              },
+              {
+                "strike": 680.0,
+                "type": "put",
+                "oi": 17901
+              },
+              {
+                "strike": 730.0,
+                "type": "put",
+                "oi": 17612
+              }
+            ]
+          },
+          "maxPain": 740.0,
+          "pcr": {
+            "targetExpiry": "2026-11-30",
+            "oiRatio": 2.03,
+            "volRatio": null
+          }
+        },
+        "2026-12-01": {
+          "keyLevels": {
+            "putWall": {
+              "strike": 720.0,
+              "oi": 1364
+            },
+            "callWall": {
+              "strike": 925.0,
+              "oi": 1991
+            },
+            "topLevels": [
+              {
+                "strike": 925.0,
+                "type": "call",
+                "oi": 1991
+              },
+              {
+                "strike": 775.0,
+                "type": "call",
+                "oi": 1947
+              },
+              {
+                "strike": 720.0,
+                "type": "put",
+                "oi": 1364
+              },
+              {
+                "strike": 820.0,
+                "type": "call",
+                "oi": 1331
+              },
+              {
+                "strike": 860.0,
+                "type": "call",
+                "oi": 1251
+              },
+              {
+                "strike": 750.0,
+                "type": "call",
+                "oi": 1237
+              },
+              {
+                "strike": 930.0,
+                "type": "call",
+                "oi": 1199
+              },
+              {
+                "strike": 705.0,
+                "type": "put",
+                "oi": 1167
+              },
+              {
+                "strike": 740.0,
+                "type": "call",
+                "oi": 1089
+              },
+              {
+                "strike": 910.0,
+                "type": "call",
+                "oi": 1067
+              }
+            ]
+          },
+          "maxPain": 727.0,
+          "pcr": {
+            "targetExpiry": "2026-12-01",
+            "oiRatio": 0.38,
+            "volRatio": null
+          }
+        },
+        "2026-12-02": {
+          "keyLevels": {
+            "putWall": {
+              "strike": 680.0,
+              "oi": 1243
+            },
+            "callWall": {
+              "strike": 745.0,
+              "oi": 781
+            },
+            "topLevels": [
+              {
+                "strike": 680.0,
+                "type": "put",
+                "oi": 1243
+              },
+              {
+                "strike": 655.0,
+                "type": "put",
+                "oi": 1056
+              },
+              {
+                "strike": 745.0,
+                "type": "call",
+                "oi": 781
+              },
+              {
+                "strike": 865.0,
+                "type": "call",
+                "oi": 769
+              },
+              {
+                "strike": 870.0,
+                "type": "call",
+                "oi": 707
+              },
+              {
+                "strike": 885.0,
+                "type": "call",
+                "oi": 675
+              },
+              {
+                "strike": 925.0,
+                "type": "call",
+                "oi": 498
+              },
+              {
+                "strike": 850.0,
+                "type": "call",
+                "oi": 456
+              },
+              {
+                "strike": 750.0,
+                "type": "call",
+                "oi": 443
+              },
+              {
+                "strike": 715.0,
+                "type": "put",
+                "oi": 429
+              }
+            ]
+          },
+          "maxPain": 732.0,
+          "pcr": {
+            "targetExpiry": "2026-12-02",
+            "oiRatio": 0.61,
+            "volRatio": null
+          }
+        },
+        "2026-12-03": null,
+        "2026-12-04": {
+          "keyLevels": {
+            "putWall": {
+              "strike": 700.0,
+              "oi": 53164
+            },
+            "callWall": {
+              "strike": 775.0,
+              "oi": 16259
+            },
+            "topLevels": [
+              {
+                "strike": 700.0,
+                "type": "put",
+                "oi": 53164
+              },
+              {
+                "strike": 675.0,
+                "type": "put",
+                "oi": 49536
+              },
+              {
+                "strike": 775.0,
+                "type": "call",
+                "oi": 16259
+              },
+              {
+                "strike": 720.0,
+                "type": "put",
+                "oi": 15818
+              },
+              {
+                "strike": 800.0,
+                "type": "call",
+                "oi": 13410
+              },
+              {
+                "strike": 695.0,
+                "type": "put",
+                "oi": 12249
+              },
+              {
+                "strike": 690.0,
+                "type": "put",
+                "oi": 11030
+              },
+              {
+                "strike": 770.0,
+                "type": "call",
+                "oi": 10183
+              },
+              {
+                "strike": 680.0,
+                "type": "put",
+                "oi": 9639
+              },
+              {
+                "strike": 710.0,
+                "type": "put",
+                "oi": 8539
+              }
+            ]
+          },
+          "maxPain": 743.0,
+          "pcr": {
+            "targetExpiry": "2026-12-04",
+            "oiRatio": 1.78,
+            "volRatio": null
+          }
+        },
+        "2026-12-11": {
+          "keyLevels": {
+            "putWall": {
+              "strike": 705.0,
+              "oi": 17369
+            },
+            "callWall": {
+              "strike": 795.0,
+              "oi": 11372
+            },
+            "topLevels": [
+              {
+                "strike": 705.0,
+                "type": "put",
+                "oi": 17369
+              },
+              {
+                "strike": 725.0,
+                "type": "put",
+                "oi": 15035
+              },
+              {
+                "strike": 715.0,
+                "type": "put",
+                "oi": 13843
+              },
+              {
+                "strike": 795.0,
+                "type": "call",
+                "oi": 11372
+              },
+              {
+                "strike": 755.0,
+                "type": "put",
+                "oi": 7588
+              },
+              {
+                "strike": 765.0,
+                "type": "put",
+                "oi": 6186
+              },
+              {
+                "strike": 610.0,
+                "type": "put",
+                "oi": 5445
+              },
+              {
+                "strike": 750.0,
+                "type": "call",
+                "oi": 5385
+              },
+              {
+                "strike": 700.0,
+                "type": "put",
+                "oi": 5112
+              },
+              {
+                "strike": 720.0,
+                "type": "put",
+                "oi": 4681
+              }
+            ]
+          },
+          "maxPain": 750.0,
+          "pcr": {
+            "targetExpiry": "2026-12-11",
+            "oiRatio": 1.48,
+            "volRatio": null
+          }
+        },
+        "2026-12-18": {
+          "keyLevels": {
+            "putWall": {
+              "strike": 480.0,
+              "oi": 315443
+            },
+            "callWall": {
+              "strike": 800.0,
+              "oi": 151639
+            },
+            "topLevels": [
+              {
+                "strike": 480.0,
+                "type": "put",
+                "oi": 315443
+              },
+              {
+                "strike": 350.0,
+                "type": "put",
+                "oi": 160312
+              },
+              {
+                "strike": 610.0,
+                "type": "put",
+                "oi": 157508
+              },
+              {
+                "strike": 800.0,
+                "type": "call",
+                "oi": 151639
+              },
+              {
+                "strike": 775.0,
+                "type": "call",
+                "oi": 124847
+              },
+              {
+                "strike": 700.0,
+                "type": "put",
+                "oi": 63907
+              },
+              {
+                "strike": 600.0,
+                "type": "put",
+                "oi": 52830
+              },
+              {
+                "strike": 710.0,
+                "type": "put",
+                "oi": 52139
+              },
+              {
+                "strike": 240.0,
+                "type": "put",
+                "oi": 49826
+              },
+              {
+                "strike": 785.0,
+                "type": "call",
+                "oi": 48919
+              }
+            ]
+          },
+          "maxPain": 740.0,
+          "pcr": {
+            "targetExpiry": "2026-12-18",
+            "oiRatio": 1.84,
+            "volRatio": null
+          }
+        },
+        "2026-12-24": {
+          "keyLevels": {
+            "putWall": {
+              "strike": 725.0,
+              "oi": 5858
+            },
+            "callWall": {
+              "strike": 775.0,
+              "oi": 3089
+            },
+            "topLevels": [
+              {
+                "strike": 725.0,
+                "type": "put",
+                "oi": 5858
+              },
+              {
+                "strike": 710.0,
+                "type": "put",
+                "oi": 5495
+              },
+              {
+                "strike": 775.0,
+                "type": "call",
+                "oi": 3089
+              },
+              {
+                "strike": 770.0,
+                "type": "call",
+                "oi": 2762
+              },
+              {
+                "strike": 800.0,
+                "type": "call",
+                "oi": 2167
+              },
+              {
+                "strike": 750.0,
+                "type": "call",
+                "oi": 1672
+              },
+              {
+                "strike": 715.0,
+                "type": "put",
+                "oi": 1669
+              },
+              {
+                "strike": 760.0,
+                "type": "call",
+                "oi": 1645
+              },
+              {
+                "strike": 700.0,
+                "type": "put",
+                "oi": 1393
+              },
+              {
+                "strike": 772.0,
+                "type": "call",
+                "oi": 1371
+              }
+            ]
+          },
+          "maxPain": 725.0,
+          "pcr": {
+            "targetExpiry": "2026-12-24",
+            "oiRatio": 1.03,
+            "volRatio": null
+          }
+        },
+        "2026-12-31": {
+          "keyLevels": {
+            "putWall": {
+              "strike": 650.0,
+              "oi": 89987
+            },
+            "callWall": {
+              "strike": 775.0,
+              "oi": 64594
+            },
+            "topLevels": [
+              {
+                "strike": 650.0,
+                "type": "put",
+                "oi": 89987
+              },
+              {
+                "strike": 550.0,
+                "type": "put",
+                "oi": 88258
+              },
+              {
+                "strike": 775.0,
+                "type": "call",
+                "oi": 64594
+              },
+              {
+                "strike": 610.0,
+                "type": "put",
+                "oi": 30661
+              },
+              {
+                "strike": 730.0,
+                "type": "put",
+                "oi": 26312
+              },
+              {
+                "strike": 700.0,
+                "type": "put",
+                "oi": 24854
+              },
+              {
+                "strike": 723.0,
+                "type": "put",
+                "oi": 21702
+              },
+              {
+                "strike": 802.0,
+                "type": "call",
+                "oi": 21619
+              },
+              {
+                "strike": 900.0,
+                "type": "call",
+                "oi": 17893
+              },
+              {
+                "strike": 480.0,
+                "type": "put",
+                "oi": 16552
+              }
+            ]
+          },
+          "maxPain": 748.0,
+          "pcr": {
+            "targetExpiry": "2026-12-31",
+            "oiRatio": 1.7,
+            "volRatio": null
+          }
+        },
+        "2027-01-15": {
+          "keyLevels": {
+            "putWall": {
+              "strike": 635.0,
+              "oi": 48335
+            },
+            "callWall": {
+              "strike": 800.0,
+              "oi": 43870
+            },
+            "topLevels": [
+              {
+                "strike": 635.0,
+                "type": "put",
+                "oi": 48335
+              },
+              {
+                "strike": 50.0,
+                "type": "put",
+                "oi": 47633
+              },
+              {
+                "strike": 700.0,
+                "type": "put",
+                "oi": 45287
+              },
+              {
+                "strike": 800.0,
+                "type": "call",
+                "oi": 43870
+              },
+              {
+                "strike": 60.0,
+                "type": "put",
+                "oi": 43447
+              },
+              {
+                "strike": 600.0,
+                "type": "put",
+                "oi": 38942
+              },
+              {
+                "strike": 400.0,
+                "type": "put",
+                "oi": 35457
+              },
+              {
+                "strike": 730.0,
+                "type": "put",
+                "oi": 27979
+              },
+              {
+                "strike": 680.0,
+                "type": "put",
+                "oi": 27599
+              },
+              {
+                "strike": 70.0,
+                "type": "put",
+                "oi": 26795
+              }
+            ]
+          },
+          "maxPain": 735.0,
+          "pcr": {
+            "targetExpiry": "2027-01-15",
+            "oiRatio": 1.87,
+            "volRatio": null
+          }
+        },
+        "2027-01-29": {
+          "keyLevels": {
+            "putWall": {
+              "strike": 605.0,
+              "oi": 21669
+            },
+            "callWall": {
+              "strike": 794.0,
+              "oi": 21008
+            },
+            "topLevels": [
+              {
+                "strike": 605.0,
+                "type": "put",
+                "oi": 21669
+              },
+              {
+                "strike": 716.0,
+                "type": "put",
+                "oi": 21468
+              },
+              {
+                "strike": 794.0,
+                "type": "call",
+                "oi": 21008
+              },
+              {
+                "strike": 685.0,
+                "type": "put",
+                "oi": 15715
+              },
+              {
+                "strike": 695.0,
+                "type": "put",
+                "oi": 11390
+              },
+              {
+                "strike": 825.0,
+                "type": "call",
+                "oi": 5138
+              },
+              {
+                "strike": 860.0,
+                "type": "call",
+                "oi": 4626
+              },
+              {
+                "strike": 750.0,
+                "type": "call",
+                "oi": 4472
+              },
+              {
+                "strike": 800.0,
+                "type": "call",
+                "oi": 3916
+              },
+              {
+                "strike": 700.0,
+                "type": "put",
+                "oi": 3722
+              }
+            ]
+          },
+          "maxPain": 754.0,
+          "pcr": {
+            "targetExpiry": "2027-01-29",
+            "oiRatio": 1.44,
+            "volRatio": null
+          }
+        },
+        "2027-02-19": {
+          "keyLevels": {
+            "putWall": {
+              "strike": 680.0,
+              "oi": 16128
+            },
+            "callWall": {
+              "strike": 780.0,
+              "oi": 6733
+            },
+            "topLevels": [
+              {
+                "strike": 680.0,
+                "type": "put",
+                "oi": 16128
+              },
+              {
+                "strike": 670.0,
+                "type": "put",
+                "oi": 14668
+              },
+              {
+                "strike": 675.0,
+                "type": "put",
+                "oi": 13323
+              },
+              {
+                "strike": 750.0,
+                "type": "put",
+                "oi": 10056
+              },
+              {
+                "strike": 700.0,
+                "type": "put",
+                "oi": 9133
+              },
+              {
+                "strike": 600.0,
+                "type": "put",
+                "oi": 8319
+              },
+              {
+                "strike": 500.0,
+                "type": "put",
+                "oi": 7630
+              },
+              {
+                "strike": 740.0,
+                "type": "put",
+                "oi": 6781
+              },
+              {
+                "strike": 780.0,
+                "type": "call",
+                "oi": 6733
+              },
+              {
+                "strike": 580.0,
+                "type": "put",
+                "oi": 6310
+              }
+            ]
+          },
+          "maxPain": 750.0,
+          "pcr": {
+            "targetExpiry": "2027-02-19",
+            "oiRatio": 2.27,
+            "volRatio": null
+          }
+        },
+        "2027-02-26": {
+          "keyLevels": {
+            "putWall": {
+              "strike": 540.0,
+              "oi": 6766
+            },
+            "callWall": {
+              "strike": 776.0,
+              "oi": 12308
+            },
+            "topLevels": [
+              {
+                "strike": 776.0,
+                "type": "call",
+                "oi": 12308
+              },
+              {
+                "strike": 774.0,
+                "type": "call",
+                "oi": 8140
+              },
+              {
+                "strike": 773.0,
+                "type": "call",
+                "oi": 8071
+              },
+              {
+                "strike": 540.0,
+                "type": "put",
+                "oi": 6766
+              },
+              {
+                "strike": 830.0,
+                "type": "call",
+                "oi": 5689
+              },
+              {
+                "strike": 670.0,
+                "type": "put",
+                "oi": 5472
+              },
+              {
+                "strike": 600.0,
+                "type": "put",
+                "oi": 5320
+              },
+              {
+                "strike": 710.0,
+                "type": "put",
+                "oi": 5207
+              },
+              {
+                "strike": 640.0,
+                "type": "put",
+                "oi": 4933
+              },
+              {
+                "strike": 775.0,
+                "type": "call",
+                "oi": 4773
+              }
+            ]
+          },
+          "maxPain": 746.0,
+          "pcr": {
+            "targetExpiry": "2027-02-26",
+            "oiRatio": 0.82,
+            "volRatio": null
+          }
+        },
+        "2027-03-19": {
+          "keyLevels": {
+            "putWall": {
+              "strike": 700.0,
+              "oi": 139980
+            },
+            "callWall": {
+              "strike": 800.0,
+              "oi": 28149
+            },
+            "topLevels": [
+              {
+                "strike": 700.0,
+                "type": "put",
+                "oi": 139980
+              },
+              {
+                "strike": 500.0,
+                "type": "put",
+                "oi": 110467
+              },
+              {
+                "strike": 655.0,
+                "type": "put",
+                "oi": 106679
+              },
+              {
+                "strike": 690.0,
+                "type": "put",
+                "oi": 69173
+              },
+              {
+                "strike": 605.0,
+                "type": "put",
+                "oi": 63547
+              },
+              {
+                "strike": 715.0,
+                "type": "put",
+                "oi": 50645
+              },
+              {
+                "strike": 590.0,
+                "type": "put",
+                "oi": 30202
+              },
+              {
+                "strike": 800.0,
+                "type": "call",
+                "oi": 28149
+              },
+              {
+                "strike": 820.0,
+                "type": "call",
+                "oi": 24013
+              },
+              {
+                "strike": 400.0,
+                "type": "put",
+                "oi": 19118
+              }
+            ]
+          },
+          "maxPain": 750.0,
+          "pcr": {
+            "targetExpiry": "2027-03-19",
+            "oiRatio": 2.31,
+            "volRatio": null
+          }
+        },
+        "2027-03-31": {
+          "keyLevels": {
+            "putWall": {
+              "strike": 700.0,
+              "oi": 7365
+            },
+            "callWall": {
+              "strike": 900.0,
+              "oi": 15949
+            },
+            "topLevels": [
+              {
+                "strike": 900.0,
+                "type": "call",
+                "oi": 15949
+              },
+              {
+                "strike": 700.0,
+                "type": "put",
+                "oi": 7365
+              },
+              {
+                "strike": 584.0,
+                "type": "put",
+                "oi": 7254
+              },
+              {
+                "strike": 400.0,
+                "type": "put",
+                "oi": 6432
+              },
+              {
+                "strike": 755.0,
+                "type": "put",
+                "oi": 5034
+              },
+              {
+                "strike": 740.0,
+                "type": "put",
+                "oi": 5011
+              },
+              {
+                "strike": 810.0,
+                "type": "call",
+                "oi": 4674
+              },
+              {
+                "strike": 775.0,
+                "type": "put",
+                "oi": 4593
+              },
+              {
+                "strike": 785.0,
+                "type": "call",
+                "oi": 4376
+              },
+              {
+                "strike": 850.0,
+                "type": "call",
+                "oi": 3914
+              }
+            ]
+          },
+          "maxPain": 755.0,
+          "pcr": {
+            "targetExpiry": "2027-03-31",
+            "oiRatio": 1.05,
+            "volRatio": null
+          }
+        },
+        "2027-04-16": {
+          "keyLevels": {
+            "putWall": {
+              "strike": 755.0,
+              "oi": 5261
+            },
+            "callWall": {
+              "strike": 785.0,
+              "oi": 8105
+            },
+            "topLevels": [
+              {
+                "strike": 785.0,
+                "type": "call",
+                "oi": 8105
+              },
+              {
+                "strike": 755.0,
+                "type": "put",
+                "oi": 5261
+              },
+              {
+                "strike": 770.0,
+                "type": "call",
+                "oi": 5159
+              },
+              {
+                "strike": 750.0,
+                "type": "put",
+                "oi": 4890
+              },
+              {
+                "strike": 745.0,
+                "type": "put",
+                "oi": 4142
+              },
+              {
+                "strike": 500.0,
+                "type": "put",
+                "oi": 4054
+              },
+              {
+                "strike": 710.0,
+                "type": "put",
+                "oi": 3927
+              },
+              {
+                "strike": 850.0,
+                "type": "call",
+                "oi": 3168
+              },
+              {
+                "strike": 775.0,
+                "type": "call",
+                "oi": 3117
+              },
+              {
+                "strike": 700.0,
+                "type": "put",
+                "oi": 3089
+              }
+            ]
+          },
+          "maxPain": 755.0,
+          "pcr": {
+            "targetExpiry": "2027-04-16",
+            "oiRatio": 1.25,
+            "volRatio": null
+          }
+        },
+        "2027-04-30": {
+          "keyLevels": {
+            "putWall": {
+              "strike": 720.0,
+              "oi": 1135
+            },
+            "callWall": {
+              "strike": 700.0,
+              "oi": 2088
+            },
+            "topLevels": [
+              {
+                "strike": 700.0,
+                "type": "call",
+                "oi": 2088
+              },
+              {
+                "strike": 680.0,
+                "type": "call",
+                "oi": 1406
+              },
+              {
+                "strike": 720.0,
+                "type": "put",
+                "oi": 1135
+              },
+              {
+                "strike": 805.0,
+                "type": "call",
+                "oi": 1061
+              },
+              {
+                "strike": 690.0,
+                "type": "put",
+                "oi": 978
+              },
+              {
+                "strike": 800.0,
+                "type": "call",
+                "oi": 850
+              },
+              {
+                "strike": 570.0,
+                "type": "put",
+                "oi": 835
+              },
+              {
+                "strike": 700.0,
+                "type": "put",
+                "oi": 784
+              },
+              {
+                "strike": 790.0,
+                "type": "call",
+                "oi": 774
+              },
+              {
+                "strike": 690.0,
+                "type": "call",
+                "oi": 737
+              }
+            ]
+          },
+          "maxPain": 740.0,
+          "pcr": {
+            "targetExpiry": "2027-04-30",
+            "oiRatio": 0.89,
+            "volRatio": null
+          }
+        },
+        "2027-06-17": {
+          "keyLevels": {
+            "putWall": {
+              "strike": 685.0,
+              "oi": 17242
+            },
+            "callWall": {
+              "strike": 800.0,
+              "oi": 30269
+            },
+            "topLevels": [
+              {
+                "strike": 800.0,
+                "type": "call",
+                "oi": 30269
+              },
+              {
+                "strike": 685.0,
+                "type": "put",
+                "oi": 17242
+              },
+              {
+                "strike": 500.0,
+                "type": "put",
+                "oi": 16784
+              },
+              {
+                "strike": 895.0,
+                "type": "call",
+                "oi": 15688
+              },
+              {
+                "strike": 140.0,
+                "type": "put",
+                "oi": 15479
+              },
+              {
+                "strike": 710.0,
+                "type": "put",
+                "oi": 15360
+              },
+              {
+                "strike": 900.0,
+                "type": "call",
+                "oi": 15039
+              },
+              {
+                "strike": 340.0,
+                "type": "put",
+                "oi": 13288
+              },
+              {
+                "strike": 700.0,
+                "type": "put",
+                "oi": 12952
+              },
+              {
+                "strike": 60.0,
+                "type": "put",
+                "oi": 12569
+              }
+            ]
+          },
+          "maxPain": 760.0,
+          "pcr": {
+            "targetExpiry": "2027-06-17",
+            "oiRatio": 1.39,
+            "volRatio": null
+          }
+        },
+        "2027-06-30": {
+          "keyLevels": {
+            "putWall": {
+              "strike": 672.0,
+              "oi": 7150
+            },
+            "callWall": {
+              "strike": 950.0,
+              "oi": 10603
+            },
+            "topLevels": [
+              {
+                "strike": 950.0,
+                "type": "call",
+                "oi": 10603
+              },
+              {
+                "strike": 672.0,
+                "type": "put",
+                "oi": 7150
+              },
+              {
+                "strike": 935.0,
+                "type": "call",
+                "oi": 3145
+              },
+              {
+                "strike": 665.0,
+                "type": "put",
+                "oi": 3008
+              },
+              {
+                "strike": 900.0,
+                "type": "call",
+                "oi": 2442
+              },
+              {
+                "strike": 550.0,
+                "type": "put",
+                "oi": 2261
+              },
+              {
+                "strike": 920.0,
+                "type": "call",
+                "oi": 2167
+              },
+              {
+                "strike": 800.0,
+                "type": "call",
+                "oi": 2166
+              },
+              {
+                "strike": 815.0,
+                "type": "call",
+                "oi": 2135
+              },
+              {
+                "strike": 820.0,
+                "type": "call",
+                "oi": 2109
+              }
+            ]
+          },
+          "maxPain": 767.0,
+          "pcr": {
+            "targetExpiry": "2027-06-30",
+            "oiRatio": 0.86,
+            "volRatio": null
+          }
+        },
+        "2027-09-17": {
+          "keyLevels": {
+            "putWall": {
+              "strike": 430.0,
+              "oi": 8900
+            },
+            "callWall": {
+              "strike": 880.0,
+              "oi": 8580
+            },
+            "topLevels": [
+              {
+                "strike": 430.0,
+                "type": "put",
+                "oi": 8900
+              },
+              {
+                "strike": 700.0,
+                "type": "put",
+                "oi": 8799
+              },
+              {
+                "strike": 880.0,
+                "type": "call",
+                "oi": 8580
+              },
+              {
+                "strike": 725.0,
+                "type": "put",
+                "oi": 8243
+              },
+              {
+                "strike": 770.0,
+                "type": "put",
+                "oi": 8132
+              },
+              {
+                "strike": 1000.0,
+                "type": "call",
+                "oi": 6445
+              },
+              {
+                "strike": 985.0,
+                "type": "call",
+                "oi": 5850
+              },
+              {
+                "strike": 805.0,
+                "type": "put",
+                "oi": 5721
+              },
+              {
+                "strike": 660.0,
+                "type": "put",
+                "oi": 5470
+              },
+              {
+                "strike": 705.0,
+                "type": "put",
+                "oi": 5439
+              }
+            ]
+          },
+          "maxPain": 795.0,
+          "pcr": {
+            "targetExpiry": "2027-09-17",
+            "oiRatio": 1.09,
+            "volRatio": null
+          }
+        },
+        "2027-09-30": {
+          "keyLevels": {
+            "putWall": {
+              "strike": 690.0,
+              "oi": 7174
+            },
+            "callWall": {
+              "strike": 810.0,
+              "oi": 3302
+            },
+            "topLevels": [
+              {
+                "strike": 690.0,
+                "type": "put",
+                "oi": 7174
+              },
+              {
+                "strike": 810.0,
+                "type": "call",
+                "oi": 3302
+              },
+              {
+                "strike": 785.0,
+                "type": "put",
+                "oi": 3014
+              },
+              {
+                "strike": 540.0,
+                "type": "put",
+                "oi": 1710
+              },
+              {
+                "strike": 995.0,
+                "type": "call",
+                "oi": 1626
+              },
+              {
+                "strike": 840.0,
+                "type": "call",
+                "oi": 1072
+              },
+              {
+                "strike": 945.0,
+                "type": "call",
+                "oi": 1071
+              },
+              {
+                "strike": 727.0,
+                "type": "put",
+                "oi": 1001
+              },
+              {
+                "strike": 955.0,
+                "type": "call",
+                "oi": 911
+              },
+              {
+                "strike": 820.0,
+                "type": "call",
+                "oi": 744
+              }
+            ]
+          },
+          "maxPain": 785.0,
+          "pcr": {
+            "targetExpiry": "2027-09-30",
+            "oiRatio": 1.11,
+            "volRatio": null
+          }
+        },
+        "2027-12-17": {
+          "keyLevels": {
+            "putWall": {
+              "strike": 500.0,
+              "oi": 17234
+            },
+            "callWall": {
+              "strike": 1050.0,
+              "oi": 29816
+            },
+            "topLevels": [
+              {
+                "strike": 1050.0,
+                "type": "call",
+                "oi": 29816
+              },
+              {
+                "strike": 1110.0,
+                "type": "call",
+                "oi": 19099
+              },
+              {
+                "strike": 1100.0,
+                "type": "call",
+                "oi": 17268
+              },
+              {
+                "strike": 500.0,
+                "type": "put",
+                "oi": 17234
+              },
+              {
+                "strike": 1115.0,
+                "type": "call",
+                "oi": 15033
+              },
+              {
+                "strike": 1095.0,
+                "type": "call",
+                "oi": 14699
+              },
+              {
+                "strike": 1120.0,
+                "type": "call",
+                "oi": 12834
+              },
+              {
+                "strike": 1150.0,
+                "type": "call",
+                "oi": 12137
+              },
+              {
+                "strike": 1130.0,
+                "type": "call",
+                "oi": 11640
+              },
+              {
+                "strike": 1000.0,
+                "type": "call",
+                "oi": 11359
+              }
+            ]
+          },
+          "maxPain": 725.0,
+          "pcr": {
+            "targetExpiry": "2027-12-17",
+            "oiRatio": 0.91,
+            "volRatio": null
+          }
+        },
+        "2028-01-21": {
+          "keyLevels": {
+            "putWall": {
+              "strike": 100.0,
+              "oi": 27871
+            },
+            "callWall": {
+              "strike": 1000.0,
+              "oi": 22966
+            },
+            "topLevels": [
+              {
+                "strike": 100.0,
+                "type": "put",
+                "oi": 27871
+              },
+              {
+                "strike": 1000.0,
+                "type": "call",
+                "oi": 22966
+              },
+              {
+                "strike": 700.0,
+                "type": "put",
+                "oi": 10492
+              },
+              {
+                "strike": 1030.0,
+                "type": "call",
+                "oi": 8570
+              },
+              {
+                "strike": 1010.0,
+                "type": "call",
+                "oi": 7176
+              },
+              {
+                "strike": 1025.0,
+                "type": "call",
+                "oi": 6999
+              },
+              {
+                "strike": 1020.0,
+                "type": "call",
+                "oi": 6745
+              },
+              {
+                "strike": 1015.0,
+                "type": "call",
+                "oi": 6708
+              },
+              {
+                "strike": 650.0,
+                "type": "put",
+                "oi": 6644
+              },
+              {
+                "strike": 785.0,
+                "type": "put",
+                "oi": 6524
+              }
+            ]
+          },
+          "maxPain": 765.0,
+          "pcr": {
+            "targetExpiry": "2028-01-21",
+            "oiRatio": 0.98,
+            "volRatio": null
+          }
+        },
+        "2028-06-16": {
+          "keyLevels": {
+            "putWall": {
+              "strike": 435.0,
+              "oi": 6617
+            },
+            "callWall": {
+              "strike": 850.0,
+              "oi": 6536
+            },
+            "topLevels": [
+              {
+                "strike": 435.0,
+                "type": "put",
+                "oi": 6617
+              },
+              {
+                "strike": 850.0,
+                "type": "call",
+                "oi": 6536
+              },
+              {
+                "strike": 660.0,
+                "type": "put",
+                "oi": 6254
+              },
+              {
+                "strike": 1000.0,
+                "type": "call",
+                "oi": 4126
+              },
+              {
+                "strike": 835.0,
+                "type": "call",
+                "oi": 3254
+              },
+              {
+                "strike": 1100.0,
+                "type": "call",
+                "oi": 3050
+              },
+              {
+                "strike": 780.0,
+                "type": "put",
+                "oi": 2982
+              },
+              {
+                "strike": 600.0,
+                "type": "put",
+                "oi": 2951
+              },
+              {
+                "strike": 870.0,
+                "type": "call",
+                "oi": 2528
+              },
+              {
+                "strike": 265.0,
+                "type": "put",
+                "oi": 2349
+              }
+            ]
+          },
+          "maxPain": 780.0,
+          "pcr": {
+            "targetExpiry": "2028-06-16",
+            "oiRatio": 1.2,
+            "volRatio": null
+          }
+        },
+        "2028-12-15": {
+          "keyLevels": {
+            "putWall": {
+              "strike": 700.0,
+              "oi": 7508
+            },
+            "callWall": {
+              "strike": 1480.0,
+              "oi": 15884
+            },
+            "topLevels": [
+              {
+                "strike": 1480.0,
+                "type": "call",
+                "oi": 15884
+              },
+              {
+                "strike": 1000.0,
+                "type": "call",
+                "oi": 11317
+              },
+              {
+                "strike": 1100.0,
+                "type": "call",
+                "oi": 8370
+              },
+              {
+                "strike": 700.0,
+                "type": "put",
+                "oi": 7508
+              },
+              {
+                "strike": 1200.0,
+                "type": "call",
+                "oi": 6077
+              },
+              {
+                "strike": 50.0,
+                "type": "put",
+                "oi": 5971
+              },
+              {
+                "strike": 800.0,
+                "type": "call",
+                "oi": 5707
+              },
+              {
+                "strike": 1350.0,
+                "type": "call",
+                "oi": 5432
+              },
+              {
+                "strike": 535.0,
+                "type": "put",
+                "oi": 5209
+              },
+              {
+                "strike": 740.0,
+                "type": "put",
+                "oi": 4716
+              }
+            ]
+          },
+          "maxPain": 740.0,
+          "pcr": {
+            "targetExpiry": "2028-12-15",
+            "oiRatio": 0.77,
+            "volRatio": null
+          }
+        },
+        "2029-01-19": {
+          "keyLevels": {
+            "putWall": {
+              "strike": 250.0,
+              "oi": 2964
+            },
+            "callWall": {
+              "strike": 1400.0,
+              "oi": 7657
+            },
+            "topLevels": [
+              {
+                "strike": 1400.0,
+                "type": "call",
+                "oi": 7657
+              },
+              {
+                "strike": 1390.0,
+                "type": "call",
+                "oi": 5399
+              },
+              {
+                "strike": 250.0,
+                "type": "put",
+                "oi": 2964
+              },
+              {
+                "strike": 610.0,
+                "type": "put",
+                "oi": 2781
+              },
+              {
+                "strike": 630.0,
+                "type": "put",
+                "oi": 2754
+              },
+              {
+                "strike": 270.0,
+                "type": "put",
+                "oi": 2587
+              },
+              {
+                "strike": 300.0,
+                "type": "put",
+                "oi": 2555
+              },
+              {
+                "strike": 660.0,
+                "type": "put",
+                "oi": 2240
+              },
+              {
+                "strike": 640.0,
+                "type": "put",
+                "oi": 2206
+              },
+              {
+                "strike": 340.0,
+                "type": "put",
+                "oi": 2007
+              }
+            ]
+          },
+          "maxPain": 735.0,
+          "pcr": {
+            "targetExpiry": "2029-01-19",
+            "oiRatio": 1.04,
+            "volRatio": null
+          }
+        }
+      },
       "spot": 689.81,
       "gex": {
-        "total": -1426737254.0,
+        "total": -1439373894.0,
         "byExpiry": [
           {
             "expiry": "2026-11-23",
-            "gex": -45376500.0,
-            "dte": 2
+            "gex": -51804719.0,
+            "dte": 1
           },
           {
             "expiry": "2026-11-24",
-            "gex": -18814230.0,
-            "dte": 3
+            "gex": -20063299.0,
+            "dte": 2
           },
           {
             "expiry": "2026-11-25",
-            "gex": -9350009.0,
-            "dte": 4
+            "gex": -10172494.0,
+            "dte": 3
           },
           {
             "expiry": "2026-11-27",
-            "gex": -116150849.0,
-            "dte": 6
+            "gex": -118063029.0,
+            "dte": 5
           },
           {
             "expiry": "2026-11-30",
-            "gex": -234103294.0,
-            "dte": 9
+            "gex": -235198990.0,
+            "dte": 8
           },
           {
             "expiry": "2026-12-01",
-            "gex": -2382563.0,
-            "dte": 10
+            "gex": -2419425.0,
+            "dte": 9
           },
           {
             "expiry": "2026-12-02",
-            "gex": -2343087.0,
-            "dte": 11
+            "gex": -2360767.0,
+            "dte": 10
           },
           {
             "expiry": "2026-12-03",
-            "gex": -4520009.0,
-            "dte": 12
+            "gex": -4541005.0,
+            "dte": 11
           },
           {
             "expiry": "2026-12-04",
-            "gex": -116386304.0,
-            "dte": 13
+            "gex": -116762610.0,
+            "dte": 12
           },
           {
             "expiry": "2026-12-11",
-            "gex": -37297228.0,
-            "dte": 20
+            "gex": -37340471.0,
+            "dte": 19
           },
           {
             "expiry": "2026-12-18",
-            "gex": -290608695.0,
-            "dte": 27
+            "gex": -290961262.0,
+            "dte": 26
           },
           {
             "expiry": "2026-12-24",
-            "gex": -7343231.0,
-            "dte": 33
+            "gex": -7350350.0,
+            "dte": 32
           },
           {
             "expiry": "2026-12-31",
-            "gex": -111882574.0,
-            "dte": 40
+            "gex": -111971654.0,
+            "dte": 39
           },
           {
             "expiry": "2027-01-15",
-            "gex": -133043978.0,
-            "dte": 55
+            "gex": -133111765.0,
+            "dte": 54
           },
           {
             "expiry": "2027-01-29",
-            "gex": -26627646.0,
-            "dte": 69
+            "gex": -26643113.0,
+            "dte": 68
           },
           {
             "expiry": "2027-02-19",
-            "gex": -30614516.0,
-            "dte": 90
+            "gex": -30622479.0,
+            "dte": 89
           },
           {
             "expiry": "2027-02-26",
-            "gex": -702542.0,
-            "dte": 97
+            "gex": -711857.0,
+            "dte": 96
           },
           {
             "expiry": "2027-03-19",
-            "gex": -157874394.0,
-            "dte": 118
+            "gex": -157922853.0,
+            "dte": 117
           },
           {
             "expiry": "2027-03-31",
-            "gex": -8399295.0,
-            "dte": 130
+            "gex": -8398657.0,
+            "dte": 129
           },
           {
             "expiry": "2027-04-16",
-            "gex": -4906759.0,
-            "dte": 146
+            "gex": -4907507.0,
+            "dte": 145
           },
           {
             "expiry": "2027-04-30",
-            "gex": -859313.0,
-            "dte": 160
+            "gex": -859433.0,
+            "dte": 159
           },
           {
             "expiry": "2027-06-17",
-            "gex": -18930468.0,
-            "dte": 208
+            "gex": -18948118.0,
+            "dte": 207
           },
           {
             "expiry": "2027-06-30",
-            "gex": -4010628.0,
-            "dte": 221
+            "gex": -4012261.0,
+            "dte": 220
           },
           {
             "expiry": "2027-09-17",
-            "gex": -15921598.0,
-            "dte": 300
+            "gex": -15925423.0,
+            "dte": 299
           },
           {
             "expiry": "2027-09-30",
-            "gex": -2101171.0,
-            "dte": 313
+            "gex": -2101785.0,
+            "dte": 312
           },
           {
             "expiry": "2027-12-17",
-            "gex": -10389187.0,
-            "dte": 391
+            "gex": -10395343.0,
+            "dte": 390
           },
           {
             "expiry": "2028-01-21",
-            "gex": -8637627.0,
-            "dte": 426
+            "gex": -8640487.0,
+            "dte": 425
           },
           {
             "expiry": "2028-06-16",
-            "gex": -3222615.0,
-            "dte": 573
+            "gex": -3223856.0,
+            "dte": 572
           },
           {
             "expiry": "2028-12-15",
-            "gex": -3029948.0,
-            "dte": 755
+            "gex": -3031234.0,
+            "dte": 754
           },
           {
             "expiry": "2029-01-19",
-            "gex": -906994.0,
-            "dte": 790
+            "gex": -907649.0,
+            "dte": 789
           }
         ],
         "byStrike": [
           {
             "strike": 500.0,
-            "gex": -10859391.0
+            "gex": -10860320.0
           },
           {
             "strike": 550.0,
-            "gex": -12095567.0
+            "gex": -12093799.0
           },
           {
             "strike": 600.0,
-            "gex": -23321645.0
+            "gex": -23175019.0
           },
           {
             "strike": 605.0,
-            "gex": -16965602.0
+            "gex": -16953146.0
           },
           {
             "strike": 610.0,
-            "gex": -41603139.0
+            "gex": -41604490.0
           },
           {
             "strike": 620.0,
-            "gex": -12981645.0
+            "gex": -12942499.0
           },
           {
             "strike": 625.0,
-            "gex": -12163527.0
+            "gex": -12112542.0
           },
           {
             "strike": 630.0,
-            "gex": -15054611.0
+            "gex": -15032971.0
           },
           {
             "strike": 635.0,
-            "gex": -17996897.0
+            "gex": -17938252.0
           },
           {
             "strike": 640.0,
-            "gex": -14649403.0
+            "gex": -14597898.0
           },
           {
             "strike": 645.0,
-            "gex": -11187320.0
+            "gex": -11131209.0
           },
           {
             "strike": 650.0,
-            "gex": -55644569.0
+            "gex": -55558193.0
           },
           {
             "strike": 655.0,
-            "gex": -39699175.0
+            "gex": -39653604.0
           },
           {
             "strike": 660.0,
-            "gex": -30249632.0
+            "gex": -30136274.0
           },
           {
             "strike": 665.0,
-            "gex": -19900832.0
+            "gex": -19759305.0
           },
           {
             "strike": 670.0,
-            "gex": -49184814.0
+            "gex": -49224972.0
           },
           {
             "strike": 675.0,
-            "gex": -143294910.0
+            "gex": -144205619.0
           },
           {
             "strike": 680.0,
-            "gex": -75569494.0
+            "gex": -76234691.0
           },
           {
             "strike": 685.0,
-            "gex": -58840713.0
+            "gex": -59555496.0
           },
           {
             "strike": 690.0,
-            "gex": -92072659.0
+            "gex": -93904533.0
           },
           {
             "strike": 692.0,
-            "gex": -11628909.0
+            "gex": -11700792.0
           },
           {
             "strike": 695.0,
-            "gex": -82317283.0
+            "gex": -85320298.0
           },
           {
             "strike": 700.0,
-            "gex": -255147968.0
+            "gex": -256039557.0
           },
           {
             "strike": 705.0,
-            "gex": -41347119.0
+            "gex": -41417572.0
           },
           {
             "strike": 706.0,
-            "gex": -14847916.0
+            "gex": -14876393.0
           },
           {
             "strike": 708.0,
-            "gex": -11738391.0
+            "gex": -11734249.0
           },
           {
             "strike": 710.0,
-            "gex": -76401183.0
+            "gex": -76347960.0
           },
           {
             "strike": 712.0,
-            "gex": -13286732.0
+            "gex": -13280064.0
           },
           {
             "strike": 715.0,
-            "gex": -62354784.0
+            "gex": -62163900.0
           },
           {
             "strike": 716.0,
-            "gex": -21788181.0
+            "gex": -21805306.0
           },
           {
             "strike": 718.0,
-            "gex": -11872341.0
+            "gex": -11925952.0
           },
           {
             "strike": 720.0,
-            "gex": -48354454.0
+            "gex": -48872818.0
           },
           {
             "strike": 725.0,
-            "gex": -25276856.0
+            "gex": -25381733.0
           },
           {
             "strike": 730.0,
-            "gex": -38338972.0
+            "gex": -38651091.0
           },
           {
             "strike": 735.0,
-            "gex": -24836363.0
+            "gex": -25063859.0
           },
           {
             "strike": 740.0,
-            "gex": -13333428.0
+            "gex": -13503258.0
           },
           {
             "strike": 770.0,
-            "gex": 13230680.0
+            "gex": 13125262.0
           },
           {
             "strike": 775.0,
-            "gex": 32313288.0
+            "gex": 32142772.0
           },
           {
             "strike": 780.0,
-            "gex": 11013875.0
+            "gex": 10960449.0
           },
           {
             "strike": 800.0,
-            "gex": 26599697.0
+            "gex": 26528346.0
           }
         ],
-        "flipPrice": 733.33
+        "flipPrice": 733.2
       },
       "pcr": {
-        "allExpOiRatio": 1.52,
-        "allExpVolRatio": 1.38,
+        "allExpOiRatio": null,
+        "allExpVolRatio": null,
         "targetExpiry": "2026-12-18",
         "oiRatio": 1.84,
-        "volRatio": 1.51
+        "volRatio": null
       },
       "skew": {
-        "riskReversal25d": 8.35,
-        "putIV25d": 35.27,
-        "callIV25d": 26.93,
-        "atmIV": 31.31
+        "riskReversal25d": 8.49,
+        "putIV25d": 35.92,
+        "callIV25d": 27.43,
+        "atmIV": 31.88
       },
       "vrp": {
-        "iv": 31.31,
+        "iv": 31.88,
         "hv21": 25.6,
-        "premium": 5.71
+        "premium": 6.28
       },
       "maxPain": 740.0,
       "keyLevels": {
@@ -1235,345 +2992,1618 @@
             "oi": 52830
           },
           {
+            "strike": 710.0,
+            "type": "put",
+            "oi": 52139
+          },
+          {
+            "strike": 240.0,
+            "type": "put",
+            "oi": 49826
+          },
+          {
             "strike": 785.0,
             "type": "call",
             "oi": 48919
-          },
-          {
-            "strike": 770.0,
-            "type": "call",
-            "oi": 42677
-          },
-          {
-            "strike": 750.0,
-            "type": "call",
-            "oi": 42452
           }
         ]
       }
     },
     "QQQ": {
+      "expiryDetails": {
+        "2026-11-23": null,
+        "2026-11-24": null,
+        "2026-11-25": null,
+        "2026-11-27": null,
+        "2026-11-30": {
+          "keyLevels": {
+            "putWall": {
+              "strike": 675.0,
+              "oi": 21563
+            },
+            "callWall": {
+              "strike": 750.0,
+              "oi": 22810
+            },
+            "topLevels": [
+              {
+                "strike": 750.0,
+                "type": "call",
+                "oi": 22810
+              },
+              {
+                "strike": 675.0,
+                "type": "put",
+                "oi": 21563
+              },
+              {
+                "strike": 675.0,
+                "type": "call",
+                "oi": 21338
+              },
+              {
+                "strike": 650.0,
+                "type": "put",
+                "oi": 20470
+              },
+              {
+                "strike": 680.0,
+                "type": "put",
+                "oi": 18906
+              },
+              {
+                "strike": 700.0,
+                "type": "call",
+                "oi": 18453
+              },
+              {
+                "strike": 600.0,
+                "type": "put",
+                "oi": 16848
+              },
+              {
+                "strike": 660.0,
+                "type": "put",
+                "oi": 16353
+              },
+              {
+                "strike": 640.0,
+                "type": "put",
+                "oi": 16304
+              },
+              {
+                "strike": 690.0,
+                "type": "call",
+                "oi": 16020
+              }
+            ]
+          },
+          "maxPain": 680.0,
+          "pcr": {
+            "targetExpiry": "2026-11-30",
+            "oiRatio": 1.1,
+            "volRatio": null
+          }
+        },
+        "2026-12-01": {
+          "keyLevels": {
+            "putWall": {
+              "strike": 600.0,
+              "oi": 4001
+            },
+            "callWall": {
+              "strike": 680.0,
+              "oi": 2509
+            },
+            "topLevels": [
+              {
+                "strike": 600.0,
+                "type": "put",
+                "oi": 4001
+              },
+              {
+                "strike": 680.0,
+                "type": "call",
+                "oi": 2509
+              },
+              {
+                "strike": 700.0,
+                "type": "call",
+                "oi": 952
+              },
+              {
+                "strike": 660.0,
+                "type": "call",
+                "oi": 805
+              },
+              {
+                "strike": 685.0,
+                "type": "call",
+                "oi": 595
+              },
+              {
+                "strike": 540.0,
+                "type": "put",
+                "oi": 571
+              },
+              {
+                "strike": 650.0,
+                "type": "put",
+                "oi": 563
+              },
+              {
+                "strike": 595.0,
+                "type": "put",
+                "oi": 368
+              },
+              {
+                "strike": 690.0,
+                "type": "call",
+                "oi": 344
+              },
+              {
+                "strike": 640.0,
+                "type": "put",
+                "oi": 331
+              }
+            ]
+          },
+          "maxPain": 660.0,
+          "pcr": {
+            "targetExpiry": "2026-12-01",
+            "oiRatio": 1.09,
+            "volRatio": null
+          }
+        },
+        "2026-12-02": {
+          "keyLevels": {
+            "putWall": {
+              "strike": 635.0,
+              "oi": 256
+            },
+            "callWall": {
+              "strike": 695.0,
+              "oi": 580
+            },
+            "topLevels": [
+              {
+                "strike": 695.0,
+                "type": "call",
+                "oi": 580
+              },
+              {
+                "strike": 655.0,
+                "type": "call",
+                "oi": 345
+              },
+              {
+                "strike": 635.0,
+                "type": "put",
+                "oi": 256
+              },
+              {
+                "strike": 670.0,
+                "type": "call",
+                "oi": 228
+              },
+              {
+                "strike": 700.0,
+                "type": "call",
+                "oi": 200
+              },
+              {
+                "strike": 645.0,
+                "type": "put",
+                "oi": 198
+              },
+              {
+                "strike": 655.0,
+                "type": "put",
+                "oi": 183
+              },
+              {
+                "strike": 650.0,
+                "type": "put",
+                "oi": 175
+              },
+              {
+                "strike": 675.0,
+                "type": "call",
+                "oi": 172
+              },
+              {
+                "strike": 640.0,
+                "type": "put",
+                "oi": 171
+              }
+            ]
+          },
+          "maxPain": 661.0,
+          "pcr": {
+            "targetExpiry": "2026-12-02",
+            "oiRatio": 1.1,
+            "volRatio": null
+          }
+        },
+        "2026-12-03": null,
+        "2026-12-04": {
+          "keyLevels": {
+            "putWall": {
+              "strike": 635.0,
+              "oi": 19378
+            },
+            "callWall": {
+              "strike": 730.0,
+              "oi": 13825
+            },
+            "topLevels": [
+              {
+                "strike": 635.0,
+                "type": "put",
+                "oi": 19378
+              },
+              {
+                "strike": 610.0,
+                "type": "put",
+                "oi": 18990
+              },
+              {
+                "strike": 730.0,
+                "type": "call",
+                "oi": 13825
+              },
+              {
+                "strike": 725.0,
+                "type": "call",
+                "oi": 12445
+              },
+              {
+                "strike": 630.0,
+                "type": "put",
+                "oi": 11234
+              },
+              {
+                "strike": 665.0,
+                "type": "put",
+                "oi": 8383
+              },
+              {
+                "strike": 650.0,
+                "type": "put",
+                "oi": 6749
+              },
+              {
+                "strike": 590.0,
+                "type": "put",
+                "oi": 6663
+              },
+              {
+                "strike": 690.0,
+                "type": "call",
+                "oi": 4800
+              },
+              {
+                "strike": 570.0,
+                "type": "put",
+                "oi": 3792
+              }
+            ]
+          },
+          "maxPain": 675.0,
+          "pcr": {
+            "targetExpiry": "2026-12-04",
+            "oiRatio": 1.35,
+            "volRatio": null
+          }
+        },
+        "2026-12-11": {
+          "keyLevels": {
+            "putWall": {
+              "strike": 685.0,
+              "oi": 8824
+            },
+            "callWall": {
+              "strike": 705.0,
+              "oi": 9338
+            },
+            "topLevels": [
+              {
+                "strike": 705.0,
+                "type": "call",
+                "oi": 9338
+              },
+              {
+                "strike": 685.0,
+                "type": "put",
+                "oi": 8824
+              },
+              {
+                "strike": 580.0,
+                "type": "put",
+                "oi": 5502
+              },
+              {
+                "strike": 720.0,
+                "type": "call",
+                "oi": 5326
+              },
+              {
+                "strike": 640.0,
+                "type": "put",
+                "oi": 4111
+              },
+              {
+                "strike": 620.0,
+                "type": "put",
+                "oi": 3044
+              },
+              {
+                "strike": 650.0,
+                "type": "put",
+                "oi": 2800
+              },
+              {
+                "strike": 630.0,
+                "type": "put",
+                "oi": 2581
+              },
+              {
+                "strike": 700.0,
+                "type": "call",
+                "oi": 2444
+              },
+              {
+                "strike": 575.0,
+                "type": "put",
+                "oi": 2258
+              }
+            ]
+          },
+          "maxPain": 683.0,
+          "pcr": {
+            "targetExpiry": "2026-12-11",
+            "oiRatio": 1.09,
+            "volRatio": null
+          }
+        },
+        "2026-12-18": {
+          "keyLevels": {
+            "putWall": {
+              "strike": 680.0,
+              "oi": 63723
+            },
+            "callWall": {
+              "strike": 720.0,
+              "oi": 96286
+            },
+            "topLevels": [
+              {
+                "strike": 720.0,
+                "type": "call",
+                "oi": 96286
+              },
+              {
+                "strike": 700.0,
+                "type": "call",
+                "oi": 88028
+              },
+              {
+                "strike": 800.0,
+                "type": "call",
+                "oi": 78218
+              },
+              {
+                "strike": 680.0,
+                "type": "put",
+                "oi": 63723
+              },
+              {
+                "strike": 725.0,
+                "type": "call",
+                "oi": 63132
+              },
+              {
+                "strike": 710.0,
+                "type": "call",
+                "oi": 62565
+              },
+              {
+                "strike": 700.0,
+                "type": "put",
+                "oi": 62225
+              },
+              {
+                "strike": 600.0,
+                "type": "put",
+                "oi": 59965
+              },
+              {
+                "strike": 650.0,
+                "type": "put",
+                "oi": 58730
+              },
+              {
+                "strike": 640.0,
+                "type": "put",
+                "oi": 54498
+              }
+            ]
+          },
+          "maxPain": 680.0,
+          "pcr": {
+            "targetExpiry": "2026-12-18",
+            "oiRatio": 0.97,
+            "volRatio": null
+          }
+        },
+        "2026-12-24": {
+          "keyLevels": {
+            "putWall": {
+              "strike": 640.0,
+              "oi": 4360
+            },
+            "callWall": {
+              "strike": 710.0,
+              "oi": 4497
+            },
+            "topLevels": [
+              {
+                "strike": 710.0,
+                "type": "call",
+                "oi": 4497
+              },
+              {
+                "strike": 640.0,
+                "type": "put",
+                "oi": 4360
+              },
+              {
+                "strike": 730.0,
+                "type": "call",
+                "oi": 1925
+              },
+              {
+                "strike": 600.0,
+                "type": "put",
+                "oi": 1845
+              },
+              {
+                "strike": 725.0,
+                "type": "call",
+                "oi": 1666
+              },
+              {
+                "strike": 670.0,
+                "type": "put",
+                "oi": 1422
+              },
+              {
+                "strike": 715.0,
+                "type": "call",
+                "oi": 1363
+              },
+              {
+                "strike": 720.0,
+                "type": "call",
+                "oi": 1278
+              },
+              {
+                "strike": 770.0,
+                "type": "call",
+                "oi": 1261
+              },
+              {
+                "strike": 735.0,
+                "type": "call",
+                "oi": 1121
+              }
+            ]
+          },
+          "maxPain": 671.0,
+          "pcr": {
+            "targetExpiry": "2026-12-24",
+            "oiRatio": 0.91,
+            "volRatio": null
+          }
+        },
+        "2026-12-31": {
+          "keyLevels": {
+            "putWall": {
+              "strike": 715.0,
+              "oi": 39544
+            },
+            "callWall": {
+              "strike": 715.0,
+              "oi": 40488
+            },
+            "topLevels": [
+              {
+                "strike": 715.0,
+                "type": "call",
+                "oi": 40488
+              },
+              {
+                "strike": 715.0,
+                "type": "put",
+                "oi": 39544
+              },
+              {
+                "strike": 700.0,
+                "type": "call",
+                "oi": 20106
+              },
+              {
+                "strike": 755.0,
+                "type": "call",
+                "oi": 19485
+              },
+              {
+                "strike": 810.0,
+                "type": "call",
+                "oi": 18933
+              },
+              {
+                "strike": 800.0,
+                "type": "call",
+                "oi": 18509
+              },
+              {
+                "strike": 650.0,
+                "type": "put",
+                "oi": 17627
+              },
+              {
+                "strike": 850.0,
+                "type": "call",
+                "oi": 15445
+              },
+              {
+                "strike": 640.0,
+                "type": "put",
+                "oi": 11948
+              },
+              {
+                "strike": 760.0,
+                "type": "call",
+                "oi": 11853
+              }
+            ]
+          },
+          "maxPain": 697.0,
+          "pcr": {
+            "targetExpiry": "2026-12-31",
+            "oiRatio": 0.8,
+            "volRatio": null
+          }
+        },
+        "2027-01-15": {
+          "keyLevels": {
+            "putWall": {
+              "strike": 650.0,
+              "oi": 58778
+            },
+            "callWall": {
+              "strike": 1085.0,
+              "oi": 40901
+            },
+            "topLevels": [
+              {
+                "strike": 650.0,
+                "type": "put",
+                "oi": 58778
+              },
+              {
+                "strike": 1085.0,
+                "type": "call",
+                "oi": 40901
+              },
+              {
+                "strike": 680.0,
+                "type": "put",
+                "oi": 40392
+              },
+              {
+                "strike": 700.0,
+                "type": "put",
+                "oi": 38759
+              },
+              {
+                "strike": 700.0,
+                "type": "call",
+                "oi": 38283
+              },
+              {
+                "strike": 725.0,
+                "type": "call",
+                "oi": 36712
+              },
+              {
+                "strike": 600.0,
+                "type": "put",
+                "oi": 36152
+              },
+              {
+                "strike": 800.0,
+                "type": "call",
+                "oi": 35051
+              },
+              {
+                "strike": 620.0,
+                "type": "put",
+                "oi": 34630
+              },
+              {
+                "strike": 750.0,
+                "type": "call",
+                "oi": 34533
+              }
+            ]
+          },
+          "maxPain": 690.0,
+          "pcr": {
+            "targetExpiry": "2027-01-15",
+            "oiRatio": 1.02,
+            "volRatio": null
+          }
+        },
+        "2027-01-29": null,
+        "2027-02-19": {
+          "keyLevels": {
+            "putWall": {
+              "strike": 450.0,
+              "oi": 16168
+            },
+            "callWall": {
+              "strike": 1085.0,
+              "oi": 24826
+            },
+            "topLevels": [
+              {
+                "strike": 1085.0,
+                "type": "call",
+                "oi": 24826
+              },
+              {
+                "strike": 450.0,
+                "type": "put",
+                "oi": 16168
+              },
+              {
+                "strike": 650.0,
+                "type": "put",
+                "oi": 14149
+              },
+              {
+                "strike": 460.0,
+                "type": "put",
+                "oi": 13137
+              },
+              {
+                "strike": 600.0,
+                "type": "put",
+                "oi": 11316
+              },
+              {
+                "strike": 780.0,
+                "type": "call",
+                "oi": 10920
+              },
+              {
+                "strike": 645.0,
+                "type": "put",
+                "oi": 10435
+              },
+              {
+                "strike": 480.0,
+                "type": "put",
+                "oi": 9147
+              },
+              {
+                "strike": 620.0,
+                "type": "put",
+                "oi": 9100
+              },
+              {
+                "strike": 830.0,
+                "type": "call",
+                "oi": 7235
+              }
+            ]
+          },
+          "maxPain": 690.0,
+          "pcr": {
+            "targetExpiry": "2027-02-19",
+            "oiRatio": 1.32,
+            "volRatio": null
+          }
+        },
+        "2027-03-19": {
+          "keyLevels": {
+            "putWall": {
+              "strike": 670.0,
+              "oi": 167182
+            },
+            "callWall": {
+              "strike": 775.0,
+              "oi": 29016
+            },
+            "topLevels": [
+              {
+                "strike": 670.0,
+                "type": "put",
+                "oi": 167182
+              },
+              {
+                "strike": 650.0,
+                "type": "put",
+                "oi": 50822
+              },
+              {
+                "strike": 550.0,
+                "type": "put",
+                "oi": 36838
+              },
+              {
+                "strike": 600.0,
+                "type": "put",
+                "oi": 30615
+              },
+              {
+                "strike": 530.0,
+                "type": "put",
+                "oi": 29208
+              },
+              {
+                "strike": 775.0,
+                "type": "call",
+                "oi": 29016
+              },
+              {
+                "strike": 875.0,
+                "type": "call",
+                "oi": 27535
+              },
+              {
+                "strike": 510.0,
+                "type": "put",
+                "oi": 26919
+              },
+              {
+                "strike": 950.0,
+                "type": "call",
+                "oi": 26270
+              },
+              {
+                "strike": 690.0,
+                "type": "put",
+                "oi": 25961
+              }
+            ]
+          },
+          "maxPain": 710.0,
+          "pcr": {
+            "targetExpiry": "2027-03-19",
+            "oiRatio": 1.49,
+            "volRatio": null
+          }
+        },
+        "2027-03-31": {
+          "keyLevels": {
+            "putWall": {
+              "strike": 650.0,
+              "oi": 4223
+            },
+            "callWall": {
+              "strike": 980.0,
+              "oi": 6259
+            },
+            "topLevels": [
+              {
+                "strike": 980.0,
+                "type": "call",
+                "oi": 6259
+              },
+              {
+                "strike": 650.0,
+                "type": "put",
+                "oi": 4223
+              },
+              {
+                "strike": 650.0,
+                "type": "call",
+                "oi": 4053
+              },
+              {
+                "strike": 800.0,
+                "type": "call",
+                "oi": 3904
+              },
+              {
+                "strike": 740.0,
+                "type": "call",
+                "oi": 2888
+              },
+              {
+                "strike": 680.0,
+                "type": "call",
+                "oi": 2511
+              },
+              {
+                "strike": 600.0,
+                "type": "put",
+                "oi": 2466
+              },
+              {
+                "strike": 700.0,
+                "type": "put",
+                "oi": 2401
+              },
+              {
+                "strike": 810.0,
+                "type": "call",
+                "oi": 2370
+              },
+              {
+                "strike": 705.0,
+                "type": "put",
+                "oi": 2331
+              }
+            ]
+          },
+          "maxPain": 680.0,
+          "pcr": {
+            "targetExpiry": "2027-03-31",
+            "oiRatio": 0.76,
+            "volRatio": null
+          }
+        },
+        "2027-04-16": null,
+        "2027-05-21": null,
+        "2027-06-17": {
+          "keyLevels": {
+            "putWall": {
+              "strike": 750.0,
+              "oi": 38468
+            },
+            "callWall": {
+              "strike": 900.0,
+              "oi": 51999
+            },
+            "topLevels": [
+              {
+                "strike": 900.0,
+                "type": "call",
+                "oi": 51999
+              },
+              {
+                "strike": 750.0,
+                "type": "put",
+                "oi": 38468
+              },
+              {
+                "strike": 650.0,
+                "type": "put",
+                "oi": 35857
+              },
+              {
+                "strike": 840.0,
+                "type": "call",
+                "oi": 34693
+              },
+              {
+                "strike": 600.0,
+                "type": "put",
+                "oi": 32908
+              },
+              {
+                "strike": 660.0,
+                "type": "put",
+                "oi": 28502
+              },
+              {
+                "strike": 865.0,
+                "type": "call",
+                "oi": 27796
+              },
+              {
+                "strike": 880.0,
+                "type": "call",
+                "oi": 24854
+              },
+              {
+                "strike": 780.0,
+                "type": "call",
+                "oi": 24460
+              },
+              {
+                "strike": 820.0,
+                "type": "call",
+                "oi": 23751
+              }
+            ]
+          },
+          "maxPain": 725.0,
+          "pcr": {
+            "targetExpiry": "2027-06-17",
+            "oiRatio": 0.89,
+            "volRatio": null
+          }
+        },
+        "2027-06-30": null,
+        "2027-09-17": {
+          "keyLevels": {
+            "putWall": {
+              "strike": 650.0,
+              "oi": 17844
+            },
+            "callWall": {
+              "strike": 850.0,
+              "oi": 27218
+            },
+            "topLevels": [
+              {
+                "strike": 850.0,
+                "type": "call",
+                "oi": 27218
+              },
+              {
+                "strike": 815.0,
+                "type": "call",
+                "oi": 21120
+              },
+              {
+                "strike": 900.0,
+                "type": "call",
+                "oi": 20839
+              },
+              {
+                "strike": 865.0,
+                "type": "call",
+                "oi": 20300
+              },
+              {
+                "strike": 650.0,
+                "type": "put",
+                "oi": 17844
+              },
+              {
+                "strike": 600.0,
+                "type": "put",
+                "oi": 16218
+              },
+              {
+                "strike": 1000.0,
+                "type": "call",
+                "oi": 9692
+              },
+              {
+                "strike": 800.0,
+                "type": "call",
+                "oi": 8381
+              },
+              {
+                "strike": 700.0,
+                "type": "put",
+                "oi": 8361
+              },
+              {
+                "strike": 725.0,
+                "type": "put",
+                "oi": 8060
+              }
+            ]
+          },
+          "maxPain": 720.0,
+          "pcr": {
+            "targetExpiry": "2027-09-17",
+            "oiRatio": 0.88,
+            "volRatio": null
+          }
+        },
+        "2027-09-30": null,
+        "2027-12-17": {
+          "keyLevels": {
+            "putWall": {
+              "strike": 500.0,
+              "oi": 32797
+            },
+            "callWall": {
+              "strike": 880.0,
+              "oi": 17643
+            },
+            "topLevels": [
+              {
+                "strike": 500.0,
+                "type": "put",
+                "oi": 32797
+              },
+              {
+                "strike": 600.0,
+                "type": "put",
+                "oi": 26828
+              },
+              {
+                "strike": 550.0,
+                "type": "put",
+                "oi": 23064
+              },
+              {
+                "strike": 700.0,
+                "type": "put",
+                "oi": 18044
+              },
+              {
+                "strike": 880.0,
+                "type": "call",
+                "oi": 17643
+              },
+              {
+                "strike": 390.0,
+                "type": "put",
+                "oi": 13879
+              },
+              {
+                "strike": 650.0,
+                "type": "put",
+                "oi": 13680
+              },
+              {
+                "strike": 1140.0,
+                "type": "call",
+                "oi": 13551
+              },
+              {
+                "strike": 800.0,
+                "type": "call",
+                "oi": 13489
+              },
+              {
+                "strike": 900.0,
+                "type": "call",
+                "oi": 10839
+              }
+            ]
+          },
+          "maxPain": 700.0,
+          "pcr": {
+            "targetExpiry": "2027-12-17",
+            "oiRatio": 1.4,
+            "volRatio": null
+          }
+        },
+        "2028-01-21": {
+          "keyLevels": {
+            "putWall": {
+              "strike": 400.0,
+              "oi": 34018
+            },
+            "callWall": {
+              "strike": 1000.0,
+              "oi": 10017
+            },
+            "topLevels": [
+              {
+                "strike": 400.0,
+                "type": "put",
+                "oi": 34018
+              },
+              {
+                "strike": 350.0,
+                "type": "put",
+                "oi": 30642
+              },
+              {
+                "strike": 500.0,
+                "type": "put",
+                "oi": 12944
+              },
+              {
+                "strike": 1000.0,
+                "type": "call",
+                "oi": 10017
+              },
+              {
+                "strike": 650.0,
+                "type": "put",
+                "oi": 8739
+              },
+              {
+                "strike": 730.0,
+                "type": "call",
+                "oi": 8185
+              },
+              {
+                "strike": 550.0,
+                "type": "put",
+                "oi": 8041
+              },
+              {
+                "strike": 700.0,
+                "type": "put",
+                "oi": 7729
+              },
+              {
+                "strike": 440.0,
+                "type": "put",
+                "oi": 7643
+              },
+              {
+                "strike": 800.0,
+                "type": "call",
+                "oi": 7450
+              }
+            ]
+          },
+          "maxPain": 700.0,
+          "pcr": {
+            "targetExpiry": "2028-01-21",
+            "oiRatio": 1.6,
+            "volRatio": null
+          }
+        },
+        "2028-06-16": {
+          "keyLevels": {
+            "putWall": {
+              "strike": 380.0,
+              "oi": 10957
+            },
+            "callWall": {
+              "strike": 800.0,
+              "oi": 8421
+            },
+            "topLevels": [
+              {
+                "strike": 380.0,
+                "type": "put",
+                "oi": 10957
+              },
+              {
+                "strike": 800.0,
+                "type": "call",
+                "oi": 8421
+              },
+              {
+                "strike": 650.0,
+                "type": "put",
+                "oi": 7601
+              },
+              {
+                "strike": 700.0,
+                "type": "put",
+                "oi": 6830
+              },
+              {
+                "strike": 600.0,
+                "type": "put",
+                "oi": 6523
+              },
+              {
+                "strike": 735.0,
+                "type": "put",
+                "oi": 6280
+              },
+              {
+                "strike": 690.0,
+                "type": "put",
+                "oi": 5933
+              },
+              {
+                "strike": 680.0,
+                "type": "put",
+                "oi": 5518
+              },
+              {
+                "strike": 550.0,
+                "type": "put",
+                "oi": 4413
+              },
+              {
+                "strike": 355.0,
+                "type": "put",
+                "oi": 4275
+              }
+            ]
+          },
+          "maxPain": 710.0,
+          "pcr": {
+            "targetExpiry": "2028-06-16",
+            "oiRatio": 1.93,
+            "volRatio": null
+          }
+        },
+        "2028-12-15": {
+          "keyLevels": {
+            "putWall": {
+              "strike": 600.0,
+              "oi": 28493
+            },
+            "callWall": {
+              "strike": 700.0,
+              "oi": 7335
+            },
+            "topLevels": [
+              {
+                "strike": 600.0,
+                "type": "put",
+                "oi": 28493
+              },
+              {
+                "strike": 500.0,
+                "type": "put",
+                "oi": 19055
+              },
+              {
+                "strike": 350.0,
+                "type": "put",
+                "oi": 14920
+              },
+              {
+                "strike": 550.0,
+                "type": "put",
+                "oi": 11842
+              },
+              {
+                "strike": 400.0,
+                "type": "put",
+                "oi": 11817
+              },
+              {
+                "strike": 700.0,
+                "type": "put",
+                "oi": 8733
+              },
+              {
+                "strike": 650.0,
+                "type": "put",
+                "oi": 7880
+              },
+              {
+                "strike": 530.0,
+                "type": "put",
+                "oi": 7445
+              },
+              {
+                "strike": 700.0,
+                "type": "call",
+                "oi": 7335
+              },
+              {
+                "strike": 1050.0,
+                "type": "call",
+                "oi": 6455
+              }
+            ]
+          },
+          "maxPain": 710.0,
+          "pcr": {
+            "targetExpiry": "2028-12-15",
+            "oiRatio": 1.77,
+            "volRatio": null
+          }
+        },
+        "2029-01-19": null
+      },
       "spot": 608.45,
       "gex": {
-        "total": -671905522.0,
+        "total": -676756719.0,
         "byExpiry": [
           {
             "expiry": "2026-11-23",
-            "gex": -25601914.0,
-            "dte": 2
+            "gex": -27612507.0,
+            "dte": 1
           },
           {
             "expiry": "2026-11-24",
-            "gex": -19058855.0,
-            "dte": 3
+            "gex": -19366689.0,
+            "dte": 2
           },
           {
             "expiry": "2026-11-25",
-            "gex": -6979317.0,
-            "dte": 4
+            "gex": -7462059.0,
+            "dte": 3
           },
           {
             "expiry": "2026-11-27",
-            "gex": -24354665.0,
-            "dte": 6
+            "gex": -25137281.0,
+            "dte": 5
           },
           {
             "expiry": "2026-11-30",
-            "gex": -53793179.0,
-            "dte": 9
+            "gex": -54349368.0,
+            "dte": 8
           },
           {
             "expiry": "2026-12-01",
-            "gex": -2946419.0,
-            "dte": 10
+            "gex": -2972397.0,
+            "dte": 9
           },
           {
             "expiry": "2026-12-02",
-            "gex": -505028.0,
-            "dte": 11
+            "gex": -507991.0,
+            "dte": 10
           },
           {
             "expiry": "2026-12-03",
-            "gex": 1222165.0,
-            "dte": 12
+            "gex": 1208400.0,
+            "dte": 11
           },
           {
             "expiry": "2026-12-04",
-            "gex": -40748402.0,
-            "dte": 13
+            "gex": -40887041.0,
+            "dte": 12
           },
           {
             "expiry": "2026-12-11",
-            "gex": -9048209.0,
-            "dte": 20
+            "gex": -9079482.0,
+            "dte": 19
           },
           {
             "expiry": "2026-12-18",
-            "gex": -166206386.0,
-            "dte": 27
+            "gex": -166569545.0,
+            "dte": 26
           },
           {
             "expiry": "2026-12-24",
-            "gex": -3787702.0,
-            "dte": 33
+            "gex": -3792534.0,
+            "dte": 32
           },
           {
             "expiry": "2026-12-31",
-            "gex": -15077213.0,
-            "dte": 40
+            "gex": -15118777.0,
+            "dte": 39
           },
           {
             "expiry": "2027-01-15",
-            "gex": -85068807.0,
-            "dte": 55
+            "gex": -85102344.0,
+            "dte": 54
           },
           {
             "expiry": "2027-01-29",
-            "gex": 6574012.0,
-            "dte": 69
+            "gex": 6569572.0,
+            "dte": 68
           },
           {
             "expiry": "2027-02-19",
-            "gex": -23608521.0,
-            "dte": 90
+            "gex": -23615554.0,
+            "dte": 89
           },
           {
             "expiry": "2027-03-19",
-            "gex": -116921825.0,
-            "dte": 118
+            "gex": -116921856.0,
+            "dte": 117
           },
           {
             "expiry": "2027-03-31",
-            "gex": -1263473.0,
-            "dte": 130
+            "gex": -1264821.0,
+            "dte": 129
           },
           {
             "expiry": "2027-06-17",
-            "gex": -28712989.0,
-            "dte": 208
+            "gex": -28738592.0,
+            "dte": 207
           },
           {
             "expiry": "2027-06-30",
-            "gex": -2590859.0,
-            "dte": 221
+            "gex": -2591666.0,
+            "dte": 220
           },
           {
             "expiry": "2027-09-17",
-            "gex": -9254126.0,
-            "dte": 300
+            "gex": -9258421.0,
+            "dte": 299
           },
           {
             "expiry": "2027-09-30",
-            "gex": -786195.0,
-            "dte": 313
+            "gex": -786453.0,
+            "dte": 312
           },
           {
             "expiry": "2027-12-17",
-            "gex": -18536564.0,
-            "dte": 391
+            "gex": -18541954.0,
+            "dte": 390
           },
           {
             "expiry": "2028-01-21",
-            "gex": -7598306.0,
-            "dte": 426
+            "gex": -7601671.0,
+            "dte": 425
           },
           {
             "expiry": "2028-06-16",
-            "gex": -7696268.0,
-            "dte": 573
+            "gex": -7697533.0,
+            "dte": 572
           },
           {
             "expiry": "2028-12-15",
-            "gex": -8991346.0,
-            "dte": 755
+            "gex": -8992906.0,
+            "dte": 754
           },
           {
             "expiry": "2029-01-19",
-            "gex": -565129.0,
-            "dte": 790
+            "gex": -565247.0,
+            "dte": 789
           }
         ],
         "byStrike": [
           {
             "strike": 500.0,
-            "gex": -16102923.0
-          },
-          {
-            "strike": 510.0,
-            "gex": -5954083.0
+            "gex": -16084619.0
           },
           {
             "strike": 520.0,
-            "gex": -6750314.0
+            "gex": -6743253.0
           },
           {
             "strike": 530.0,
-            "gex": -11426781.0
+            "gex": -11408681.0
           },
           {
             "strike": 540.0,
-            "gex": -10824076.0
+            "gex": -10682978.0
           },
           {
             "strike": 550.0,
-            "gex": -36149079.0
+            "gex": -36144015.0
           },
           {
             "strike": 555.0,
-            "gex": -7818130.0
+            "gex": -7665358.0
           },
           {
             "strike": 560.0,
-            "gex": -14929229.0
+            "gex": -14687536.0
           },
           {
             "strike": 565.0,
-            "gex": -7892185.0
+            "gex": -7759262.0
           },
           {
             "strike": 570.0,
-            "gex": -17232999.0
+            "gex": -17003146.0
           },
           {
             "strike": 575.0,
-            "gex": -17766044.0
+            "gex": -17630265.0
           },
           {
             "strike": 580.0,
-            "gex": -31980833.0
+            "gex": -31973665.0
           },
           {
             "strike": 585.0,
-            "gex": -17463125.0
+            "gex": -17422433.0
           },
           {
             "strike": 590.0,
-            "gex": -29964434.0
+            "gex": -30069771.0
           },
           {
             "strike": 595.0,
-            "gex": -16491864.0
+            "gex": -16793619.0
           },
           {
             "strike": 600.0,
-            "gex": -91277238.0
+            "gex": -93257233.0
           },
           {
             "strike": 605.0,
-            "gex": -18624157.0
+            "gex": -18904519.0
           },
           {
             "strike": 610.0,
-            "gex": -56518477.0
+            "gex": -57047347.0
           },
           {
             "strike": 615.0,
-            "gex": -35901321.0
+            "gex": -36303062.0
           },
           {
             "strike": 620.0,
-            "gex": -60835396.0
+            "gex": -61048055.0
           },
           {
             "strike": 625.0,
-            "gex": -40953957.0
+            "gex": -40714912.0
           },
           {
             "strike": 630.0,
-            "gex": -54420246.0
+            "gex": -54157926.0
           },
           {
             "strike": 635.0,
-            "gex": -29997799.0
+            "gex": -29950837.0
           },
           {
             "strike": 640.0,
-            "gex": -60756798.0
+            "gex": -60631888.0
           },
           {
             "strike": 645.0,
-            "gex": -25211168.0
+            "gex": -25212480.0
           },
           {
             "strike": 650.0,
-            "gex": -76064349.0
+            "gex": -76090521.0
           },
           {
             "strike": 655.0,
-            "gex": -12232628.0
+            "gex": -12283628.0
           },
           {
             "strike": 660.0,
-            "gex": -19522440.0
+            "gex": -19781742.0
           },
           {
             "strike": 665.0,
-            "gex": -7044630.0
+            "gex": -7141946.0
           },
           {
             "strike": 670.0,
-            "gex": -43757521.0
+            "gex": -43915014.0
           },
           {
             "strike": 700.0,
-            "gex": 17376130.0
+            "gex": 17174877.0
           },
           {
             "strike": 710.0,
-            "gex": 12296731.0
+            "gex": 12248907.0
           },
           {
             "strike": 715.0,
-            "gex": 13825701.0
+            "gex": 13765363.0
           },
           {
             "strike": 720.0,
-            "gex": 13980882.0
+            "gex": 13930551.0
           },
           {
             "strike": 725.0,
-            "gex": 6652012.0
+            "gex": 6600555.0
           },
           {
             "strike": 730.0,
-            "gex": 7345952.0
+            "gex": 7310535.0
           },
           {
             "strike": 750.0,
-            "gex": 8357328.0
+            "gex": 8318868.0
           },
           {
             "strike": 780.0,
-            "gex": 6057759.0
+            "gex": 6051137.0
           },
           {
             "strike": 800.0,
-            "gex": 10534189.0
+            "gex": 10516897.0
           },
           {
             "strike": 850.0,
-            "gex": 6263663.0
+            "gex": 6254116.0
+          },
+          {
+            "strike": 900.0,
+            "gex": 5922776.0
           }
         ],
-        "flipPrice": 655.48
+        "flipPrice": 655.4
       },
       "pcr": {
-        "allExpOiRatio": 1.07,
-        "allExpVolRatio": 1.16,
+        "allExpOiRatio": null,
+        "allExpVolRatio": null,
         "targetExpiry": "2026-12-18",
         "oiRatio": 0.97,
-        "volRatio": 1.27
+        "volRatio": null
       },
       "skew": {
-        "riskReversal25d": 8.36,
-        "putIV25d": 45.49,
-        "callIV25d": 37.13,
-        "atmIV": 41.6
+        "riskReversal25d": 8.5,
+        "putIV25d": 46.33,
+        "callIV25d": 37.83,
+        "atmIV": 42.36
       },
       "vrp": {
-        "iv": 41.6,
+        "iv": 42.36,
         "hv21": 38.87,
-        "premium": 2.73
+        "premium": 3.49
       },
       "maxPain": 680.0,
       "keyLevels": {
@@ -1640,337 +4670,1610 @@
       }
     },
     "IWM": {
+      "expiryDetails": {
+        "2026-11-23": null,
+        "2026-11-24": null,
+        "2026-11-25": null,
+        "2026-11-27": null,
+        "2026-11-30": null,
+        "2026-12-01": null,
+        "2026-12-02": null,
+        "2026-12-03": null,
+        "2026-12-04": null,
+        "2026-12-11": {
+          "keyLevels": {
+            "putWall": {
+              "strike": 260.0,
+              "oi": 5233
+            },
+            "callWall": {
+              "strike": 301.0,
+              "oi": 9251
+            },
+            "topLevels": [
+              {
+                "strike": 301.0,
+                "type": "call",
+                "oi": 9251
+              },
+              {
+                "strike": 303.0,
+                "type": "call",
+                "oi": 9229
+              },
+              {
+                "strike": 260.0,
+                "type": "put",
+                "oi": 5233
+              },
+              {
+                "strike": 255.0,
+                "type": "put",
+                "oi": 5090
+              },
+              {
+                "strike": 240.0,
+                "type": "put",
+                "oi": 4963
+              },
+              {
+                "strike": 264.0,
+                "type": "put",
+                "oi": 2968
+              },
+              {
+                "strike": 250.0,
+                "type": "put",
+                "oi": 2692
+              },
+              {
+                "strike": 270.0,
+                "type": "put",
+                "oi": 2606
+              },
+              {
+                "strike": 250.0,
+                "type": "call",
+                "oi": 2084
+              },
+              {
+                "strike": 275.0,
+                "type": "put",
+                "oi": 2069
+              }
+            ]
+          },
+          "maxPain": 275.0,
+          "pcr": {
+            "targetExpiry": "2026-12-11",
+            "oiRatio": 1.15,
+            "volRatio": null
+          }
+        },
+        "2026-12-18": {
+          "keyLevels": {
+            "putWall": {
+              "strike": 260.0,
+              "oi": 126569
+            },
+            "callWall": {
+              "strike": 300.0,
+              "oi": 80550
+            },
+            "topLevels": [
+              {
+                "strike": 260.0,
+                "type": "put",
+                "oi": 126569
+              },
+              {
+                "strike": 240.0,
+                "type": "put",
+                "oi": 104555
+              },
+              {
+                "strike": 270.0,
+                "type": "put",
+                "oi": 101511
+              },
+              {
+                "strike": 275.0,
+                "type": "put",
+                "oi": 87712
+              },
+              {
+                "strike": 250.0,
+                "type": "put",
+                "oi": 85771
+              },
+              {
+                "strike": 255.0,
+                "type": "put",
+                "oi": 85555
+              },
+              {
+                "strike": 200.0,
+                "type": "put",
+                "oi": 82978
+              },
+              {
+                "strike": 300.0,
+                "type": "call",
+                "oi": 80550
+              },
+              {
+                "strike": 265.0,
+                "type": "put",
+                "oi": 73163
+              },
+              {
+                "strike": 170.0,
+                "type": "put",
+                "oi": 72844
+              }
+            ]
+          },
+          "maxPain": 275.0,
+          "pcr": {
+            "targetExpiry": "2026-12-18",
+            "oiRatio": 2.39,
+            "volRatio": null
+          }
+        },
+        "2026-12-24": {
+          "keyLevels": {
+            "putWall": {
+              "strike": 269.0,
+              "oi": 1036
+            },
+            "callWall": {
+              "strike": 291.0,
+              "oi": 9301
+            },
+            "topLevels": [
+              {
+                "strike": 291.0,
+                "type": "call",
+                "oi": 9301
+              },
+              {
+                "strike": 293.0,
+                "type": "call",
+                "oi": 9266
+              },
+              {
+                "strike": 269.0,
+                "type": "put",
+                "oi": 1036
+              },
+              {
+                "strike": 270.0,
+                "type": "put",
+                "oi": 838
+              },
+              {
+                "strike": 250.0,
+                "type": "put",
+                "oi": 725
+              },
+              {
+                "strike": 290.0,
+                "type": "call",
+                "oi": 615
+              },
+              {
+                "strike": 235.0,
+                "type": "put",
+                "oi": 561
+              },
+              {
+                "strike": 200.0,
+                "type": "put",
+                "oi": 500
+              },
+              {
+                "strike": 260.0,
+                "type": "put",
+                "oi": 398
+              },
+              {
+                "strike": 261.0,
+                "type": "put",
+                "oi": 364
+              }
+            ]
+          },
+          "maxPain": 275.0,
+          "pcr": {
+            "targetExpiry": "2026-12-24",
+            "oiRatio": 0.36,
+            "volRatio": null
+          }
+        },
+        "2026-12-31": {
+          "keyLevels": {
+            "putWall": {
+              "strike": 295.0,
+              "oi": 13666
+            },
+            "callWall": {
+              "strike": 290.0,
+              "oi": 8665
+            },
+            "topLevels": [
+              {
+                "strike": 295.0,
+                "type": "put",
+                "oi": 13666
+              },
+              {
+                "strike": 265.0,
+                "type": "put",
+                "oi": 10045
+              },
+              {
+                "strike": 290.0,
+                "type": "call",
+                "oi": 8665
+              },
+              {
+                "strike": 250.0,
+                "type": "put",
+                "oi": 7990
+              },
+              {
+                "strike": 300.0,
+                "type": "call",
+                "oi": 6815
+              },
+              {
+                "strike": 295.0,
+                "type": "call",
+                "oi": 6675
+              },
+              {
+                "strike": 310.0,
+                "type": "call",
+                "oi": 5089
+              },
+              {
+                "strike": 290.0,
+                "type": "put",
+                "oi": 4876
+              },
+              {
+                "strike": 280.0,
+                "type": "call",
+                "oi": 4591
+              },
+              {
+                "strike": 305.0,
+                "type": "put",
+                "oi": 3886
+              }
+            ]
+          },
+          "maxPain": 290.0,
+          "pcr": {
+            "targetExpiry": "2026-12-31",
+            "oiRatio": 1.31,
+            "volRatio": null
+          }
+        },
+        "2027-01-15": {
+          "keyLevels": {
+            "putWall": {
+              "strike": 290.0,
+              "oi": 107002
+            },
+            "callWall": {
+              "strike": 300.0,
+              "oi": 36392
+            },
+            "topLevels": [
+              {
+                "strike": 290.0,
+                "type": "put",
+                "oi": 107002
+              },
+              {
+                "strike": 250.0,
+                "type": "put",
+                "oi": 60051
+              },
+              {
+                "strike": 255.0,
+                "type": "put",
+                "oi": 58799
+              },
+              {
+                "strike": 270.0,
+                "type": "put",
+                "oi": 54012
+              },
+              {
+                "strike": 240.0,
+                "type": "put",
+                "oi": 53666
+              },
+              {
+                "strike": 260.0,
+                "type": "put",
+                "oi": 52114
+              },
+              {
+                "strike": 210.0,
+                "type": "put",
+                "oi": 45262
+              },
+              {
+                "strike": 265.0,
+                "type": "put",
+                "oi": 37092
+              },
+              {
+                "strike": 300.0,
+                "type": "call",
+                "oi": 36392
+              },
+              {
+                "strike": 275.0,
+                "type": "put",
+                "oi": 35331
+              }
+            ]
+          },
+          "maxPain": 290.0,
+          "pcr": {
+            "targetExpiry": "2027-01-15",
+            "oiRatio": 2.12,
+            "volRatio": 2.86
+          }
+        },
+        "2027-02-19": {
+          "keyLevels": {
+            "putWall": {
+              "strike": 250.0,
+              "oi": 26828
+            },
+            "callWall": {
+              "strike": 305.0,
+              "oi": 13883
+            },
+            "topLevels": [
+              {
+                "strike": 250.0,
+                "type": "put",
+                "oi": 26828
+              },
+              {
+                "strike": 280.0,
+                "type": "put",
+                "oi": 22128
+              },
+              {
+                "strike": 260.0,
+                "type": "put",
+                "oi": 17954
+              },
+              {
+                "strike": 305.0,
+                "type": "call",
+                "oi": 13883
+              },
+              {
+                "strike": 255.0,
+                "type": "put",
+                "oi": 13213
+              },
+              {
+                "strike": 240.0,
+                "type": "put",
+                "oi": 12096
+              },
+              {
+                "strike": 290.0,
+                "type": "call",
+                "oi": 11751
+              },
+              {
+                "strike": 330.0,
+                "type": "call",
+                "oi": 10060
+              },
+              {
+                "strike": 335.0,
+                "type": "call",
+                "oi": 9069
+              },
+              {
+                "strike": 300.0,
+                "type": "call",
+                "oi": 8169
+              }
+            ]
+          },
+          "maxPain": 285.0,
+          "pcr": {
+            "targetExpiry": "2027-02-19",
+            "oiRatio": 1.64,
+            "volRatio": null
+          }
+        },
+        "2027-03-19": {
+          "keyLevels": {
+            "putWall": {
+              "strike": 265.0,
+              "oi": 67377
+            },
+            "callWall": {
+              "strike": 360.0,
+              "oi": 25068
+            },
+            "topLevels": [
+              {
+                "strike": 265.0,
+                "type": "put",
+                "oi": 67377
+              },
+              {
+                "strike": 250.0,
+                "type": "put",
+                "oi": 57741
+              },
+              {
+                "strike": 280.0,
+                "type": "put",
+                "oi": 36886
+              },
+              {
+                "strike": 260.0,
+                "type": "put",
+                "oi": 35594
+              },
+              {
+                "strike": 285.0,
+                "type": "put",
+                "oi": 33516
+              },
+              {
+                "strike": 275.0,
+                "type": "put",
+                "oi": 33203
+              },
+              {
+                "strike": 240.0,
+                "type": "put",
+                "oi": 32490
+              },
+              {
+                "strike": 255.0,
+                "type": "put",
+                "oi": 27788
+              },
+              {
+                "strike": 235.0,
+                "type": "put",
+                "oi": 27356
+              },
+              {
+                "strike": 270.0,
+                "type": "put",
+                "oi": 26837
+              }
+            ]
+          },
+          "maxPain": 285.0,
+          "pcr": {
+            "targetExpiry": "2027-03-19",
+            "oiRatio": 2.04,
+            "volRatio": null
+          }
+        },
+        "2027-03-31": {
+          "keyLevels": {
+            "putWall": {
+              "strike": 205.0,
+              "oi": 3064
+            },
+            "callWall": {
+              "strike": 330.0,
+              "oi": 1408
+            },
+            "topLevels": [
+              {
+                "strike": 205.0,
+                "type": "put",
+                "oi": 3064
+              },
+              {
+                "strike": 175.0,
+                "type": "put",
+                "oi": 2699
+              },
+              {
+                "strike": 200.0,
+                "type": "put",
+                "oi": 2563
+              },
+              {
+                "strike": 330.0,
+                "type": "call",
+                "oi": 1408
+              },
+              {
+                "strike": 285.0,
+                "type": "put",
+                "oi": 1301
+              },
+              {
+                "strike": 222.0,
+                "type": "put",
+                "oi": 1002
+              },
+              {
+                "strike": 325.0,
+                "type": "call",
+                "oi": 953
+              },
+              {
+                "strike": 193.0,
+                "type": "put",
+                "oi": 890
+              },
+              {
+                "strike": 300.0,
+                "type": "call",
+                "oi": 835
+              },
+              {
+                "strike": 280.0,
+                "type": "call",
+                "oi": 755
+              }
+            ]
+          },
+          "maxPain": 280.0,
+          "pcr": {
+            "targetExpiry": "2027-03-31",
+            "oiRatio": 1.94,
+            "volRatio": null
+          }
+        },
+        "2027-04-16": {
+          "keyLevels": {
+            "putWall": {
+              "strike": 250.0,
+              "oi": 33548
+            },
+            "callWall": {
+              "strike": 295.0,
+              "oi": 6877
+            },
+            "topLevels": [
+              {
+                "strike": 250.0,
+                "type": "put",
+                "oi": 33548
+              },
+              {
+                "strike": 265.0,
+                "type": "put",
+                "oi": 14291
+              },
+              {
+                "strike": 280.0,
+                "type": "put",
+                "oi": 14078
+              },
+              {
+                "strike": 260.0,
+                "type": "put",
+                "oi": 10646
+              },
+              {
+                "strike": 230.0,
+                "type": "put",
+                "oi": 10564
+              },
+              {
+                "strike": 285.0,
+                "type": "put",
+                "oi": 7019
+              },
+              {
+                "strike": 295.0,
+                "type": "call",
+                "oi": 6877
+              },
+              {
+                "strike": 275.0,
+                "type": "put",
+                "oi": 6030
+              },
+              {
+                "strike": 305.0,
+                "type": "put",
+                "oi": 5981
+              },
+              {
+                "strike": 305.0,
+                "type": "call",
+                "oi": 5891
+              }
+            ]
+          },
+          "maxPain": 290.0,
+          "pcr": {
+            "targetExpiry": "2027-04-16",
+            "oiRatio": 3.06,
+            "volRatio": null
+          }
+        },
+        "2027-05-21": null,
+        "2027-06-17": {
+          "keyLevels": {
+            "putWall": {
+              "strike": 250.0,
+              "oi": 60837
+            },
+            "callWall": {
+              "strike": 300.0,
+              "oi": 38910
+            },
+            "topLevels": [
+              {
+                "strike": 250.0,
+                "type": "put",
+                "oi": 60837
+              },
+              {
+                "strike": 240.0,
+                "type": "put",
+                "oi": 45747
+              },
+              {
+                "strike": 220.0,
+                "type": "put",
+                "oi": 40683
+              },
+              {
+                "strike": 300.0,
+                "type": "call",
+                "oi": 38910
+              },
+              {
+                "strike": 270.0,
+                "type": "put",
+                "oi": 34743
+              },
+              {
+                "strike": 200.0,
+                "type": "put",
+                "oi": 33539
+              },
+              {
+                "strike": 230.0,
+                "type": "put",
+                "oi": 30713
+              },
+              {
+                "strike": 265.0,
+                "type": "put",
+                "oi": 29582
+              },
+              {
+                "strike": 260.0,
+                "type": "put",
+                "oi": 27111
+              },
+              {
+                "strike": 280.0,
+                "type": "put",
+                "oi": 25841
+              }
+            ]
+          },
+          "maxPain": 285.0,
+          "pcr": {
+            "targetExpiry": "2027-06-17",
+            "oiRatio": 2.42,
+            "volRatio": null
+          }
+        },
+        "2027-06-30": {
+          "keyLevels": {
+            "putWall": {
+              "strike": 255.0,
+              "oi": 9529
+            },
+            "callWall": {
+              "strike": 315.0,
+              "oi": 6426
+            },
+            "topLevels": [
+              {
+                "strike": 255.0,
+                "type": "put",
+                "oi": 9529
+              },
+              {
+                "strike": 315.0,
+                "type": "call",
+                "oi": 6426
+              },
+              {
+                "strike": 310.0,
+                "type": "call",
+                "oi": 2896
+              },
+              {
+                "strike": 275.0,
+                "type": "call",
+                "oi": 2557
+              },
+              {
+                "strike": 314.0,
+                "type": "call",
+                "oi": 2062
+              },
+              {
+                "strike": 280.0,
+                "type": "put",
+                "oi": 2041
+              },
+              {
+                "strike": 245.0,
+                "type": "put",
+                "oi": 1492
+              },
+              {
+                "strike": 320.0,
+                "type": "call",
+                "oi": 1211
+              },
+              {
+                "strike": 270.0,
+                "type": "put",
+                "oi": 1160
+              },
+              {
+                "strike": 311.0,
+                "type": "put",
+                "oi": 659
+              }
+            ]
+          },
+          "maxPain": 280.0,
+          "pcr": {
+            "targetExpiry": "2027-06-30",
+            "oiRatio": 0.9,
+            "volRatio": null
+          }
+        },
+        "2027-09-17": {
+          "keyLevels": {
+            "putWall": {
+              "strike": 250.0,
+              "oi": 35121
+            },
+            "callWall": {
+              "strike": 310.0,
+              "oi": 24567
+            },
+            "topLevels": [
+              {
+                "strike": 250.0,
+                "type": "put",
+                "oi": 35121
+              },
+              {
+                "strike": 280.0,
+                "type": "put",
+                "oi": 29438
+              },
+              {
+                "strike": 220.0,
+                "type": "put",
+                "oi": 25373
+              },
+              {
+                "strike": 310.0,
+                "type": "call",
+                "oi": 24567
+              },
+              {
+                "strike": 230.0,
+                "type": "put",
+                "oi": 23329
+              },
+              {
+                "strike": 265.0,
+                "type": "put",
+                "oi": 15951
+              },
+              {
+                "strike": 240.0,
+                "type": "put",
+                "oi": 15493
+              },
+              {
+                "strike": 290.0,
+                "type": "put",
+                "oi": 14603
+              },
+              {
+                "strike": 245.0,
+                "type": "put",
+                "oi": 13024
+              },
+              {
+                "strike": 270.0,
+                "type": "put",
+                "oi": 12846
+              }
+            ]
+          },
+          "maxPain": 295.0,
+          "pcr": {
+            "targetExpiry": "2027-09-17",
+            "oiRatio": 2.7,
+            "volRatio": null
+          }
+        },
+        "2027-09-30": {
+          "keyLevels": {
+            "putWall": {
+              "strike": 270.0,
+              "oi": 1343
+            },
+            "callWall": {
+              "strike": 277.0,
+              "oi": 964
+            },
+            "topLevels": [
+              {
+                "strike": 270.0,
+                "type": "put",
+                "oi": 1343
+              },
+              {
+                "strike": 277.0,
+                "type": "call",
+                "oi": 964
+              },
+              {
+                "strike": 250.0,
+                "type": "put",
+                "oi": 957
+              },
+              {
+                "strike": 276.0,
+                "type": "call",
+                "oi": 862
+              },
+              {
+                "strike": 271.0,
+                "type": "put",
+                "oi": 531
+              },
+              {
+                "strike": 255.0,
+                "type": "put",
+                "oi": 511
+              },
+              {
+                "strike": 281.0,
+                "type": "put",
+                "oi": 364
+              },
+              {
+                "strike": 272.0,
+                "type": "put",
+                "oi": 350
+              },
+              {
+                "strike": 278.0,
+                "type": "put",
+                "oi": 325
+              },
+              {
+                "strike": 280.0,
+                "type": "put",
+                "oi": 318
+              }
+            ]
+          },
+          "maxPain": 277.0,
+          "pcr": {
+            "targetExpiry": "2027-09-30",
+            "oiRatio": 2.54,
+            "volRatio": null
+          }
+        },
+        "2027-10-15": {
+          "keyLevels": {
+            "putWall": {
+              "strike": 250.0,
+              "oi": 10832
+            },
+            "callWall": {
+              "strike": 290.0,
+              "oi": 4566
+            },
+            "topLevels": [
+              {
+                "strike": 250.0,
+                "type": "put",
+                "oi": 10832
+              },
+              {
+                "strike": 290.0,
+                "type": "call",
+                "oi": 4566
+              },
+              {
+                "strike": 290.0,
+                "type": "put",
+                "oi": 4282
+              },
+              {
+                "strike": 240.0,
+                "type": "put",
+                "oi": 3693
+              },
+              {
+                "strike": 280.0,
+                "type": "put",
+                "oi": 3173
+              },
+              {
+                "strike": 255.0,
+                "type": "put",
+                "oi": 2971
+              },
+              {
+                "strike": 385.0,
+                "type": "call",
+                "oi": 2912
+              },
+              {
+                "strike": 315.0,
+                "type": "call",
+                "oi": 2609
+              },
+              {
+                "strike": 285.0,
+                "type": "put",
+                "oi": 2088
+              },
+              {
+                "strike": 175.0,
+                "type": "put",
+                "oi": 1368
+              }
+            ]
+          },
+          "maxPain": 290.0,
+          "pcr": {
+            "targetExpiry": "2027-10-15",
+            "oiRatio": 2.69,
+            "volRatio": null
+          }
+        },
+        "2027-12-17": {
+          "keyLevels": {
+            "putWall": {
+              "strike": 200.0,
+              "oi": 73648
+            },
+            "callWall": {
+              "strike": 300.0,
+              "oi": 17160
+            },
+            "topLevels": [
+              {
+                "strike": 200.0,
+                "type": "put",
+                "oi": 73648
+              },
+              {
+                "strike": 100.0,
+                "type": "put",
+                "oi": 60007
+              },
+              {
+                "strike": 250.0,
+                "type": "put",
+                "oi": 52183
+              },
+              {
+                "strike": 280.0,
+                "type": "put",
+                "oi": 37188
+              },
+              {
+                "strike": 180.0,
+                "type": "put",
+                "oi": 35928
+              },
+              {
+                "strike": 240.0,
+                "type": "put",
+                "oi": 29695
+              },
+              {
+                "strike": 275.0,
+                "type": "put",
+                "oi": 27010
+              },
+              {
+                "strike": 220.0,
+                "type": "put",
+                "oi": 24679
+              },
+              {
+                "strike": 270.0,
+                "type": "put",
+                "oi": 23378
+              },
+              {
+                "strike": 175.0,
+                "type": "put",
+                "oi": 21347
+              }
+            ]
+          },
+          "maxPain": 280.0,
+          "pcr": {
+            "targetExpiry": "2027-12-17",
+            "oiRatio": 4.0,
+            "volRatio": null
+          }
+        },
+        "2028-01-21": {
+          "keyLevels": {
+            "putWall": {
+              "strike": 150.0,
+              "oi": 23577
+            },
+            "callWall": {
+              "strike": 350.0,
+              "oi": 3652
+            },
+            "topLevels": [
+              {
+                "strike": 150.0,
+                "type": "put",
+                "oi": 23577
+              },
+              {
+                "strike": 230.0,
+                "type": "put",
+                "oi": 17972
+              },
+              {
+                "strike": 220.0,
+                "type": "put",
+                "oi": 14710
+              },
+              {
+                "strike": 260.0,
+                "type": "put",
+                "oi": 12440
+              },
+              {
+                "strike": 250.0,
+                "type": "put",
+                "oi": 10461
+              },
+              {
+                "strike": 280.0,
+                "type": "put",
+                "oi": 8863
+              },
+              {
+                "strike": 210.0,
+                "type": "put",
+                "oi": 7292
+              },
+              {
+                "strike": 205.0,
+                "type": "put",
+                "oi": 5662
+              },
+              {
+                "strike": 190.0,
+                "type": "put",
+                "oi": 4283
+              },
+              {
+                "strike": 350.0,
+                "type": "call",
+                "oi": 3652
+              }
+            ]
+          },
+          "maxPain": 280.0,
+          "pcr": {
+            "targetExpiry": "2028-01-21",
+            "oiRatio": 3.31,
+            "volRatio": null
+          }
+        },
+        "2028-06-16": {
+          "keyLevels": {
+            "putWall": {
+              "strike": 240.0,
+              "oi": 5907
+            },
+            "callWall": {
+              "strike": 300.0,
+              "oi": 1507
+            },
+            "topLevels": [
+              {
+                "strike": 240.0,
+                "type": "put",
+                "oi": 5907
+              },
+              {
+                "strike": 260.0,
+                "type": "put",
+                "oi": 5237
+              },
+              {
+                "strike": 250.0,
+                "type": "put",
+                "oi": 3203
+              },
+              {
+                "strike": 170.0,
+                "type": "put",
+                "oi": 3002
+              },
+              {
+                "strike": 220.0,
+                "type": "put",
+                "oi": 3002
+              },
+              {
+                "strike": 230.0,
+                "type": "put",
+                "oi": 2208
+              },
+              {
+                "strike": 210.0,
+                "type": "put",
+                "oi": 2002
+              },
+              {
+                "strike": 245.0,
+                "type": "put",
+                "oi": 1638
+              },
+              {
+                "strike": 300.0,
+                "type": "put",
+                "oi": 1510
+              },
+              {
+                "strike": 300.0,
+                "type": "call",
+                "oi": 1507
+              }
+            ]
+          },
+          "maxPain": 300.0,
+          "pcr": {
+            "targetExpiry": "2028-06-16",
+            "oiRatio": 9.3,
+            "volRatio": null
+          }
+        },
+        "2028-12-15": {
+          "keyLevels": {
+            "putWall": {
+              "strike": 250.0,
+              "oi": 26483
+            },
+            "callWall": {
+              "strike": 290.0,
+              "oi": 4295
+            },
+            "topLevels": [
+              {
+                "strike": 250.0,
+                "type": "put",
+                "oi": 26483
+              },
+              {
+                "strike": 240.0,
+                "type": "put",
+                "oi": 20425
+              },
+              {
+                "strike": 230.0,
+                "type": "put",
+                "oi": 17724
+              },
+              {
+                "strike": 155.0,
+                "type": "put",
+                "oi": 15008
+              },
+              {
+                "strike": 210.0,
+                "type": "put",
+                "oi": 14556
+              },
+              {
+                "strike": 220.0,
+                "type": "put",
+                "oi": 13027
+              },
+              {
+                "strike": 190.0,
+                "type": "put",
+                "oi": 11039
+              },
+              {
+                "strike": 215.0,
+                "type": "put",
+                "oi": 8622
+              },
+              {
+                "strike": 200.0,
+                "type": "put",
+                "oi": 8517
+              },
+              {
+                "strike": 290.0,
+                "type": "call",
+                "oi": 4295
+              }
+            ]
+          },
+          "maxPain": 290.0,
+          "pcr": {
+            "targetExpiry": "2028-12-15",
+            "oiRatio": 5.22,
+            "volRatio": null
+          }
+        },
+        "2029-01-19": null
+      },
       "spot": 256.61,
       "gex": {
-        "total": -1235961431.0,
+        "total": -1239413527.0,
         "byExpiry": [
           {
             "expiry": "2026-11-23",
-            "gex": -29526393.0,
-            "dte": 2
+            "gex": -31416153.0,
+            "dte": 1
           },
           {
             "expiry": "2026-11-24",
-            "gex": -7191556.0,
-            "dte": 3
+            "gex": -7311026.0,
+            "dte": 2
           },
           {
             "expiry": "2026-11-25",
-            "gex": -21388797.0,
-            "dte": 4
+            "gex": -21774875.0,
+            "dte": 3
           },
           {
             "expiry": "2026-11-27",
-            "gex": -84943873.0,
-            "dte": 6
+            "gex": -85264375.0,
+            "dte": 5
           },
           {
             "expiry": "2026-11-30",
-            "gex": -17256010.0,
-            "dte": 9
+            "gex": -17333654.0,
+            "dte": 8
           },
           {
             "expiry": "2026-12-01",
-            "gex": -3713890.0,
-            "dte": 10
+            "gex": -3722714.0,
+            "dte": 9
           },
           {
             "expiry": "2026-12-02",
-            "gex": -1404266.0,
-            "dte": 11
+            "gex": -1409103.0,
+            "dte": 10
           },
           {
             "expiry": "2026-12-03",
-            "gex": -4027987.0,
-            "dte": 12
+            "gex": -4041885.0,
+            "dte": 11
           },
           {
             "expiry": "2026-12-04",
-            "gex": -58921089.0,
-            "dte": 13
+            "gex": -59044265.0,
+            "dte": 12
           },
           {
             "expiry": "2026-12-11",
-            "gex": -14545234.0,
-            "dte": 20
+            "gex": -14560259.0,
+            "dte": 19
           },
           {
             "expiry": "2026-12-18",
-            "gex": -506504720.0,
-            "dte": 27
+            "gex": -506863604.0,
+            "dte": 26
           },
           {
             "expiry": "2026-12-24",
-            "gex": 404022.0,
-            "dte": 33
+            "gex": 396750.0,
+            "dte": 32
           },
           {
             "expiry": "2026-12-31",
-            "gex": -13713459.0,
-            "dte": 40
+            "gex": -13727347.0,
+            "dte": 39
           },
           {
             "expiry": "2027-01-15",
-            "gex": -143485166.0,
-            "dte": 55
+            "gex": -143531557.0,
+            "dte": 54
           },
           {
             "expiry": "2027-02-19",
-            "gex": -25756670.0,
-            "dte": 90
+            "gex": -25768055.0,
+            "dte": 89
           },
           {
             "expiry": "2027-03-19",
-            "gex": -95121575.0,
-            "dte": 118
+            "gex": -95139621.0,
+            "dte": 117
           },
           {
             "expiry": "2027-03-31",
-            "gex": -1258674.0,
-            "dte": 130
+            "gex": -1257107.0,
+            "dte": 129
           },
           {
             "expiry": "2027-04-16",
-            "gex": -22797940.0,
-            "dte": 146
+            "gex": -22801041.0,
+            "dte": 145
           },
           {
             "expiry": "2027-05-21",
-            "gex": -4475179.0,
-            "dte": 181
+            "gex": -4476189.0,
+            "dte": 180
           },
           {
             "expiry": "2027-06-17",
-            "gex": -67003363.0,
-            "dte": 208
+            "gex": -67018010.0,
+            "dte": 207
           },
           {
             "expiry": "2027-06-30",
-            "gex": -682156.0,
-            "dte": 221
+            "gex": -683040.0,
+            "dte": 220
           },
           {
             "expiry": "2027-09-17",
-            "gex": -29844711.0,
-            "dte": 300
+            "gex": -29849077.0,
+            "dte": 299
           },
           {
             "expiry": "2027-09-30",
-            "gex": -839891.0,
-            "dte": 313
+            "gex": -839907.0,
+            "dte": 312
           },
           {
             "expiry": "2027-10-15",
-            "gex": -3874493.0,
-            "dte": 328
+            "gex": -3875060.0,
+            "dte": 327
           },
           {
             "expiry": "2027-12-17",
-            "gex": -51620165.0,
-            "dte": 391
+            "gex": -51629167.0,
+            "dte": 390
           },
           {
             "expiry": "2028-01-21",
-            "gex": -10214492.0,
-            "dte": 426
+            "gex": -10216667.0,
+            "dte": 425
           },
           {
             "expiry": "2028-06-16",
-            "gex": -3265309.0,
-            "dte": 573
+            "gex": -3265807.0,
+            "dte": 572
           },
           {
             "expiry": "2028-12-15",
-            "gex": -12792118.0,
-            "dte": 755
+            "gex": -12794360.0,
+            "dte": 754
           },
           {
             "expiry": "2029-01-19",
-            "gex": -196276.0,
-            "dte": 790
+            "gex": -196353.0,
+            "dte": 789
           }
         ],
         "byStrike": [
           {
             "strike": 200.0,
-            "gex": -19428966.0
+            "gex": -19432936.0
           },
           {
             "strike": 205.0,
-            "gex": -5433880.0
+            "gex": -5435107.0
           },
           {
             "strike": 210.0,
-            "gex": -17102829.0
+            "gex": -17104532.0
           },
           {
             "strike": 215.0,
-            "gex": -8548010.0
+            "gex": -8531135.0
           },
           {
             "strike": 220.0,
-            "gex": -20961154.0
+            "gex": -20967858.0
           },
           {
             "strike": 225.0,
-            "gex": -18286572.0
+            "gex": -18291511.0
           },
           {
             "strike": 230.0,
-            "gex": -31156667.0
+            "gex": -31162893.0
           },
           {
             "strike": 235.0,
-            "gex": -26108893.0
+            "gex": -26122017.0
           },
           {
             "strike": 240.0,
-            "gex": -69897879.0
+            "gex": -69853915.0
           },
           {
             "strike": 245.0,
-            "gex": -46411138.0
+            "gex": -46428773.0
           },
           {
             "strike": 250.0,
-            "gex": -122830392.0
+            "gex": -122955183.0
           },
           {
             "strike": 251.0,
-            "gex": -21264634.0
+            "gex": -21337892.0
           },
           {
             "strike": 252.0,
-            "gex": -16714695.0
+            "gex": -16742423.0
           },
           {
             "strike": 253.0,
-            "gex": -10460833.0
+            "gex": -10485063.0
           },
           {
             "strike": 254.0,
-            "gex": -5916551.0
+            "gex": -5949193.0
           },
           {
             "strike": 255.0,
-            "gex": -113035081.0
+            "gex": -114731420.0
           },
           {
             "strike": 256.0,
-            "gex": -19788338.0
+            "gex": -19819518.0
           },
           {
             "strike": 257.0,
-            "gex": -21420962.0
+            "gex": -21449738.0
           },
           {
             "strike": 258.0,
-            "gex": -20383922.0
+            "gex": -20445593.0
           },
           {
             "strike": 259.0,
-            "gex": -18444271.0
+            "gex": -18467402.0
           },
           {
             "strike": 260.0,
-            "gex": -143138749.0
+            "gex": -144222252.0
           },
           {
             "strike": 261.0,
-            "gex": -30571265.0
+            "gex": -30527238.0
           },
           {
             "strike": 262.0,
-            "gex": -22270505.0
+            "gex": -22090933.0
           },
           {
             "strike": 263.0,
-            "gex": -30224242.0
+            "gex": -30104423.0
           },
           {
             "strike": 264.0,
-            "gex": -11506366.0
+            "gex": -11487911.0
           },
           {
             "strike": 265.0,
-            "gex": -108289032.0
+            "gex": -108241802.0
           },
           {
             "strike": 266.0,
-            "gex": -18553874.0
+            "gex": -18549247.0
           },
           {
             "strike": 267.0,
-            "gex": -38250894.0
+            "gex": -37946646.0
           },
           {
             "strike": 268.0,
-            "gex": -20482468.0
+            "gex": -20389037.0
           },
           {
             "strike": 269.0,
-            "gex": -7945524.0
+            "gex": -8016774.0
           },
           {
             "strike": 270.0,
-            "gex": -80104948.0
+            "gex": -80176856.0
           },
           {
             "strike": 275.0,
-            "gex": -49543751.0
+            "gex": -49606662.0
           },
           {
             "strike": 280.0,
-            "gex": -36139661.0
+            "gex": -36173550.0
           },
           {
             "strike": 285.0,
-            "gex": -14705355.0
+            "gex": -14732841.0
           },
           {
             "strike": 290.0,
-            "gex": -23740675.0
+            "gex": -23765944.0
           },
           {
             "strike": 300.0,
-            "gex": 13457906.0
+            "gex": 13437336.0
           },
           {
             "strike": 310.0,
-            "gex": 9112019.0
+            "gex": 9090410.0
           },
           {
             "strike": 315.0,
-            "gex": 7250391.0
+            "gex": 7239686.0
           },
           {
             "strike": 320.0,
-            "gex": 5942514.0
+            "gex": 5932656.0
           },
           {
             "strike": 330.0,
-            "gex": 5691511.0
+            "gex": 5672357.0
           }
         ],
         "flipPrice": null
       },
       "pcr": {
-        "allExpOiRatio": 2.38,
-        "allExpVolRatio": 3.19,
+        "allExpOiRatio": null,
+        "allExpVolRatio": null,
         "targetExpiry": "2026-12-18",
         "oiRatio": 2.39,
-        "volRatio": 5.8
+        "volRatio": null
       },
       "skew": {
-        "riskReversal25d": 9.74,
-        "putIV25d": 37.96,
-        "callIV25d": 28.23,
-        "atmIV": 32.55
+        "riskReversal25d": 9.9,
+        "putIV25d": 38.66,
+        "callIV25d": 28.76,
+        "atmIV": 33.15
       },
       "vrp": {
-        "iv": 32.55,
+        "iv": 33.15,
         "hv21": 27.47,
-        "premium": 5.08
+        "premium": 5.68
       },
       "maxPain": 275.0,
       "keyLevels": {
@@ -2009,29 +6312,29 @@
             "oi": 85771
           },
           {
+            "strike": 255.0,
+            "type": "put",
+            "oi": 85555
+          },
+          {
+            "strike": 200.0,
+            "type": "put",
+            "oi": 82978
+          },
+          {
             "strike": 300.0,
             "type": "call",
             "oi": 80550
           },
           {
-            "strike": 290.0,
-            "type": "call",
-            "oi": 66602
+            "strike": 265.0,
+            "type": "put",
+            "oi": 73163
           },
           {
-            "strike": 295.0,
-            "type": "call",
-            "oi": 50837
-          },
-          {
-            "strike": 330.0,
-            "type": "call",
-            "oi": 45144
-          },
-          {
-            "strike": 310.0,
-            "type": "call",
-            "oi": 43390
+            "strike": 170.0,
+            "type": "put",
+            "oi": 72844
           }
         ]
       }

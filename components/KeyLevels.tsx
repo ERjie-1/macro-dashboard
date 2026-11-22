@@ -8,7 +8,7 @@ interface Props {
 
 export default function KeyLevels({ data, selectedExpiry }: Props) {
   const detail = selectedExpiryDetails(data, selectedExpiry)
-  if (!detail) return <div><h3 className="font-semibold">Key OI Levels ({selectedExpiry})</h3><p className="text-sm text-gray-500 mt-3">本批快照未提供该到期日的 Put / Call OI 峰、持仓明细及 Max Pain；不使用其他日期代替。</p></div>
+  if (!detail) return <div><h3 className="font-semibold">Key OI Levels ({selectedExpiry})</h3><p className="text-sm text-gray-500 mt-3">本批快照该到期日明细未提供或含缺失OI，Put / Call OI 峰、完整排名及 Max Pain 无法核定；不使用其他日期代替。</p></div>
   const { putWall, callWall, topLevels } = detail.keyLevels
 
   return (
@@ -18,8 +18,8 @@ export default function KeyLevels({ data, selectedExpiry }: Props) {
       <div className="grid grid-cols-3 gap-3 mb-4">
         <div className="bg-red-50 rounded-lg p-3 text-center">
           <div className="text-xs text-red-600 mb-1">Put OI 峰</div>
-          <div className="text-lg font-bold text-red-700">${putWall.strike}</div>
-          <div className="text-xs text-red-500">{(putWall.oi / 1000).toFixed(1)}K OI</div>
+          <div className="text-lg font-bold text-red-700">{putWall ? `$${putWall.strike}` : '无峰（OI为零）'}</div>
+          <div className="text-xs text-red-500">{putWall ? `${(putWall.oi / 1000).toFixed(1)}K OI` : '0 OI'}</div>
         </div>
         {data.gex.flipPrice != null && (
           <div className="bg-indigo-50 rounded-lg p-3 text-center">
@@ -30,8 +30,8 @@ export default function KeyLevels({ data, selectedExpiry }: Props) {
         )}
         <div className="bg-emerald-50 rounded-lg p-3 text-center">
           <div className="text-xs text-emerald-600 mb-1">Call OI 峰</div>
-          <div className="text-lg font-bold text-emerald-700">${callWall.strike}</div>
-          <div className="text-xs text-emerald-500">{(callWall.oi / 1000).toFixed(1)}K OI</div>
+          <div className="text-lg font-bold text-emerald-700">{callWall ? `$${callWall.strike}` : '无峰（OI为零）'}</div>
+          <div className="text-xs text-emerald-500">{callWall ? `${(callWall.oi / 1000).toFixed(1)}K OI` : '0 OI'}</div>
         </div>
       </div>
 

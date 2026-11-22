@@ -18,7 +18,7 @@ export function positioningReading(data: TickerOptions, asOf?: string) {
   const rows = expiryRows(data, asOf)
   const mass = rows.reduce((n, x) => n + Math.abs(x.gex), 0)
   const largest = mass > 0 ? [...rows].sort((a, b) => Math.abs(b.gex) - Math.abs(a.gex))[0] : undefined
-  const strikes = data.gex.byStrike.filter(x => Number.isFinite(x.gex))
+  const strikes = data.gex.byStrike.filter(x => Number.isFinite(x.gex) && x.gex !== 0)
   const peak = [...strikes].sort((a, b) => Math.abs(b.gex) - Math.abs(a.gex))[0]
   const flip = data.gex.flipPrice
   return {
@@ -31,7 +31,8 @@ export function positioningReading(data: TickerOptions, asOf?: string) {
 
 // Older snapshots contain only the explicitly identified monthly expiry.
 export function selectedExpiryDetails(data: TickerOptions, expiry: string) {
-  return data.expiryDetails?.[expiry] ?? (expiry === data.pcr.targetExpiry
+  if (data.expiryDetails && Object.prototype.hasOwnProperty.call(data.expiryDetails, expiry)) return data.expiryDetails[expiry]
+  return (expiry === data.pcr.targetExpiry
     ? { keyLevels: data.keyLevels, maxPain: data.maxPain, pcr: data.pcr } : null)
 }
 
