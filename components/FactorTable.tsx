@@ -1,12 +1,14 @@
 'use client'
 
 import FactorHistory from './FactorHistory'
+import FactorChange from './FactorChange'
 
 import { useMemo, useState } from 'react'
 import { Factor } from '@/types'
 import { getStatusColor } from '@/lib/mockData'
 
 interface FactorTableProps {
+  asOfTradingDate?: string
   factors: Factor[]
   title: string
   moduleColor: string
@@ -29,7 +31,9 @@ function FactorRow({
   factor,
   moduleColor,
   isExtra,
+  asOfTradingDate,
 }: {
+  asOfTradingDate?: string
   factor: Factor
   moduleColor: string
   isExtra: boolean
@@ -57,7 +61,7 @@ function FactorRow({
         <td className="py-3 px-4 text-sm font-mono text-gray-700 font-medium">{factor.value}</td>
         {/* 7D Change */}
         <td className="py-3 px-4 text-sm font-mono text-gray-500">
-          <span title="Change units are not verified">N/A</span>
+          <FactorChange factor={factor} asOf={asOfTradingDate} />
         </td>
         {/* Historical Percentile (5Y) */}
         <td
@@ -120,7 +124,7 @@ function FactorRow({
   )
 }
 
-export default function FactorTable({ factors, title, moduleColor }: FactorTableProps) {
+export default function FactorTable({ factors, title, moduleColor, asOfTradingDate }: FactorTableProps) {
   const [sortBy, setSortBy] = useState<ModuleSortKey>('default')
 
   const scored = useMemo(() => {
@@ -187,6 +191,7 @@ export default function FactorTable({ factors, title, moduleColor }: FactorTable
                 factor={factor}
                 moduleColor={moduleColor}
                 isExtra={isExtra}
+                asOfTradingDate={asOfTradingDate}
               />
             ))}
           </tbody>

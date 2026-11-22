@@ -555,6 +555,19 @@ def compute_key_levels(calls_df, puts_df, target_expiry):
     }
 
 
+def compute_expiry_details(calls_df, puts_df):
+    # Reuse already fetched chains; never substitute the monthly chain for another date.
+    expiry_details = {}
+    for expiry in sorted(set(calls_df["expiry"]) & set(puts_df["expiry"])):
+        expiry_details[str(expiry)] = {
+            "keyLevels": compute_key_levels(calls_df, puts_df, expiry),
+            "maxPain": compute_max_pain(calls_df, puts_df, expiry),
+            "pcr": compute_pcr(calls_df, puts_df, expiry),
+        }
+
+    return expiry_details
+
+
 def analyse_ticker(ticker_symbol: str, r: float):
     """Full options analysis for one ticker."""
     print(f"\n  Analysing {ticker_symbol}...")
@@ -613,7 +626,10 @@ def analyse_ticker(ticker_symbol: str, r: float):
         "topLevels": [],
     }
 
+    expiry_details = compute_expiry_details(calls_df, puts_df)
+
     return {
+        "expiryDetails": expiry_details,
         "_asOfDate": latest_price_date,
         "spot": round(spot, 2),
         "gex": {

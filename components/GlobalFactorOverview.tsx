@@ -1,6 +1,7 @@
 'use client'
 
 import FactorHistory from './FactorHistory'
+import FactorChange from './FactorChange'
 
 import { useMemo, useState } from 'react'
 import Link from 'next/link'
@@ -280,7 +281,7 @@ export default function GlobalFactorOverview({
 
                       {/* 7D Change */}
                       <div className="text-xs font-mono text-gray-500 pr-2 truncate">
-                        <span title="Change units are not verified">N/A</span>
+                        <FactorChange factor={row.factor} asOf={asOfTradingDate} />
                       </div>
 
                       {/* 7D Contribution */}

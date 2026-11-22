@@ -5,13 +5,14 @@ import type { Factor, Status } from '@/types'
 import FactorTable from './FactorTable'
 
 interface Props {
+  asOfTradingDate?: string
   factors: Factor[]
   moduleColor: string
 }
 
 type FilterType = 'all' | Status
 
-export default function ModuleFactorsSection({ factors, moduleColor }: Props) {
+export default function ModuleFactorsSection({ factors, moduleColor, asOfTradingDate }: Props) {
   const [filter, setFilter] = useState<FilterType>('all')
 
   const scored = factors.filter((f) => !f.isExtra)
@@ -63,6 +64,7 @@ export default function ModuleFactorsSection({ factors, moduleColor }: Props) {
       {/* Filtered factor table */}
       <FactorTable
         factors={filtered}
+        asOfTradingDate={asOfTradingDate}
         title={filter === 'all' ? 'Scored Factors' : `Scored Factors — ${filter.charAt(0).toUpperCase() + filter.slice(1)}`}
         moduleColor={moduleColor}
       />

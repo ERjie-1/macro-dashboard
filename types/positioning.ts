@@ -27,6 +27,7 @@ export interface SkewIndex {
 }
 
 export interface TickerOptions {
+  expiryDetails?: Record<string, { keyLevels: TickerOptions['keyLevels']; maxPain: number; pcr: TickerOptions['pcr'] }>
   spot: number
   gex: {
     total: number
