@@ -34,11 +34,11 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen bg-[#f6f6f6]">
-      <div className="max-w-5xl mx-auto px-4 py-8 space-y-6">
+      <div className="max-w-[1340px] mx-auto px-4 py-8 space-y-6">
 
         {/* Top card: Score Gauge + Historical Trend */}
         <div className="dial-card p-6 sm:p-7">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[360px_minmax(0,1fr)] gap-8 items-stretch">
 
             {/* Left: Gauge & MacroDial-style status readout */}
             <div className="flex flex-col justify-between">
@@ -51,7 +51,7 @@ export default function HomePage() {
 
                 <div className="text-center mt-1 space-y-2.5">
                   <div>
-                    <div className="text-4xl sm:text-[42px] font-semibold font-mono text-gray-900 leading-none score-text">
+                    <div className="text-4xl sm:text-[42px] font-medium font-mono text-gray-900 leading-none score-text">
                       {d.score.toFixed(1)}
                     </div>
                     <div className="text-xs font-mono text-gray-400 mt-1">/ 100</div>

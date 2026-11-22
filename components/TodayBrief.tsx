@@ -79,7 +79,7 @@ export default function TodayBrief({
       </div>
 
       {/* Key movers strip */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 py-4 border-b border-gray-100">
+      <div className="grid grid-cols-1 sm:grid-cols-[2fr_1fr_1fr] gap-4 py-4 border-b border-gray-100">
         <div>
           <div className="text-xs text-gray-500 mb-1">MEC Score Change</div>
           <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 font-mono text-sm">
@@ -105,7 +105,7 @@ export default function TodayBrief({
           )}
         </div>
 
-        <div>
+        <div className="sm:border-l sm:border-gray-200 sm:pl-4">
           <div className="text-xs text-gray-500 mb-1">1D Top Mover</div>
           {topMover1D ? (
             <div className="font-mono text-sm">
@@ -169,10 +169,10 @@ export default function TodayBrief({
             </span>
             <span className="text-xs text-gray-500">extreme factors (≥80th)</span>
           </div>
-          <div className="mt-3 flex flex-wrap gap-x-4 gap-y-2">
+          <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-2">
             {supportive.length > 0 ? (
               supportive.slice(0, 4).map((f) => (
-                <div key={`${f.moduleName}-${f.name}`} className="flex items-center gap-1.5 text-xs">
+                <div key={`${f.moduleName}-${f.name}`} className="flex items-center justify-between gap-1.5 text-xs min-w-0">
                   <span className="text-gray-800 font-medium">{f.name}</span>
                   <span className="px-1.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200/70 font-mono text-[10px]">
                     {formatOrdinal(f.percentile)}
@@ -196,10 +196,10 @@ export default function TodayBrief({
             </span>
             <span className="text-xs text-gray-500">extreme factors (≤20th)</span>
           </div>
-          <div className="mt-3 flex flex-wrap gap-x-4 gap-y-2">
+          <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-2">
             {restrictive.length > 0 ? (
               restrictive.slice(0, 4).map((f) => (
-                <div key={`${f.moduleName}-${f.name}`} className="flex items-center gap-1.5 text-xs">
+                <div key={`${f.moduleName}-${f.name}`} className="flex items-center justify-between gap-1.5 text-xs min-w-0">
                   <span className="text-gray-800 font-medium">{f.name}</span>
                   <span className="px-1.5 py-0.5 rounded-full bg-red-50 text-red-700 border border-red-200/70 font-mono text-[10px]">
                     {formatOrdinal(f.percentile)}

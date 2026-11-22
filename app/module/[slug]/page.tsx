@@ -44,7 +44,7 @@ export default async function ModulePage({ params }: Props) {
 
   return (
     <div className="min-h-screen bg-[#f6f6f6]">
-      <div className="max-w-5xl mx-auto px-4 py-8 space-y-5">
+      <div className="max-w-[1340px] mx-auto px-4 py-8 space-y-5">
 
         {/* Breadcrumb */}
         <div className="flex items-center gap-2 text-sm text-gray-400">
@@ -57,7 +57,7 @@ export default async function ModulePage({ params }: Props) {
 
         {/* Top card: Gauge + Trend */}
         <div className="dial-card p-6 sm:p-7">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[360px_minmax(0,1fr)] gap-8 items-stretch">
 
             {/* Left: Gauge */}
             <div className="flex flex-col justify-between">
@@ -66,7 +66,7 @@ export default async function ModulePage({ params }: Props) {
                 <GaugeDial score={module.score} />
                 <div className="text-center mt-1 space-y-2">
                   <div>
-                    <div className="text-4xl font-semibold font-mono text-gray-900 leading-none score-text">
+                    <div className="text-4xl font-medium font-mono text-gray-900 leading-none score-text">
                       {module.score.toFixed(1)}
                     </div>
                     <div className="text-xs font-mono text-gray-400 mt-1">/ 100</div>
