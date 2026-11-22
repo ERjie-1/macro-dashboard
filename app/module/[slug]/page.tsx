@@ -57,7 +57,7 @@ export default async function ModulePage({ params }: Props) {
 
         {/* Top card: Gauge + Trend */}
         <div className="dial-card p-6 sm:p-7">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[360px_minmax(0,1fr)] gap-8 items-stretch">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
 
             {/* Left: Gauge */}
             <div className="flex flex-col justify-between">

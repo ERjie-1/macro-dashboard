@@ -169,12 +169,12 @@ export default function TodayBrief({
             </span>
             <span className="text-xs text-gray-500">extreme factors (≥80th)</span>
           </div>
-          <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-2">
+          <div className="mt-3 grid grid-cols-1 xl:grid-cols-2 gap-x-4 gap-y-2">
             {supportive.length > 0 ? (
               supportive.slice(0, 4).map((f) => (
                 <div key={`${f.moduleName}-${f.name}`} className="flex items-center justify-between gap-1.5 text-xs min-w-0">
-                  <span className="text-gray-800 font-medium">{f.name}</span>
-                  <span className="px-1.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200/70 font-mono text-[10px]">
+                  <span className="text-gray-800 font-medium min-w-0 break-words">{f.name}</span>
+                  <span className="shrink-0 px-1.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200/70 font-mono text-[10px]">
                     {formatOrdinal(f.percentile)}
                   </span>
                 </div>
@@ -196,12 +196,12 @@ export default function TodayBrief({
             </span>
             <span className="text-xs text-gray-500">extreme factors (≤20th)</span>
           </div>
-          <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-2">
+          <div className="mt-3 grid grid-cols-1 xl:grid-cols-2 gap-x-4 gap-y-2">
             {restrictive.length > 0 ? (
               restrictive.slice(0, 4).map((f) => (
                 <div key={`${f.moduleName}-${f.name}`} className="flex items-center justify-between gap-1.5 text-xs min-w-0">
-                  <span className="text-gray-800 font-medium">{f.name}</span>
-                  <span className="px-1.5 py-0.5 rounded-full bg-red-50 text-red-700 border border-red-200/70 font-mono text-[10px]">
+                  <span className="text-gray-800 font-medium min-w-0 break-words">{f.name}</span>
+                  <span className="shrink-0 px-1.5 py-0.5 rounded-full bg-red-50 text-red-700 border border-red-200/70 font-mono text-[10px]">
                     {formatOrdinal(f.percentile)}
                   </span>
                 </div>
@@ -230,7 +230,7 @@ export default function TodayBrief({
                 return (
                   <div key={`${f.moduleName}-${f.name}`} className="text-xs">
                     <div className="flex items-center gap-1.5">
-                      <span className="text-gray-800 font-medium">{f.name}</span>
+                      <span className="text-gray-800 font-medium min-w-0 break-words">{f.name}</span>
                       <span
                         className={`px-1.5 py-0.5 rounded-full border font-mono text-[10px] ${
                           isLow
