@@ -1,93 +1,139 @@
-import { dashboardData, getScoreColor } from '@/lib/getData'
+import { dashboardData } from '@/lib/getData'
+import {
+  computeSeriesDeltas,
+  formatOrdinal,
+  getRegimeInfo,
+} from '@/lib/scoreMetrics'
 import GaugeDial from '@/components/GaugeDial'
 import TrendChart from '@/components/TrendChart'
 import ModuleCard from '@/components/ModuleCard'
 import ScoreLiftDrag from '@/components/ScoreLiftDrag'
 import DataFreshness from '@/components/DataFreshness'
-import RelativeTime from '@/components/RelativeTime'
 import TodayBrief from '@/components/TodayBrief'
 
 export default function HomePage() {
   const d = dashboardData
-  const scoreColor = getScoreColor(d.score)
-  const delta1D = d.score - d.prevScore
-  const len = d.trendData.length
-  const delta7D = len >= 7 ? d.score - d.trendData[len - 7].value : delta1D
+  const { delta1D, prev1DValue, prev1DDate, delta7D, prev7DDate } = computeSeriesDeltas(
+    d.score,
+    d.trendData,
+    d.asOfTradingDate,
+    d.prevScore
+  )
+  const regime = getRegimeInfo(d.score)
 
-  const pctColor = d.percentile5Y >= 60
-    ? 'bg-green-100 text-green-700'
-    : d.percentile5Y >= 40
-      ? 'bg-orange-100 text-orange-700'
-      : 'bg-red-100 text-red-700'
+  const pctTextClass =
+    d.percentile5Y >= 60
+      ? 'text-emerald-600'
+      : d.percentile5Y >= 40
+        ? 'text-amber-600'
+        : 'text-red-600'
+
+  const delta1DClass =
+    delta1D > 0.05 ? 'text-emerald-600' : delta1D < -0.05 ? 'text-red-600' : 'text-gray-500'
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-[#f6f6f6]">
       <div className="max-w-5xl mx-auto px-4 py-8 space-y-6">
 
-        {/* Top card: Score + Historical Trend */}
-        <div className="dial-card p-6">
-          <div className="grid grid-cols-2 gap-6">
+        {/* Top card: Score Gauge + Historical Trend */}
+        <div className="dial-card p-6 sm:p-7">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
 
-            {/* Left: Gauge */}
-            <div>
-              <h2 className="text-lg font-semibold text-gray-800 mb-4">
-                Macro-Economic Conditions Score
+            {/* Left: Gauge & MacroDial-style status readout */}
+            <div className="flex flex-col justify-between">
+              <h2 className="text-lg font-semibold text-gray-900 mb-3">
+                Macro-Economic Conditions (MEC) Score
               </h2>
-              <div className="flex justify-center">
+
+              <div className="flex flex-col items-center my-auto">
                 <GaugeDial score={d.score} />
-              </div>
-              <div className="text-center mt-2 space-y-1">
-                <div className="text-5xl font-bold score-text" style={{ color: scoreColor }}>
-                  {d.score.toFixed(1)}
-                </div>
-                <div className="text-sm text-gray-400">/ 100</div>
-                <div className="flex items-center justify-center gap-3 text-sm">
-                  <span className={`font-medium ${delta1D >= 0 ? 'text-green-600' : 'text-red-500'}`}>
-                    1D {delta1D >= 0 ? '+' : ''}{delta1D.toFixed(1)} pts
-                  </span>
-                  <span className="text-gray-300">|</span>
-                  <span className={`font-medium ${delta7D >= 0 ? 'text-green-600' : 'text-red-500'}`}>
-                    7D {delta7D >= 0 ? '+' : ''}{delta7D.toFixed(1)} pts
-                  </span>
-                </div>
-                <div className="flex items-center justify-center gap-2 text-xs text-gray-400">
-                  <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${pctColor}`}>
-                    {d.percentile5Y}th pctl
-                  </span>
-                  <span>·</span>
-                  <span>{d.trendDays}d {d.trendDirection}</span>
-                </div>
-                <div className="text-xs text-gray-400">
-                  {d.updatedAt ? <RelativeTime isoString={d.updatedAt} /> : d.lastUpdated}
+
+                <div className="text-center mt-1 space-y-2.5">
+                  <div>
+                    <div className="text-4xl sm:text-[42px] font-semibold font-mono text-gray-900 leading-none score-text">
+                      {d.score.toFixed(1)}
+                    </div>
+                    <div className="text-xs font-mono text-gray-400 mt-1">/ 100</div>
+                  </div>
+
+                  {/* Status line 1: prev -> curr (1D) [Regime] · Data freshness */}
+                  <div className="flex items-center justify-center flex-wrap gap-x-2 gap-y-1 text-xs font-mono text-gray-600 pt-1">
+                    <span title={prev1DDate ? `1D baseline: ${prev1DDate}` : undefined}>
+                      <span className="text-gray-500">{prev1DValue.toFixed(1)}</span>
+                      <span className="mx-1 text-gray-400">→</span>
+                      <span className="font-semibold text-gray-900">{d.score.toFixed(1)}</span>{' '}
+                      <span className={`font-medium ${delta1DClass}`}>
+                        ({delta1D >= 0 ? '+' : ''}{delta1D.toFixed(1)})
+                      </span>
+                    </span>
+                    <span className={`px-2 py-0.5 rounded text-[11px] font-sans font-medium ${regime.pillClass}`}>
+                      {regime.label}
+                    </span>
+                    <a
+                      href="#data-freshness"
+                      className="inline-flex items-center gap-1 font-sans text-gray-500 hover:text-gray-800 underline decoration-gray-300 underline-offset-2"
+                    >
+                      <span className={`inline-block w-1.5 h-1.5 rounded-full ${regime.dotClass}`} />
+                      Data freshness
+                    </a>
+                  </div>
+
+                  {/* Status line 2: 7D · streak · 5Y Historical Percentile */}
+                  <div className="flex items-center justify-center flex-wrap gap-x-2 gap-y-1 text-xs text-gray-500">
+                    <span
+                      className="font-mono"
+                      title={prev7DDate ? `7D baseline: ${prev7DDate}` : undefined}
+                    >
+                      {delta7D >= 0 ? '▲' : '▼'} {delta7D >= 0 ? '+' : ''}
+                      {delta7D.toFixed(1)} pts 7D
+                    </span>
+                    <span className="text-gray-300">·</span>
+                    <span>
+                      {d.trendDays}d {d.trendDirection}
+                    </span>
+                    <span className="text-gray-300">·</span>
+                    <span className={`font-medium ${pctTextClass}`}>
+                      5Y Historical Percentile: {formatOrdinal(d.percentile5Y)}
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
 
             {/* Right: Historical Trend */}
-            <div className="flex flex-col">
-              <h2 className="text-lg font-semibold text-gray-800 mb-2">MEC Score Trend</h2>
-              <div className="flex-1" style={{ minHeight: 220 }}>
-                <TrendChart data={d.trendData} color={scoreColor} />
-              </div>
+            <div className="flex flex-col min-h-[270px]">
+              <TrendChart
+                data={d.trendData}
+                title="MEC Score Trend"
+                asOfTradingDate={d.asOfTradingDate}
+              />
             </div>
           </div>
         </div>
 
         {/* Today Brief */}
-        <TodayBrief data={d} delta1D={delta1D} delta7D={delta7D} />
+        <TodayBrief
+          data={d}
+          delta1D={delta1D}
+          prev1DDate={prev1DDate}
+          delta7D={delta7D}
+          prev7DDate={prev7DDate}
+        />
 
-        {/* Module Pulse — bhadial: single card, 7-col grid, divide-x */}
+        {/* Module Pulse */}
         <div className="dial-card overflow-hidden">
           <div className="px-5 py-4">
-            <h3 className="text-[15px] font-semibold leading-snug">
+            <h3 className="text-[15px] font-semibold leading-snug text-gray-900">
               Module Pulse{' '}
-              <span className="text-gray-400 font-normal">(7D)</span>
+              <span className="text-gray-400 font-normal">
+                (7D{prev7DDate ? ` vs ${prev7DDate}` : ''})
+              </span>
             </h3>
           </div>
           <div className="overflow-x-auto">
             <div className="grid grid-cols-7 min-w-[600px] divide-x divide-gray-200">
               {d.modules.map((m) => (
-                <ModuleCard key={m.slug} module={m} />
+                <ModuleCard key={m.slug} module={m} asOfTradingDate={d.asOfTradingDate} />
               ))}
             </div>
           </div>
@@ -107,7 +153,9 @@ export default function HomePage() {
         </div>
 
         {/* Data Freshness */}
-        <DataFreshness modules={d.modules} dashboardUpdatedAt={d.updatedAt} />
+        <div id="data-freshness">
+          <DataFreshness modules={d.modules} dashboardUpdatedAt={d.updatedAt} />
+        </div>
 
       </div>
     </div>
