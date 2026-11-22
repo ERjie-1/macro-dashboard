@@ -1,33 +1,37 @@
+import { selectedExpiryDetails } from '@/lib/positioningReading'
 import type { TickerOptions } from '@/types/positioning'
 
 interface Props {
+  selectedExpiry: string
   data: TickerOptions
 }
 
-export default function KeyLevels({ data }: Props) {
-  const { putWall, callWall, topLevels } = data.keyLevels
+export default function KeyLevels({ data, selectedExpiry }: Props) {
+  const detail = selectedExpiryDetails(data, selectedExpiry)
+  if (!detail) return <div><h3 className="font-semibold">Key OI Levels ({selectedExpiry})</h3><p className="text-sm text-gray-500 mt-3">本批快照该到期日明细未提供或含缺失OI，Put / Call OI 峰、完整排名及 Max Pain 无法核定；不使用其他日期代替。</p></div>
+  const { putWall, callWall, topLevels } = detail.keyLevels
 
   return (
     <div>
-      <h3 className="text-sm font-semibold text-gray-700 mb-3">Key OI Levels ({data.pcr.targetExpiry})</h3>
+      <h3 className="text-sm font-semibold text-gray-700 mb-3">Key OI Levels ({selectedExpiry})</h3>
 
       <div className="grid grid-cols-3 gap-3 mb-4">
         <div className="bg-red-50 rounded-lg p-3 text-center">
           <div className="text-xs text-red-600 mb-1">Put OI 峰</div>
-          <div className="text-lg font-bold text-red-700">${putWall.strike}</div>
-          <div className="text-xs text-red-500">{(putWall.oi / 1000).toFixed(1)}K OI</div>
+          <div className="text-lg font-bold text-red-700">{putWall ? `$${putWall.strike}` : '无峰（OI为零）'}</div>
+          <div className="text-xs text-red-500">{putWall ? `${(putWall.oi / 1000).toFixed(1)}K OI` : '0 OI'}</div>
         </div>
         {data.gex.flipPrice != null && (
           <div className="bg-indigo-50 rounded-lg p-3 text-center">
-            <div className="text-xs text-indigo-600 mb-1">Gamma Flip</div>
+            <div className="text-xs text-indigo-600 mb-1">Gamma Flip · 全链</div>
             <div className="text-lg font-bold text-indigo-700">${data.gex.flipPrice}</div>
-            <div className="text-xs text-indigo-500">GEX sign change</div>
+            <div className="text-xs text-indigo-500">不随所选日期切换</div>
           </div>
         )}
         <div className="bg-emerald-50 rounded-lg p-3 text-center">
           <div className="text-xs text-emerald-600 mb-1">Call OI 峰</div>
-          <div className="text-lg font-bold text-emerald-700">${callWall.strike}</div>
-          <div className="text-xs text-emerald-500">{(callWall.oi / 1000).toFixed(1)}K OI</div>
+          <div className="text-lg font-bold text-emerald-700">{callWall ? `$${callWall.strike}` : '无峰（OI为零）'}</div>
+          <div className="text-xs text-emerald-500">{callWall ? `${(callWall.oi / 1000).toFixed(1)}K OI` : '0 OI'}</div>
         </div>
       </div>
 

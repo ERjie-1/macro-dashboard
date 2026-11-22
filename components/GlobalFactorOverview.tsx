@@ -1,18 +1,13 @@
 'use client'
 
+import FactorHistory from './FactorHistory'
+import FactorChange from './FactorChange'
+
 import { useMemo, useState } from 'react'
 import Link from 'next/link'
 import type { Factor, LiftDragItem, Module, Status } from '@/types'
-import { formatOrdinal } from '@/lib/scoreMetrics'
-import TrendChart from './TrendChart'
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  ResponsiveContainer,
-  Cell,
-} from 'recharts'
+
+const FACTOR_COLUMNS = 'grid grid-cols-[minmax(200px,2.2fr)_minmax(85px,0.9fr)_minmax(110px,1fr)_minmax(85px,0.85fr)_minmax(145px,1.25fr)_56px_44px] items-center px-4 py-2.5'
 
 interface GlobalFactorOverviewProps {
   modules: Module[]
@@ -227,16 +222,20 @@ export default function GlobalFactorOverview({
 
       {/* Responsive Table */}
       <div className="overflow-x-auto">
-        <table className="w-full min-w-[740px]">
+        <table className="w-full min-w-[780px]">
           <thead>
             <tr className="text-[11px] text-gray-400 uppercase tracking-wider bg-gray-50/60 border-b border-gray-100">
-              <th className="text-left px-4 py-2.5 font-medium">Factor</th>
-              <th className="text-left px-3 py-2.5 font-medium">Value</th>
-              <th className="text-left px-3 py-2.5 font-medium">7D Change</th>
-              <th className="text-right px-3 py-2.5 font-medium">7D Contrib</th>
-              <th className="text-left px-3 py-2.5 font-medium">5Y Percentile</th>
-              <th className="text-center px-3 py-2.5 font-medium">Status</th>
-              <th className="text-center px-3 py-2.5 font-medium">Vel</th>
+              <th colSpan={7} className="p-0 font-medium">
+                <div className={FACTOR_COLUMNS}>
+                  <span className="text-left">Factor</span>
+                  <span className="text-left">Value</span>
+                  <span className="text-left">7D Change</span>
+                  <span className="text-right pr-3">7D Contrib</span>
+                  <span className="text-left">5Y Percentile</span>
+                  <span className="text-center">Status</span>
+                  <span className="text-center">Vel</span>
+                </div>
+              </th>
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-100">
@@ -258,7 +257,7 @@ export default function GlobalFactorOverview({
                           toggleExpand(key)
                         }
                       }}
-                      className="grid grid-cols-[minmax(200px,2.2fr)_minmax(85px,0.9fr)_minmax(110px,1fr)_minmax(85px,0.85fr)_minmax(145px,1.25fr)_56px_44px] items-center px-4 py-2.5 hover:bg-gray-50/90 cursor-pointer transition-colors"
+                      className={`${FACTOR_COLUMNS} hover:bg-gray-50/90 cursor-pointer transition-colors`}
                     >
                       {/* Factor + Module pill */}
                       <div className="flex items-center gap-2 min-w-0 pr-2">
@@ -282,7 +281,7 @@ export default function GlobalFactorOverview({
 
                       {/* 7D Change */}
                       <div className="text-xs font-mono text-gray-500 pr-2 truncate">
-                        <span title="Change units are not verified">N/A</span>
+                        <FactorChange factor={row.factor} asOf={asOfTradingDate} />
                       </div>
 
                       {/* 7D Contribution */}
@@ -358,57 +357,7 @@ export default function GlobalFactorOverview({
                           </Link>
                         </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                          <div>
-                            <div className="text-[11px] font-semibold text-gray-500 uppercase tracking-wide mb-2">
-                              Historical Trend ({row.factor.trendData.length}d)
-                            </div>
-                            <div className="h-28">
-                              <TrendChart
-                                data={row.factor.trendData.slice(-90)}
-                                color={barColor}
-                                mini={true}
-                                asOfTradingDate={asOfTradingDate}
-                              />
-                            </div>
-                          </div>
-
-                          <div>
-                            <div className="text-[11px] font-semibold text-gray-500 uppercase tracking-wide mb-2">
-                              Historical Percentile Distribution (5Y)
-                            </div>
-                            <div className="h-28">
-                              <ResponsiveContainer width="100%" height="100%">
-                                <BarChart
-                                  data={row.factor.percentileData}
-                                  margin={{ top: 4, right: 4, left: -20, bottom: 4 }}
-                                >
-                                  <XAxis
-                                    dataKey="range"
-                                    tick={{ fontSize: 9, fill: '#9ca3af' }}
-                                    axisLine={false}
-                                    tickLine={false}
-                                  />
-                                  <YAxis hide />
-                                  <Bar dataKey="freq" radius={[2, 2, 0, 0]}>
-                                    {row.factor.percentileData.map((_, index) => {
-                                      const pct = index * 10 + 5
-                                      const isCurrent =
-                                        pct >= row.factor.historicalPercentile5Y - 5 &&
-                                        pct < row.factor.historicalPercentile5Y + 5
-                                      return (
-                                        <Cell
-                                          key={index}
-                                          fill={isCurrent ? barColor : '#e5e7eb'}
-                                        />
-                                      )
-                                    })}
-                                  </Bar>
-                                </BarChart>
-                              </ResponsiveContainer>
-                            </div>
-                          </div>
-                        </div>
+                        <FactorHistory factor={row.factor} color={barColor} />
                       </div>
                     )}
                   </td>

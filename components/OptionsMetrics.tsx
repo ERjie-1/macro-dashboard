@@ -48,10 +48,10 @@ export default function OptionsMetrics({ data, tab }: Props) {
   return (
     <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
       <Metric label="Total GEX" value={formatB(data.gex.total)} sub={data.gex.flipPrice ? `Flip: $${data.gex.flipPrice}` : undefined} />
-      <Metric label="PCR OI (OPEX)" value={data.pcr.oiRatio.toFixed(2)} sub={`All: ${data.pcr.allExpOiRatio.toFixed(2)}`} />
-      <Metric label="PCR Vol (OPEX)" value={data.pcr.volRatio.toFixed(2)} sub={`All: ${data.pcr.allExpVolRatio.toFixed(2)}`} />
-      <Metric label="Max Pain" value={`$${data.maxPain}`} sub={`Spot: $${data.spot}`} />
-      <Metric label="Key Levels" value={`$${data.keyLevels.putWall.strike}`} sub={`Put Wall (${(data.keyLevels.putWall.oi / 1000).toFixed(0)}K OI)`} />
+      <Metric label="PCR OI" value={fmtNum(data.pcr.oiRatio, 2)} sub={`${data.pcr.targetExpiry} · All: ${fmtNum(data.pcr.allExpOiRatio, 2)}`} />
+      <Metric label="PCR Vol" value={fmtNum(data.pcr.volRatio, 2)} sub={`${data.pcr.targetExpiry} · All: ${fmtNum(data.pcr.allExpVolRatio, 2)}`} />
+      <Metric label="Max Pain" value={data.maxPain == null ? 'N/A' : `$${data.maxPain}`} sub={`${data.pcr.targetExpiry} · Spot: $${data.spot}`} />
+      <Metric label="Key Levels" value={data.keyLevels.putWall ? `$${data.keyLevels.putWall.strike}` : '无可核峰'} sub={`${data.pcr.targetExpiry} · Put OI 峰 (${data.keyLevels.putWall ? (data.keyLevels.putWall.oi / 1000).toFixed(0) : 'N/A'}K OI)`} />
     </div>
   )
 }

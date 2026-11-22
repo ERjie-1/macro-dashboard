@@ -7,6 +7,7 @@ import OptionsMetrics from './OptionsMetrics'
 import KeyLevels from './KeyLevels'
 import SkewChart from './SkewChart'
 import PositioningReading from './PositioningReading'
+import { expiryRows } from '@/lib/positioningReading'
 
 interface Props {
   options: Record<string, TickerOptions>
@@ -22,6 +23,7 @@ const CONTENT_TABS = [
 export default function OptionsSection({ options, asOf }: Props) {
   const available = TICKERS.filter((t) => t in options)
   const [active, setActive] = useState(available[0] || 'SPY')
+  const [chosenExpiry, setChosenExpiry] = useState('')
   const [contentTab, setContentTab] = useState<'structure' | 'volatility'>('structure')
 
   if (available.length === 0) {
@@ -34,6 +36,8 @@ export default function OptionsSection({ options, asOf }: Props) {
   }
 
   const data = options[active]
+  const rows = expiryRows(data, asOf)
+  const selectedExpiry = rows.some(x => x.expiry === chosenExpiry) ? chosenExpiry : data.pcr.targetExpiry || rows[0]?.expiry || ''
 
   return (
     <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-5">
@@ -43,7 +47,7 @@ export default function OptionsSection({ options, asOf }: Props) {
           {available.map((ticker) => (
             <button
               key={ticker}
-              onClick={() => setActive(ticker)}
+              onClick={() => { setActive(ticker); setChosenExpiry('') }}
               className={`px-3 py-1 text-sm font-medium rounded-md transition-colors ${
                 active === ticker
                   ? 'bg-white text-gray-900 shadow-sm'
@@ -77,15 +81,15 @@ export default function OptionsSection({ options, asOf }: Props) {
         {/* Metrics Grid */}
         <OptionsMetrics data={data} tab={contentTab} />
 
-        {contentTab === 'structure' && <PositioningReading data={data} asOf={asOf} />}
+        {contentTab === 'structure' && <PositioningReading data={data} asOf={asOf} selectedExpiry={selectedExpiry} />}
         {/* Tab-specific content */}
         {contentTab === 'structure' ? (
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
             <div className="lg:col-span-2">
-              <GexChart gex={data.gex} spot={data.spot} asOf={asOf} />
+              <GexChart gex={data.gex} spot={data.spot} asOf={asOf} selectedExpiry={selectedExpiry} onSelectExpiry={setChosenExpiry} />
             </div>
             <div>
-              <KeyLevels data={data} />
+              <KeyLevels data={data} selectedExpiry={selectedExpiry} />
             </div>
           </div>
         ) : (

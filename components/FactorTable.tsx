@@ -1,20 +1,14 @@
 'use client'
 
+import FactorHistory from './FactorHistory'
+import FactorChange from './FactorChange'
+
 import { useMemo, useState } from 'react'
 import { Factor } from '@/types'
 import { getStatusColor } from '@/lib/mockData'
-import { formatOrdinal } from '@/lib/scoreMetrics'
-import TrendChart from './TrendChart'
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  ResponsiveContainer,
-  Cell,
-} from 'recharts'
 
 interface FactorTableProps {
+  asOfTradingDate?: string
   factors: Factor[]
   title: string
   moduleColor: string
@@ -37,7 +31,9 @@ function FactorRow({
   factor,
   moduleColor,
   isExtra,
+  asOfTradingDate,
 }: {
+  asOfTradingDate?: string
   factor: Factor
   moduleColor: string
   isExtra: boolean
@@ -65,7 +61,7 @@ function FactorRow({
         <td className="py-3 px-4 text-sm font-mono text-gray-700 font-medium">{factor.value}</td>
         {/* 7D Change */}
         <td className="py-3 px-4 text-sm font-mono text-gray-500">
-          <span title="Change units are not verified">N/A</span>
+          <FactorChange factor={factor} asOf={asOfTradingDate} />
         </td>
         {/* Historical Percentile (5Y) */}
         <td
@@ -120,57 +116,7 @@ function FactorRow({
             {factor.description && (
               <p className="text-xs text-gray-500 mb-3">{factor.description}</p>
             )}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {/* Left: Historical Trend */}
-              <div>
-                <div className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">
-                  Historical Trend ({factor.trendData.length}d)
-                </div>
-                <div className="h-32">
-                  <TrendChart
-                    data={factor.trendData.slice(-90)}
-                    color={isExtra ? moduleColor : statusColor}
-                    mini={true}
-                  />
-                </div>
-              </div>
-              {/* Right: Percentile Distribution */}
-              <div>
-                <div className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">
-                  Historical Percentile Distribution (5Y)
-                </div>
-                <div className="h-32">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <BarChart
-                      data={factor.percentileData}
-                      margin={{ top: 4, right: 4, left: -20, bottom: 4 }}
-                    >
-                      <XAxis
-                        dataKey="range"
-                        tick={{ fontSize: 9, fill: '#9ca3af' }}
-                        axisLine={false}
-                        tickLine={false}
-                      />
-                      <YAxis hide />
-                      <Bar dataKey="freq" radius={[2, 2, 0, 0]}>
-                        {factor.percentileData.map((_, index) => {
-                          const pct = index * 10 + 5
-                          const isCurrent =
-                            pct >= factor.historicalPercentile5Y - 5 &&
-                            pct < factor.historicalPercentile5Y + 5
-                          return (
-                            <Cell
-                              key={index}
-                              fill={isCurrent ? (isExtra ? moduleColor : statusColor) : '#e5e7eb'}
-                            />
-                          )
-                        })}
-                      </Bar>
-                    </BarChart>
-                  </ResponsiveContainer>
-                </div>
-              </div>
-            </div>
+            <FactorHistory factor={factor} color={isExtra ? moduleColor : statusColor} />
           </td>
         </tr>
       )}
@@ -178,7 +124,7 @@ function FactorRow({
   )
 }
 
-export default function FactorTable({ factors, title, moduleColor }: FactorTableProps) {
+export default function FactorTable({ factors, title, moduleColor, asOfTradingDate }: FactorTableProps) {
   const [sortBy, setSortBy] = useState<ModuleSortKey>('default')
 
   const scored = useMemo(() => {
@@ -245,6 +191,7 @@ export default function FactorTable({ factors, title, moduleColor }: FactorTable
                 factor={factor}
                 moduleColor={moduleColor}
                 isExtra={isExtra}
+                asOfTradingDate={asOfTradingDate}
               />
             ))}
           </tbody>

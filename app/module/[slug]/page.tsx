@@ -117,7 +117,7 @@ export default async function ModulePage({ params }: Props) {
         </div>
 
         {/* Factors Overview + Factor Tables (with filter) */}
-        <ModuleFactorsSection factors={module.factors} moduleColor={module.color} />
+        <ModuleFactorsSection asOfTradingDate={dashboardData.asOfTradingDate} factors={module.factors} moduleColor={module.color} />
 
         {/* Footer */}
         <div className="text-center text-xs text-gray-400 pb-4">
