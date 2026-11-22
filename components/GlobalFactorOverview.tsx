@@ -86,7 +86,7 @@ export default function GlobalFactorOverview({
           moduleName: m.name,
           moduleSlug: m.slug,
           moduleColor: m.color,
-          alignedPctl: Math.max(1, Math.min(100, Math.round(rawAligned))),
+          alignedPctl: Math.max(0, Math.min(100, Math.round(rawAligned))),
           contrib7D: contribMap.has(f.name) ? (contribMap.get(f.name) ?? null) : null,
           orderIndex: idx++,
         })

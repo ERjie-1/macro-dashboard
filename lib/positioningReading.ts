@@ -10,7 +10,7 @@ export function calendarDte(expiry: string, asOf?: string): number | null {
   return Number.isFinite(days) ? days : null
 }
 
-export function expiryRows(data: TickerOptions, asOf?: string) {
+export function expiryRows(data: Pick<TickerOptions, 'gex'>, asOf?: string) {
   return data.gex.byExpiry.filter(x => Number.isFinite(x.gex)).map(x => ({ ...x, dte: calendarDte(x.expiry, asOf) })).sort((a, b) => a.expiry.localeCompare(b.expiry))
 }
 

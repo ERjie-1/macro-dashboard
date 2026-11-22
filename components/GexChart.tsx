@@ -10,7 +10,7 @@ export default function GexChart({ gex, spot, asOf }: { gex: TickerOptions['gex'
   const markers = [spot, gex.flipPrice].filter((x): x is number => typeof x === 'number' && Number.isFinite(x))
   const coordinates = [...strikes.map(x => x.strike), ...markers]
   const domain = coordinates.length ? [Math.min(...coordinates) * .99, Math.max(...coordinates) * 1.01] : [0, 1]
-  const expiries = expiryRows({ gex } as TickerOptions, asOf)
+  const expiries = expiryRows({ gex }, asOf)
   return <div className="space-y-5 min-w-0">
     <div><h3 className="text-sm font-semibold">行权价净 Gamma · 绝对值前 40 档</h3>
       <p className="text-xs text-gray-500 mb-2">全链净额 {Number.isFinite(gex.total) ? formatB(gex.total) : 'N/A'}；下图是部分行权价，不代表完整分布。</p>
