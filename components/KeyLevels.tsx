@@ -13,11 +13,11 @@ export default function KeyLevels({ data }: Props) {
 
       <div className="grid grid-cols-3 gap-3 mb-4">
         <div className="bg-red-50 rounded-lg p-3 text-center">
-          <div className="text-xs text-red-600 mb-1">Put Wall</div>
+          <div className="text-xs text-red-600 mb-1">Put OI 峰</div>
           <div className="text-lg font-bold text-red-700">${putWall.strike}</div>
           <div className="text-xs text-red-500">{(putWall.oi / 1000).toFixed(1)}K OI</div>
         </div>
-        {data.gex.flipPrice && (
+        {data.gex.flipPrice != null && (
           <div className="bg-indigo-50 rounded-lg p-3 text-center">
             <div className="text-xs text-indigo-600 mb-1">Gamma Flip</div>
             <div className="text-lg font-bold text-indigo-700">${data.gex.flipPrice}</div>
@@ -25,12 +25,13 @@ export default function KeyLevels({ data }: Props) {
           </div>
         )}
         <div className="bg-emerald-50 rounded-lg p-3 text-center">
-          <div className="text-xs text-emerald-600 mb-1">Call Wall</div>
+          <div className="text-xs text-emerald-600 mb-1">Call OI 峰</div>
           <div className="text-lg font-bold text-emerald-700">${callWall.strike}</div>
           <div className="text-xs text-emerald-500">{(callWall.oi / 1000).toFixed(1)}K OI</div>
         </div>
       </div>
 
+      {data.gex.flipPrice == null && <p className="text-xs text-gray-500 mb-3">Gamma Flip：现价 ±10% 扫描范围内未找到。</p>}
       {topLevels.length > 0 && (
         <table className="w-full text-sm">
           <thead>

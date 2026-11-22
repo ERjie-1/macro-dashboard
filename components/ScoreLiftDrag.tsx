@@ -1,6 +1,5 @@
 'use client'
 
-import { useState } from 'react'
 import { LiftDragItem } from '@/types'
 
 interface ScoreLiftDragProps {
@@ -9,11 +8,11 @@ interface ScoreLiftDragProps {
 }
 
 export default function ScoreLiftDrag({ lift, drag }: ScoreLiftDragProps) {
-  const [period, setPeriod] = useState<'1D' | '7D'>('7D')
+  const period = '7D'
   const SHOW = 3
 
   const liftItems = lift.slice(0, SHOW)
-  const dragItems = drag.slice(0, SHOW)
+  const dragItems = [...drag].sort((a, b) => a.pts - b.pts).slice(0, SHOW)
   const liftOther = lift.length - SHOW
   const dragOther = drag.length - SHOW
 
@@ -29,11 +28,12 @@ export default function ScoreLiftDrag({ lift, drag }: ScoreLiftDragProps) {
           {(['1D', '7D'] as const).map((p) => (
             <button
               key={p}
-              onClick={() => setPeriod(p)}
+              disabled={p === '1D'}
+              title={p === '1D' ? 'Daily attribution is not available' : 'Five US trading-day attribution'}
               className={`px-3 py-1 text-xs font-medium transition-colors ${
                 period === p
                   ? 'bg-gray-900 text-white'
-                  : 'text-gray-500 hover:bg-gray-50'
+                  : 'text-gray-400 disabled:opacity-40 disabled:cursor-not-allowed'
               }`}
             >
               {p}
@@ -86,7 +86,7 @@ export default function ScoreLiftDrag({ lift, drag }: ScoreLiftDragProps) {
 
       <div className="mt-4 pt-3 border-t border-gray-100">
         <p className="text-xs text-gray-400">
-          Attribution is approximate and may not sum to exact score change.
+          7D uses five US trading observations. Daily attribution is unavailable. Attribution is approximate and may not sum to exact score change.
         </p>
       </div>
     </div>

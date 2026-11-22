@@ -1,43 +1,39 @@
 'use client'
 
-import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, ReferenceLine, Cell } from 'recharts'
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, ReferenceLine, Cell, CartesianGrid } from 'recharts'
 import type { TickerOptions } from '@/types/positioning'
 import { formatB } from '@/lib/format'
+import { expiryRows } from '@/lib/positioningReading'
 
-interface Props {
-  gex: TickerOptions['gex']
-  spot: number
-}
-
-export default function GexChart({ gex, spot }: Props) {
-  return (
-    <div>
-      <div className="flex items-center justify-between mb-3">
-        <h3 className="text-sm font-semibold text-gray-700">GEX by Strike</h3>
-        <div className="flex items-center gap-3 text-xs text-gray-500">
-          <span>Total: <span className={`font-bold ${gex.total >= 0 ? 'text-emerald-600' : 'text-red-500'}`}>{formatB(gex.total)}</span></span>
-          {gex.flipPrice && <span>Flip: <span className="font-semibold text-gray-700">${gex.flipPrice}</span></span>}
-        </div>
-      </div>
-      <div style={{ height: 260 }}>
-        <ResponsiveContainer width="100%" height="100%">
-          <BarChart data={gex.byStrike} margin={{ top: 4, right: 8, left: 8, bottom: 4 }}>
-            <XAxis dataKey="strike" tick={{ fontSize: 10 }} interval="preserveStartEnd" />
-            <YAxis tick={{ fontSize: 10 }} tickFormatter={(v) => `${(v / 1e6).toFixed(0)}M`} />
-            <Tooltip
-              formatter={(value: number | undefined) => [formatB(value ?? 0), 'GEX']}
-              labelFormatter={(label) => `Strike: $${label}`}
-            />
-            <ReferenceLine y={0} stroke="#94a3b8" strokeDasharray="3 3" />
-            {gex.flipPrice && <ReferenceLine x={gex.flipPrice} stroke="#6366f1" strokeDasharray="4 4" label={{ value: 'Flip', fontSize: 10 }} />}
-            <Bar dataKey="gex" radius={[2, 2, 0, 0]}>
-              {gex.byStrike.map((entry, i) => (
-                <Cell key={i} fill={entry.gex >= 0 ? '#14b8a6' : '#ef4444'} fillOpacity={0.8} />
-              ))}
-            </Bar>
-          </BarChart>
-        </ResponsiveContainer>
-      </div>
+export default function GexChart({ gex, spot, asOf }: { gex: TickerOptions['gex']; spot: number; asOf?: string }) {
+  const strikes = gex.byStrike.filter(x => Number.isFinite(x.strike) && Number.isFinite(x.gex))
+  const markers = [spot, gex.flipPrice].filter((x): x is number => typeof x === 'number' && Number.isFinite(x))
+  const coordinates = [...strikes.map(x => x.strike), ...markers]
+  const domain = coordinates.length ? [Math.min(...coordinates) * .99, Math.max(...coordinates) * 1.01] : [0, 1]
+  const expiries = expiryRows({ gex }, asOf)
+  return <div className="space-y-5 min-w-0">
+    <div><h3 className="text-sm font-semibold">行权价净 Gamma · 绝对值前 40 档</h3>
+      <p className="text-xs text-gray-500 mb-2">全链净额 {Number.isFinite(gex.total) ? formatB(gex.total) : 'N/A'}；下图是部分行权价，不代表完整分布。</p>
+      <div className="h-[270px]"><ResponsiveContainer width="100%" height="100%"><BarChart data={strikes} margin={{ top: 22, right: 15, left: 0, bottom: 5 }}>
+        <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+        <XAxis type="number" dataKey="strike" domain={domain} tick={{ fontSize: 10 }} />
+        <YAxis tick={{ fontSize: 10 }} tickFormatter={v => `${(v / 1e6).toFixed(0)}M`} />
+        <Tooltip formatter={v => [typeof v === 'number' ? formatB(v) : 'N/A', '净 Gamma']} labelFormatter={v => `行权价 $${v}`} />
+        <ReferenceLine y={0} stroke="#64748b" />
+        {Number.isFinite(spot) && <ReferenceLine x={spot} stroke="#111827" label={{ value: '现价', position: 'insideTopLeft', fontSize: 11 }} />}
+        {typeof gex.flipPrice === 'number' && Number.isFinite(gex.flipPrice) && <ReferenceLine x={gex.flipPrice} stroke="#6366f1" strokeDasharray="4 4" label={{ value: 'Flip', position: 'top', fontSize: 11 }} />}
+        <Bar dataKey="gex" maxBarSize={16}>{strikes.map(x => <Cell key={x.strike} fill={x.gex >= 0 ? '#14b8a6' : '#ef4444'} />)}</Bar>
+      </BarChart></ResponsiveContainer></div>
     </div>
-  )
+    <div><h3 className="text-sm font-semibold">到期日净 Gamma</h3><p className="text-xs text-gray-500">到期天数以收盘观测日 {asOf || '未知'} 为基准，使用日历天。</p>
+      <div className="h-[240px]"><ResponsiveContainer width="100%" height="100%"><BarChart data={expiries} margin={{ top: 10, right: 15, left: 0, bottom: 5 }}>
+        <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+        <XAxis dataKey="expiry" tickFormatter={v => v.slice(5)} tick={{ fontSize: 10 }} />
+        <YAxis tick={{ fontSize: 10 }} tickFormatter={v => `${(v / 1e6).toFixed(0)}M`} />
+        <Tooltip formatter={v => [typeof v === 'number' ? formatB(v) : 'N/A', '净 Gamma']} labelFormatter={v => { const row = expiries.find(x => x.expiry === v); return `${v} · ${row?.dte == null ? '天数未知' : `${row.dte} 日历天`}` }} />
+        <ReferenceLine y={0} stroke="#64748b" />
+        <Bar dataKey="gex">{expiries.map(x => <Cell key={x.expiry} fill={x.gex >= 0 ? '#14b8a6' : '#ef4444'} />)}</Bar>
+      </BarChart></ResponsiveContainer></div>
+    </div>
+  </div>
 }
