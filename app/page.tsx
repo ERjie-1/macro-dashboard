@@ -9,6 +9,7 @@ import GaugeDial from '@/components/GaugeDial'
 import TrendChart from '@/components/TrendChart'
 import ModuleCard from '@/components/ModuleCard'
 import ScoreLiftDrag from '@/components/ScoreLiftDrag'
+import GlobalFactorOverview from '@/components/GlobalFactorOverview'
 import DataFreshness from '@/components/DataFreshness'
 import TodayBrief from '@/components/TodayBrief'
 
@@ -153,9 +154,25 @@ export default function HomePage() {
           <ScoreLiftDrag lift={d.scoreLift} drag={d.scoreDrag} />
         </div>
 
+        {/* Global Factor Overview (30 scored factors: module filter, sort, in-place expand) */}
+        <GlobalFactorOverview
+          modules={d.modules}
+          scoreLift={d.scoreLift}
+          scoreDrag={d.scoreDrag}
+          asOfTradingDate={d.asOfTradingDate}
+        />
+
         {/* Data Freshness */}
         <div id="data-freshness">
-          <DataFreshness modules={d.modules} dashboardUpdatedAt={d.updatedAt} />
+          <DataFreshness
+            modules={d.modules}
+            dashboardUpdatedAt={d.updatedAt}
+            asOfTradingDate={d.asOfTradingDate}
+            generatedAtUtc={d.generatedAtUtc}
+            generatedAtEt={d.generatedAtEt}
+            sessionScope={d.sessionScope}
+            sourceFreshness={d.sourceFreshness}
+          />
         </div>
 
       </div>
