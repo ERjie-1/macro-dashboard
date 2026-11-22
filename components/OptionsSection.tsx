@@ -6,9 +6,11 @@ import GexChart from './GexChart'
 import OptionsMetrics from './OptionsMetrics'
 import KeyLevels from './KeyLevels'
 import SkewChart from './SkewChart'
+import PositioningReading from './PositioningReading'
 
 interface Props {
   options: Record<string, TickerOptions>
+  asOf?: string
 }
 
 const TICKERS = ['SPY', 'QQQ', 'IWM']
@@ -17,7 +19,7 @@ const CONTENT_TABS = [
   { key: 'volatility' as const, label: 'Volatility' },
 ]
 
-export default function OptionsSection({ options }: Props) {
+export default function OptionsSection({ options, asOf }: Props) {
   const available = TICKERS.filter((t) => t in options)
   const [active, setActive] = useState(available[0] || 'SPY')
   const [contentTab, setContentTab] = useState<'structure' | 'volatility'>('structure')
@@ -35,7 +37,7 @@ export default function OptionsSection({ options }: Props) {
 
   return (
     <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-5">
-      <div className="flex items-center justify-between mb-4">
+      <div className="flex flex-wrap gap-3 items-center justify-between mb-4">
         <h2 className="text-lg font-semibold text-gray-800">Options & Volatility</h2>
         <div className="flex gap-1 bg-gray-100 rounded-lg p-0.5">
           {available.map((ticker) => (
@@ -75,11 +77,12 @@ export default function OptionsSection({ options }: Props) {
         {/* Metrics Grid */}
         <OptionsMetrics data={data} tab={contentTab} />
 
+        {contentTab === 'structure' && <PositioningReading data={data} asOf={asOf} />}
         {/* Tab-specific content */}
         {contentTab === 'structure' ? (
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
             <div className="lg:col-span-2">
-              <GexChart gex={data.gex} spot={data.spot} />
+              <GexChart gex={data.gex} spot={data.spot} asOf={asOf} />
             </div>
             <div>
               <KeyLevels data={data} />

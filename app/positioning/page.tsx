@@ -39,7 +39,7 @@ export default function PositioningPage() {
         />
 
         {/* Options Structure */}
-        <OptionsSection options={data.options} />
+        <OptionsSection options={data.options} asOf={data.asOfTradingDate} />
 
         {/* CFTC Positioning */}
         <CotSection cot={data.cot} />

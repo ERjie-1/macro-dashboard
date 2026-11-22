@@ -1,0 +1,15 @@
+const fs=require('fs'),ts=require('typescript'),vm=require('vm'),assert=require('node:assert/strict');
+const code=ts.transpileModule(fs.readFileSync('lib/positioningReading.ts','utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022}}).outputText;
+const sandbox={exports:{}};vm.runInNewContext(code,sandbox);const {calendarDte,expiryRows,positioningReading}=sandbox.exports;
+assert.equal(calendarDte('2026-11-23','2026-11-20'),3);
+assert.equal(calendarDte('2027-01-02','2026-12-31'),2);
+assert.equal(calendarDte('2026-02-30','2026-02-01'),null);
+assert.equal(calendarDte('2026-11-23'),null);
+const real=JSON.parse(fs.readFileSync('public/data/positioning.json'));
+assert.equal(expiryRows(real.options.SPY,real.asOfTradingDate).find(x=>x.expiry==='2026-11-23').dte,3);
+assert.match(positioningReading(real.options.IWM,real.asOfTradingDate).flipText,/未找到/);
+assert.equal(positioningReading(real.options.SPY,real.asOfTradingDate).peak.strike,700);
+const synthetic={...real.options.SPY,gex:{byStrike:[],byExpiry:[{expiry:'2026-11-23',gex:100},{expiry:'2026-11-24',gex:-100}],total:0,flipPrice:null}};
+assert.equal(positioningReading(synthetic,'2026-11-20').share,.5);
+synthetic.gex.byExpiry.forEach(x=>x.gex=0);assert.equal(positioningReading(synthetic,'2026-11-20').share,null);
+console.log('positioningReading: date basis, invalid/missing dates, real SPY/IWM, net cancellation and zero mass passed');
