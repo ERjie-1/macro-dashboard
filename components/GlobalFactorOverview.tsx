@@ -6,6 +6,8 @@ import { useMemo, useState } from 'react'
 import Link from 'next/link'
 import type { Factor, LiftDragItem, Module, Status } from '@/types'
 
+const FACTOR_COLUMNS = 'grid grid-cols-[minmax(200px,2.2fr)_minmax(85px,0.9fr)_minmax(110px,1fr)_minmax(85px,0.85fr)_minmax(145px,1.25fr)_56px_44px] items-center px-4 py-2.5'
+
 interface GlobalFactorOverviewProps {
   modules: Module[]
   scoreLift: LiftDragItem[]
@@ -219,16 +221,20 @@ export default function GlobalFactorOverview({
 
       {/* Responsive Table */}
       <div className="overflow-x-auto">
-        <table className="w-full min-w-[740px]">
+        <table className="w-full min-w-[780px]">
           <thead>
             <tr className="text-[11px] text-gray-400 uppercase tracking-wider bg-gray-50/60 border-b border-gray-100">
-              <th className="text-left px-4 py-2.5 font-medium">Factor</th>
-              <th className="text-left px-3 py-2.5 font-medium">Value</th>
-              <th className="text-left px-3 py-2.5 font-medium">7D Change</th>
-              <th className="text-right px-3 py-2.5 font-medium">7D Contrib</th>
-              <th className="text-left px-3 py-2.5 font-medium">5Y Percentile</th>
-              <th className="text-center px-3 py-2.5 font-medium">Status</th>
-              <th className="text-center px-3 py-2.5 font-medium">Vel</th>
+              <th colSpan={7} className="p-0 font-medium">
+                <div className={FACTOR_COLUMNS}>
+                  <span className="text-left">Factor</span>
+                  <span className="text-left">Value</span>
+                  <span className="text-left">7D Change</span>
+                  <span className="text-right pr-3">7D Contrib</span>
+                  <span className="text-left">5Y Percentile</span>
+                  <span className="text-center">Status</span>
+                  <span className="text-center">Vel</span>
+                </div>
+              </th>
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-100">
@@ -250,7 +256,7 @@ export default function GlobalFactorOverview({
                           toggleExpand(key)
                         }
                       }}
-                      className="grid grid-cols-[minmax(200px,2.2fr)_minmax(85px,0.9fr)_minmax(110px,1fr)_minmax(85px,0.85fr)_minmax(145px,1.25fr)_56px_44px] items-center px-4 py-2.5 hover:bg-gray-50/90 cursor-pointer transition-colors"
+                      className={`${FACTOR_COLUMNS} hover:bg-gray-50/90 cursor-pointer transition-colors`}
                     >
                       {/* Factor + Module pill */}
                       <div className="flex items-center gap-2 min-w-0 pr-2">
