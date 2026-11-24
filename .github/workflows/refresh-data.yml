@@ -2,11 +2,15 @@ name: Refresh Dashboard Data
 
 on:
   schedule:
-    # Run Mon-Fri at 23:00 UTC — post US market close + post FRED release
-    # EDT (Mar-Nov): 23:00 UTC = 19:00 EDT
-    # EST (Nov-Mar): 23:00 UTC = 18:00 EST
-    - cron: '0 23 * * 1-5'
+    # 05:23 Asia/Shanghai, after US close in both EST and EDT.
+    # GitHub schedule is best effort; local dispatch provides a second trigger.
+    - cron: '23 21 * * 1-5'
   workflow_dispatch: # Allow manual trigger
+
+# Serialize schedule and local dispatch; never cancel an active data refresh.
+concurrency:
+  group: dashboard-data-refresh
+  cancel-in-progress: false
 
 jobs:
   refresh:
