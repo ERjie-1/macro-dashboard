@@ -1,8 +1,8 @@
 {
   "calibrationVersion": "v2-20261121",
   "asOfTradingDate": "2026-11-24",
-  "generatedAtUtc": "2026-11-24T21:31:13Z",
-  "generatedAtEt": "2026-11-24T16:31:13.461959-05:00",
+  "generatedAtUtc": "2026-11-24T23:01:42Z",
+  "generatedAtEt": "2026-11-24T18:01:42.244095-05:00",
   "sessionScope": "post_close",
   "sourceFreshness": {
     "WALCL": {
@@ -30,7 +30,7 @@
       "lagTradingDays": 1
     },
     "IORB": {
-      "lastDate": "2026-11-24",
+      "lastDate": "2026-11-25",
       "lagTradingDays": 0
     },
     "RRPONTSYAWARD": {
@@ -70,8 +70,8 @@
       "lagTradingDays": 1
     },
     "T10YIE": {
-      "lastDate": "2026-11-23",
-      "lagTradingDays": 1
+      "lastDate": "2026-11-24",
+      "lagTradingDays": 0
     },
     "NFCI": {
       "lastDate": "2026-11-13",
@@ -132,10 +132,10 @@
       "dailyReturnPct": -2.2731
     },
     "wti": {
-      "close": 81.45,
+      "close": 81.69,
       "prevClose": 80.17,
       "asOfDate": "2026-11-24",
-      "dailyReturnPct": 1.5966
+      "dailyReturnPct": 1.896
     },
     "dxyBroad": {
       "close": 123.5978,
@@ -144,10 +144,10 @@
       "dailyReturnPct": 0.0587
     },
     "dxyIce": {
-      "close": 103.814,
+      "close": 103.826,
       "prevClose": 104.32,
       "asOfDate": "2026-11-24",
-      "dailyReturnPct": -0.485
+      "dailyReturnPct": -0.4735
     },
     "vix": {
       "close": 26.36,
@@ -390,18 +390,18 @@
       "lagTradingDays": 1
     },
     "t10yie": {
-      "score": 85.7,
+      "score": 86.13,
       "status": "Supportive",
-      "rawValue": 0.0213,
-      "scoreInput": 0.0213,
-      "rawPercentile5Y": 14.3,
+      "rawValue": 0.0212,
+      "scoreInput": 0.0212,
+      "rawPercentile5Y": 13.87,
       "factorId": "t10yie",
       "slug": "10y-breakeven",
       "module": "rates",
       "direction": "lower_better",
       "weightInModule": 0.35,
-      "asOfDate": "2026-11-23",
-      "lagTradingDays": 1
+      "asOfDate": "2026-11-24",
+      "lagTradingDays": 0
     },
     "nfci": {
       "score": 54.62,
@@ -546,7 +546,7 @@
     "wti": {
       "score": 100.0,
       "status": "Supportive",
-      "rawValue": 81.449997,
+      "rawValue": 81.690002,
       "scoreInput": 0.0,
       "rawPercentile5Y": 0.0,
       "baselineMedian252d": 87.12,
@@ -600,7 +600,7 @@
   "trendDirection": "improving",
   "percentile5Y": 16.8,
   "lastUpdated": "Updated Nov 24, 2026",
-  "updatedAt": "2026-11-24T21:31:13Z",
+  "updatedAt": "2026-11-24T23:01:42Z",
   "trendData": [
     {
       "date": "7/21",
@@ -974,7 +974,7 @@
       "trendDirection": "stable",
       "percentile5Y": 25.9,
       "lastUpdated": "Updated Nov 24, 2026",
-      "updatedAt": "2026-11-24T21:31:13Z",
+      "updatedAt": "2026-11-24T23:01:42Z",
       "color": "#f97316",
       "trendData": [
         {
@@ -4681,7 +4681,7 @@
       "trendDirection": "declining",
       "percentile5Y": 16.9,
       "lastUpdated": "Updated Nov 24, 2026",
-      "updatedAt": "2026-11-24T21:31:13Z",
+      "updatedAt": "2026-11-24T23:01:42Z",
       "color": "#ef4444",
       "trendData": [
         {
@@ -8752,7 +8752,7 @@
           "percentileData": [
             {
               "range": "0-10",
-              "freq": 161
+              "freq": 160
             },
             {
               "range": "10-20",
@@ -8768,7 +8768,7 @@
             },
             {
               "range": "40-50",
-              "freq": 195
+              "freq": 196
             },
             {
               "range": "50-60",
@@ -9635,7 +9635,7 @@
       "trendDirection": "improving",
       "percentile5Y": 66.9,
       "lastUpdated": "Updated Nov 24, 2026",
-      "updatedAt": "2026-11-24T21:31:13Z",
+      "updatedAt": "2026-11-24T23:01:42Z",
       "color": "#f97316",
       "trendData": [
         {
@@ -13331,14 +13331,14 @@
     {
       "slug": "rates",
       "name": "Rates",
-      "score": 36.8,
+      "score": 37.0,
       "prevScore": 35.3,
-      "sevenDayChangePct": 4.25,
+      "sevenDayChangePct": 4.82,
       "trendDays": 2,
       "trendDirection": "stable",
-      "percentile5Y": 50.6,
+      "percentile5Y": 51.0,
       "lastUpdated": "Updated Nov 24, 2026",
-      "updatedAt": "2026-11-24T21:31:13Z",
+      "updatedAt": "2026-11-24T23:01:42Z",
       "color": "#f97316",
       "trendData": [
         {
@@ -13699,7 +13699,7 @@
         },
         {
           "date": "11/24",
-          "value": 36.8
+          "value": 37.0
         }
       ],
       "factors": [
@@ -14540,10 +14540,10 @@
         {
           "id": "10y-breakeven",
           "name": "10Y Breakeven",
-          "value": "2.13%",
+          "value": "2.12%",
           "sevenDayChange": "\u2198 -0 bps",
           "changeDirection": "down",
-          "historicalPercentile5Y": 14.3,
+          "historicalPercentile5Y": 13.9,
           "status": "supportive",
           "velocity": "rising",
           "trendData": [
@@ -14905,13 +14905,13 @@
             },
             {
               "date": "11/24",
-              "value": 0.0213
+              "value": 0.0212
             }
           ],
           "percentileData": [
             {
               "range": "0-10",
-              "freq": 112
+              "freq": 113
             },
             {
               "range": "10-20",
@@ -14947,12 +14947,12 @@
             },
             {
               "range": "90-100",
-              "freq": 128
+              "freq": 127
             }
           ],
           "isExtra": false,
           "factorId": "t10yie",
-          "score": 85.7
+          "score": 86.13
         },
         {
           "id": "5y-real-rate",
@@ -15796,7 +15796,7 @@
       "trendDirection": "declining",
       "percentile5Y": 22.5,
       "lastUpdated": "Updated Nov 24, 2026",
-      "updatedAt": "2026-11-24T21:31:13Z",
+      "updatedAt": "2026-11-24T23:01:42Z",
       "color": "#f97316",
       "trendData": [
         {
@@ -16666,7 +16666,7 @@
             },
             {
               "date": "8/17",
-              "value": 0.0106
+              "value": 0.0107
             },
             {
               "date": "8/18",
@@ -17841,7 +17841,7 @@
       "trendDirection": "improving",
       "percentile5Y": 2.2,
       "lastUpdated": "Updated Nov 24, 2026",
-      "updatedAt": "2026-11-24T21:31:13Z",
+      "updatedAt": "2026-11-24T23:01:42Z",
       "color": "#ef4444",
       "trendData": [
         {
@@ -20301,7 +20301,7 @@
       "trendDirection": "improving",
       "percentile5Y": 83.1,
       "lastUpdated": "Updated Nov 24, 2026",
-      "updatedAt": "2026-11-24T21:31:13Z",
+      "updatedAt": "2026-11-24T23:01:42Z",
       "color": "#14b8a6",
       "trendData": [
         {
@@ -21503,8 +21503,8 @@
         {
           "id": "wti-oil",
           "name": "WTI Oil",
-          "value": "$81.45",
-          "sevenDayChange": "\u2198 -8.08%",
+          "value": "$81.69",
+          "sevenDayChange": "\u2198 -7.84%",
           "changeDirection": "down",
           "historicalPercentile5Y": 0.0,
           "status": "supportive",
@@ -21868,7 +21868,7 @@
             },
             {
               "date": "11/24",
-              "value": 81.45
+              "value": 81.69
             }
           ],
           "percentileData": [
@@ -22765,7 +22765,7 @@
     },
     {
       "name": "10Y Breakeven",
-      "pts": 0.29
+      "pts": 0.31
     },
     {
       "name": "Net Liquidity Momentum (13W)",
