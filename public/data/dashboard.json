@@ -1,8 +1,8 @@
 {
   "calibrationVersion": "v2-20261121",
   "asOfTradingDate": "2026-11-25",
-  "generatedAtUtc": "2026-11-25T23:01:45Z",
-  "generatedAtEt": "2026-11-25T18:01:45.292356-05:00",
+  "generatedAtUtc": "2026-11-26T03:39:12Z",
+  "generatedAtEt": "2026-11-25T22:39:12.578399-05:00",
   "sessionScope": "post_close",
   "sourceFreshness": {
     "WALCL": {
@@ -98,8 +98,8 @@
       "lagTradingDays": 0
     },
     "^OVX": {
-      "lastDate": "2026-11-24",
-      "lagTradingDays": 1
+      "lastDate": "2026-11-25",
+      "lagTradingDays": 0
     },
     "CL=F": {
       "lastDate": "2026-11-25",
@@ -132,10 +132,10 @@
       "dailyReturnPct": 0.6145
     },
     "wti": {
-      "close": 84.15,
+      "close": 84.38,
       "prevClose": 82.24,
       "asOfDate": "2026-11-25",
-      "dailyReturnPct": 2.3225
+      "dailyReturnPct": 2.6021
     },
     "dxyBroad": {
       "close": 123.5978,
@@ -144,10 +144,10 @@
       "dailyReturnPct": 0.0587
     },
     "dxyIce": {
-      "close": 103.69,
+      "close": 103.806,
       "prevClose": 103.81,
       "asOfDate": "2026-11-25",
-      "dailyReturnPct": -0.1156
+      "dailyReturnPct": -0.0039
     },
     "vix": {
       "close": 28.29,
@@ -546,7 +546,7 @@
     "wti": {
       "score": 100.0,
       "status": "Supportive",
-      "rawValue": 84.150002,
+      "rawValue": 84.379997,
       "scoreInput": 0.0,
       "rawPercentile5Y": 0.0,
       "baselineMedian252d": 87.245,
@@ -567,15 +567,15 @@
       "rawPercentile5Y": 0.0,
       "baselineMedian252d": 53.92,
       "ovxMedian252d": 53.92,
-      "floorTieShare": 0.4944,
-      "rawOvx": 49.39,
+      "floorTieShare": 0.4947,
+      "rawOvx": 48.04,
       "factorId": "ovx_dev",
       "slug": "oil-volatility-deviation",
       "module": "external",
       "direction": "lower_better",
       "weightInModule": 0.25,
-      "asOfDate": "2026-11-24",
-      "lagTradingDays": 1
+      "asOfDate": "2026-11-25",
+      "lagTradingDays": 0
     },
     "natgas": {
       "score": 41.65,
@@ -600,7 +600,7 @@
   "trendDirection": "declining",
   "percentile5Y": 13.1,
   "lastUpdated": "Updated Nov 25, 2026",
-  "updatedAt": "2026-11-25T23:01:45Z",
+  "updatedAt": "2026-11-26T03:39:12Z",
   "trendData": [
     {
       "date": "7/22",
@@ -974,7 +974,7 @@
       "trendDirection": "stable",
       "percentile5Y": 25.9,
       "lastUpdated": "Updated Nov 25, 2026",
-      "updatedAt": "2026-11-25T23:01:45Z",
+      "updatedAt": "2026-11-26T03:39:12Z",
       "color": "#f97316",
       "trendData": [
         {
@@ -4681,7 +4681,7 @@
       "trendDirection": "declining",
       "percentile5Y": 10.3,
       "lastUpdated": "Updated Nov 25, 2026",
-      "updatedAt": "2026-11-25T23:01:45Z",
+      "updatedAt": "2026-11-26T03:39:12Z",
       "color": "#ef4444",
       "trendData": [
         {
@@ -9635,7 +9635,7 @@
       "trendDirection": "stable",
       "percentile5Y": 68.8,
       "lastUpdated": "Updated Nov 25, 2026",
-      "updatedAt": "2026-11-25T23:01:45Z",
+      "updatedAt": "2026-11-26T03:39:12Z",
       "color": "#f97316",
       "trendData": [
         {
@@ -13338,7 +13338,7 @@
       "trendDirection": "stable",
       "percentile5Y": 51.5,
       "lastUpdated": "Updated Nov 25, 2026",
-      "updatedAt": "2026-11-25T23:01:45Z",
+      "updatedAt": "2026-11-26T03:39:12Z",
       "color": "#f97316",
       "trendData": [
         {
@@ -15796,7 +15796,7 @@
       "trendDirection": "stable",
       "percentile5Y": 20.1,
       "lastUpdated": "Updated Nov 25, 2026",
-      "updatedAt": "2026-11-25T23:01:45Z",
+      "updatedAt": "2026-11-26T03:39:12Z",
       "color": "#f97316",
       "trendData": [
         {
@@ -16662,7 +16662,7 @@
             },
             {
               "date": "8/17",
-              "value": 0.0106
+              "value": 0.0107
             },
             {
               "date": "8/18",
@@ -17841,7 +17841,7 @@
       "trendDirection": "stable",
       "percentile5Y": 1.8,
       "lastUpdated": "Updated Nov 25, 2026",
-      "updatedAt": "2026-11-25T23:01:45Z",
+      "updatedAt": "2026-11-26T03:39:12Z",
       "color": "#ef4444",
       "trendData": [
         {
@@ -20301,7 +20301,7 @@
       "trendDirection": "stable",
       "percentile5Y": 80.7,
       "lastUpdated": "Updated Nov 25, 2026",
-      "updatedAt": "2026-11-25T23:01:45Z",
+      "updatedAt": "2026-11-26T03:39:12Z",
       "color": "#14b8a6",
       "trendData": [
         {
@@ -21503,8 +21503,8 @@
         {
           "id": "wti-oil",
           "name": "WTI Oil",
-          "value": "$84.15",
-          "sevenDayChange": "\u2198 -2.66%",
+          "value": "$84.38",
+          "sevenDayChange": "\u2198 -2.43%",
           "changeDirection": "down",
           "historicalPercentile5Y": 0.0,
           "status": "supportive",
@@ -21868,7 +21868,7 @@
             },
             {
               "date": "11/25",
-              "value": 84.15
+              "value": 84.38
             }
           ],
           "percentileData": [
@@ -22311,15 +22311,15 @@
             },
             {
               "range": "50-60",
-              "freq": 124
+              "freq": 125
             },
             {
               "range": "60-70",
-              "freq": 127
+              "freq": 126
             },
             {
               "range": "70-80",
-              "freq": 125
+              "freq": 126
             },
             {
               "range": "80-90",
