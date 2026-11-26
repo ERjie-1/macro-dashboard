@@ -1,8 +1,8 @@
 {
   "calibrationVersion": "v2-20261121",
   "asOfTradingDate": "2026-11-25",
-  "generatedAtUtc": "2026-11-26T21:31:09Z",
-  "generatedAtEt": "2026-11-26T16:31:09.260916-05:00",
+  "generatedAtUtc": "2026-11-26T23:01:25Z",
+  "generatedAtEt": "2026-11-26T18:01:25.361884-05:00",
   "sessionScope": "post_close",
   "sourceFreshness": {
     "WALCL": {
@@ -431,17 +431,17 @@
       "asOfDate": "2026-11-25",
       "lagTradingDays": 0
     },
-    "ig_credit": {
-      "score": 16.71,
-      "status": "Restrictive",
-      "rawValue": -0.008584,
-      "scoreInput": -0.008584,
-      "rawPercentile5Y": 16.71,
-      "factorId": "ig_credit",
-      "slug": "ig-credit",
+    "kre_spy": {
+      "score": 54.41,
+      "status": "Neutral",
+      "rawValue": 0.01364,
+      "scoreInput": 0.01364,
+      "rawPercentile5Y": 54.41,
+      "factorId": "kre_spy",
+      "slug": "regional-banks-spy",
       "module": "credit",
       "direction": "higher_better",
-      "weightInModule": 0.15,
+      "weightInModule": 0.2,
       "asOfDate": "2026-11-25",
       "lagTradingDays": 0
     },
@@ -580,181 +580,181 @@
       "lagTradingDays": 1
     }
   },
-  "score": 38.4,
-  "prevScore": 41.9,
+  "score": 39.6,
+  "prevScore": 42.2,
   "trendDays": 2,
   "trendDirection": "declining",
-  "percentile5Y": 11.2,
+  "percentile5Y": 15.9,
   "lastUpdated": "Updated Nov 25, 2026",
-  "updatedAt": "2026-11-26T21:31:09Z",
+  "updatedAt": "2026-11-26T23:01:25Z",
   "trendData": [
     {
       "date": "7/22",
-      "value": 56.2
+      "value": 56.8
     },
     {
       "date": "7/23",
-      "value": 52.9
+      "value": 54.0
     },
     {
       "date": "7/24",
-      "value": 53.5
+      "value": 54.6
     },
     {
       "date": "7/27",
-      "value": 53.6
+      "value": 54.9
     },
     {
       "date": "7/28",
-      "value": 53.7
+      "value": 55.0
     },
     {
       "date": "7/29",
-      "value": 47.7
+      "value": 49.2
     },
     {
       "date": "7/30",
-      "value": 50.6
+      "value": 51.9
     },
     {
       "date": "7/31",
-      "value": 50.1
+      "value": 51.1
     },
     {
       "date": "8/3",
-      "value": 51.0
+      "value": 52.0
     },
     {
       "date": "8/4",
-      "value": 50.4
+      "value": 51.3
     },
     {
       "date": "8/5",
-      "value": 51.7
-    },
-    {
-      "date": "8/6",
-      "value": 51.8
-    },
-    {
-      "date": "8/7",
-      "value": 53.7
-    },
-    {
-      "date": "8/10",
-      "value": 52.3
-    },
-    {
-      "date": "8/11",
-      "value": 53.2
-    },
-    {
-      "date": "8/12",
-      "value": 54.8
-    },
-    {
-      "date": "8/13",
-      "value": 55.5
-    },
-    {
-      "date": "8/14",
-      "value": 55.4
-    },
-    {
-      "date": "8/17",
-      "value": 53.6
-    },
-    {
-      "date": "8/18",
-      "value": 54.8
-    },
-    {
-      "date": "8/19",
-      "value": 54.2
-    },
-    {
-      "date": "8/20",
-      "value": 51.9
-    },
-    {
-      "date": "8/21",
-      "value": 52.5
-    },
-    {
-      "date": "8/24",
-      "value": 53.4
-    },
-    {
-      "date": "8/25",
-      "value": 52.5
-    },
-    {
-      "date": "8/26",
-      "value": 52.7
-    },
-    {
-      "date": "8/27",
-      "value": 53.6
-    },
-    {
-      "date": "8/28",
-      "value": 53.3
-    },
-    {
-      "date": "8/31",
-      "value": 51.8
-    },
-    {
-      "date": "9/1",
-      "value": 46.5
-    },
-    {
-      "date": "9/2",
-      "value": 51.7
-    },
-    {
-      "date": "9/3",
-      "value": 51.9
-    },
-    {
-      "date": "9/4",
-      "value": 53.4
-    },
-    {
-      "date": "9/8",
-      "value": 50.5
-    },
-    {
-      "date": "9/9",
-      "value": 52.7
-    },
-    {
-      "date": "9/10",
-      "value": 49.9
-    },
-    {
-      "date": "9/11",
       "value": 52.8
     },
     {
-      "date": "9/14",
+      "date": "8/6",
+      "value": 52.7
+    },
+    {
+      "date": "8/7",
+      "value": 54.5
+    },
+    {
+      "date": "8/10",
+      "value": 53.4
+    },
+    {
+      "date": "8/11",
+      "value": 54.9
+    },
+    {
+      "date": "8/12",
+      "value": 56.5
+    },
+    {
+      "date": "8/13",
+      "value": 57.4
+    },
+    {
+      "date": "8/14",
+      "value": 57.3
+    },
+    {
+      "date": "8/17",
+      "value": 55.6
+    },
+    {
+      "date": "8/18",
+      "value": 56.6
+    },
+    {
+      "date": "8/19",
+      "value": 55.7
+    },
+    {
+      "date": "8/20",
+      "value": 53.3
+    },
+    {
+      "date": "8/21",
+      "value": 54.0
+    },
+    {
+      "date": "8/24",
+      "value": 55.0
+    },
+    {
+      "date": "8/25",
+      "value": 53.7
+    },
+    {
+      "date": "8/26",
+      "value": 54.1
+    },
+    {
+      "date": "8/27",
+      "value": 55.0
+    },
+    {
+      "date": "8/28",
+      "value": 54.7
+    },
+    {
+      "date": "8/31",
+      "value": 53.5
+    },
+    {
+      "date": "9/1",
+      "value": 47.8
+    },
+    {
+      "date": "9/2",
+      "value": 53.4
+    },
+    {
+      "date": "9/3",
+      "value": 53.4
+    },
+    {
+      "date": "9/4",
+      "value": 54.5
+    },
+    {
+      "date": "9/8",
       "value": 51.4
     },
     {
-      "date": "9/15",
+      "date": "9/9",
+      "value": 53.3
+    },
+    {
+      "date": "9/10",
       "value": 50.4
     },
     {
+      "date": "9/11",
+      "value": 53.3
+    },
+    {
+      "date": "9/14",
+      "value": 51.9
+    },
+    {
+      "date": "9/15",
+      "value": 51.3
+    },
+    {
       "date": "9/16",
-      "value": 50.0
+      "value": 50.3
     },
     {
       "date": "9/17",
-      "value": 52.6
+      "value": 52.8
     },
     {
       "date": "9/18",
-      "value": 53.6
+      "value": 53.8
     },
     {
       "date": "9/21",
@@ -762,143 +762,143 @@
     },
     {
       "date": "9/22",
-      "value": 53.7
+      "value": 53.2
     },
     {
       "date": "9/23",
-      "value": 50.7
+      "value": 49.8
     },
     {
       "date": "9/24",
-      "value": 50.9
-    },
-    {
-      "date": "9/25",
-      "value": 50.4
-    },
-    {
-      "date": "9/28",
-      "value": 46.7
-    },
-    {
-      "date": "9/29",
-      "value": 46.4
-    },
-    {
-      "date": "9/30",
-      "value": 45.8
-    },
-    {
-      "date": "10/1",
-      "value": 42.4
-    },
-    {
-      "date": "10/2",
-      "value": 45.0
-    },
-    {
-      "date": "10/5",
-      "value": 45.1
-    },
-    {
-      "date": "10/6",
-      "value": 45.7
-    },
-    {
-      "date": "10/7",
-      "value": 46.9
-    },
-    {
-      "date": "10/8",
-      "value": 46.8
-    },
-    {
-      "date": "10/9",
-      "value": 48.9
-    },
-    {
-      "date": "10/12",
-      "value": 49.0
-    },
-    {
-      "date": "10/13",
       "value": 50.3
     },
     {
-      "date": "10/14",
-      "value": 47.4
+      "date": "9/25",
+      "value": 49.7
     },
     {
-      "date": "10/15",
+      "date": "9/28",
+      "value": 46.4
+    },
+    {
+      "date": "9/29",
+      "value": 46.1
+    },
+    {
+      "date": "9/30",
+      "value": 45.4
+    },
+    {
+      "date": "10/1",
+      "value": 42.2
+    },
+    {
+      "date": "10/2",
+      "value": 44.8
+    },
+    {
+      "date": "10/5",
+      "value": 44.5
+    },
+    {
+      "date": "10/6",
+      "value": 45.2
+    },
+    {
+      "date": "10/7",
+      "value": 46.1
+    },
+    {
+      "date": "10/8",
+      "value": 46.0
+    },
+    {
+      "date": "10/9",
+      "value": 47.8
+    },
+    {
+      "date": "10/12",
       "value": 47.9
     },
     {
+      "date": "10/13",
+      "value": 49.3
+    },
+    {
+      "date": "10/14",
+      "value": 46.3
+    },
+    {
+      "date": "10/15",
+      "value": 46.8
+    },
+    {
       "date": "10/16",
-      "value": 43.7
-    },
-    {
-      "date": "10/19",
-      "value": 44.9
-    },
-    {
-      "date": "10/20",
-      "value": 44.0
-    },
-    {
-      "date": "10/21",
-      "value": 45.3
-    },
-    {
-      "date": "10/22",
       "value": 42.9
     },
     {
+      "date": "10/19",
+      "value": 44.0
+    },
+    {
+      "date": "10/20",
+      "value": 43.3
+    },
+    {
+      "date": "10/21",
+      "value": 44.4
+    },
+    {
+      "date": "10/22",
+      "value": 42.2
+    },
+    {
       "date": "10/23",
-      "value": 40.6
+      "value": 40.2
     },
     {
       "date": "10/26",
-      "value": 40.3
+      "value": 39.5
     },
     {
       "date": "10/27",
-      "value": 41.0
+      "value": 39.7
     },
     {
       "date": "10/28",
-      "value": 38.0
+      "value": 36.9
     },
     {
       "date": "10/29",
-      "value": 37.9
+      "value": 37.4
     },
     {
       "date": "10/30",
-      "value": 34.5
+      "value": 34.6
     },
     {
       "date": "11/2",
-      "value": 34.0
+      "value": 34.7
     },
     {
       "date": "11/3",
-      "value": 33.9
+      "value": 34.3
     },
     {
       "date": "11/4",
-      "value": 39.6
+      "value": 39.9
     },
     {
       "date": "11/5",
-      "value": 35.3
+      "value": 36.0
     },
     {
       "date": "11/6",
-      "value": 37.8
+      "value": 38.3
     },
     {
       "date": "11/9",
-      "value": 41.6
+      "value": 41.7
     },
     {
       "date": "11/10",
@@ -906,15 +906,15 @@
     },
     {
       "date": "11/11",
-      "value": 47.1
+      "value": 46.9
     },
     {
       "date": "11/12",
-      "value": 44.9
+      "value": 44.6
     },
     {
       "date": "11/13",
-      "value": 43.7
+      "value": 43.4
     },
     {
       "date": "11/16",
@@ -922,31 +922,31 @@
     },
     {
       "date": "11/17",
-      "value": 39.4
+      "value": 39.9
     },
     {
       "date": "11/18",
-      "value": 41.9
+      "value": 42.2
     },
     {
       "date": "11/19",
-      "value": 40.7
+      "value": 41.3
     },
     {
       "date": "11/20",
-      "value": 35.7
+      "value": 36.8
     },
     {
       "date": "11/23",
-      "value": 39.6
+      "value": 40.4
     },
     {
       "date": "11/24",
-      "value": 39.1
+      "value": 40.1
     },
     {
       "date": "11/25",
-      "value": 38.4
+      "value": 39.6
     }
   ],
   "modules": [
@@ -960,7 +960,7 @@
       "trendDirection": "stable",
       "percentile5Y": 25.9,
       "lastUpdated": "Updated Nov 25, 2026",
-      "updatedAt": "2026-11-26T21:31:09Z",
+      "updatedAt": "2026-11-26T23:01:25Z",
       "color": "#f97316",
       "trendData": [
         {
@@ -4667,7 +4667,7 @@
       "trendDirection": "declining",
       "percentile5Y": 10.3,
       "lastUpdated": "Updated Nov 25, 2026",
-      "updatedAt": "2026-11-26T21:31:09Z",
+      "updatedAt": "2026-11-26T23:01:25Z",
       "color": "#ef4444",
       "trendData": [
         {
@@ -9621,7 +9621,7 @@
       "trendDirection": "stable",
       "percentile5Y": 68.9,
       "lastUpdated": "Updated Nov 25, 2026",
-      "updatedAt": "2026-11-26T21:31:09Z",
+      "updatedAt": "2026-11-26T23:01:25Z",
       "color": "#f97316",
       "trendData": [
         {
@@ -13324,7 +13324,7 @@
       "trendDirection": "stable",
       "percentile5Y": 51.5,
       "lastUpdated": "Updated Nov 25, 2026",
-      "updatedAt": "2026-11-26T21:31:09Z",
+      "updatedAt": "2026-11-26T23:01:25Z",
       "color": "#f97316",
       "trendData": [
         {
@@ -15775,183 +15775,183 @@
     {
       "slug": "credit",
       "name": "Credit",
-      "score": 28.4,
-      "prevScore": 34.1,
-      "sevenDayChangePct": -16.72,
+      "score": 36.6,
+      "prevScore": 36.3,
+      "sevenDayChangePct": 0.83,
       "trendDays": 2,
-      "trendDirection": "declining",
-      "percentile5Y": 18.1,
+      "trendDirection": "improving",
+      "percentile5Y": 24.1,
       "lastUpdated": "Updated Nov 25, 2026",
-      "updatedAt": "2026-11-26T21:31:09Z",
-      "color": "#ef4444",
+      "updatedAt": "2026-11-26T23:01:25Z",
+      "color": "#f97316",
       "trendData": [
         {
           "date": "7/22",
-          "value": 61.1
+          "value": 65.5
         },
         {
           "date": "7/23",
-          "value": 58.3
+          "value": 66.2
         },
         {
           "date": "7/24",
-          "value": 56.9
+          "value": 64.6
         },
         {
           "date": "7/27",
-          "value": 57.2
+          "value": 66.3
         },
         {
           "date": "7/28",
-          "value": 56.5
+          "value": 65.3
         },
         {
           "date": "7/29",
-          "value": 54.5
+          "value": 64.5
         },
         {
           "date": "7/30",
-          "value": 57.0
+          "value": 65.9
         },
         {
           "date": "7/31",
-          "value": 58.3
+          "value": 65.4
         },
         {
           "date": "8/3",
-          "value": 59.1
+          "value": 66.2
         },
         {
           "date": "8/4",
-          "value": 60.6
+          "value": 67.2
         },
         {
           "date": "8/5",
-          "value": 57.3
+          "value": 64.6
         },
         {
           "date": "8/6",
-          "value": 59.0
+          "value": 65.3
         },
         {
           "date": "8/7",
-          "value": 60.9
+          "value": 66.8
         },
         {
           "date": "8/10",
-          "value": 59.1
+          "value": 67.0
         },
         {
           "date": "8/11",
-          "value": 57.9
+          "value": 69.5
         },
         {
           "date": "8/12",
-          "value": 57.5
+          "value": 69.6
         },
         {
           "date": "8/13",
-          "value": 57.1
+          "value": 70.2
         },
         {
           "date": "8/14",
-          "value": 57.6
+          "value": 71.1
         },
         {
           "date": "8/17",
-          "value": 56.9
+          "value": 70.9
         },
         {
           "date": "8/18",
-          "value": 55.0
+          "value": 68.3
         },
         {
           "date": "8/19",
-          "value": 56.5
+          "value": 67.0
         },
         {
           "date": "8/20",
-          "value": 54.2
+          "value": 64.4
         },
         {
           "date": "8/21",
-          "value": 55.0
+          "value": 65.3
         },
         {
           "date": "8/24",
-          "value": 55.0
+          "value": 65.8
         },
         {
           "date": "8/25",
-          "value": 54.6
+          "value": 63.5
         },
         {
           "date": "8/26",
-          "value": 56.1
+          "value": 66.2
         },
         {
           "date": "8/27",
-          "value": 56.3
+          "value": 66.0
         },
         {
           "date": "8/28",
-          "value": 58.2
+          "value": 67.9
         },
         {
           "date": "8/31",
-          "value": 58.2
+          "value": 69.6
         },
         {
           "date": "9/1",
-          "value": 56.2
+          "value": 65.7
         },
         {
           "date": "9/2",
-          "value": 57.1
+          "value": 69.4
         },
         {
           "date": "9/3",
-          "value": 56.5
+          "value": 66.7
         },
         {
           "date": "9/4",
-          "value": 56.7
+          "value": 64.4
         },
         {
           "date": "9/8",
-          "value": 55.5
+          "value": 62.2
         },
         {
           "date": "9/9",
-          "value": 56.3
+          "value": 60.8
         },
         {
           "date": "9/10",
-          "value": 58.2
+          "value": 61.8
         },
         {
           "date": "9/11",
-          "value": 57.5
+          "value": 61.2
         },
         {
           "date": "9/14",
-          "value": 56.7
+          "value": 60.4
         },
         {
           "date": "9/15",
-          "value": 56.3
+          "value": 62.1
         },
         {
           "date": "9/16",
-          "value": 61.0
+          "value": 62.6
         },
         {
           "date": "9/17",
-          "value": 59.7
+          "value": 61.5
         },
         {
           "date": "9/18",
-          "value": 58.0
+          "value": 59.1
         },
         {
           "date": "9/21",
@@ -15959,191 +15959,191 @@
         },
         {
           "date": "9/22",
-          "value": 57.4
+          "value": 53.7
         },
         {
           "date": "9/23",
-          "value": 60.5
+          "value": 54.7
         },
         {
           "date": "9/24",
-          "value": 59.3
+          "value": 54.6
         },
         {
           "date": "9/25",
-          "value": 56.1
+          "value": 51.2
         },
         {
           "date": "9/28",
-          "value": 52.3
+          "value": 50.1
         },
         {
           "date": "9/29",
-          "value": 48.5
+          "value": 46.0
         },
         {
           "date": "9/30",
-          "value": 46.4
+          "value": 43.2
         },
         {
           "date": "10/1",
-          "value": 44.3
-        },
-        {
-          "date": "10/2",
-          "value": 41.7
-        },
-        {
-          "date": "10/5",
-          "value": 42.9
-        },
-        {
-          "date": "10/6",
-          "value": 44.6
-        },
-        {
-          "date": "10/7",
-          "value": 44.9
-        },
-        {
-          "date": "10/8",
-          "value": 43.9
-        },
-        {
-          "date": "10/9",
-          "value": 43.5
-        },
-        {
-          "date": "10/12",
-          "value": 45.4
-        },
-        {
-          "date": "10/13",
-          "value": 42.1
-        },
-        {
-          "date": "10/14",
-          "value": 40.1
-        },
-        {
-          "date": "10/15",
-          "value": 41.8
-        },
-        {
-          "date": "10/16",
-          "value": 38.0
-        },
-        {
-          "date": "10/19",
-          "value": 37.8
-        },
-        {
-          "date": "10/20",
-          "value": 38.1
-        },
-        {
-          "date": "10/21",
-          "value": 39.9
-        },
-        {
-          "date": "10/22",
-          "value": 39.8
-        },
-        {
-          "date": "10/23",
-          "value": 37.6
-        },
-        {
-          "date": "10/26",
-          "value": 38.7
-        },
-        {
-          "date": "10/27",
-          "value": 44.1
-        },
-        {
-          "date": "10/28",
           "value": 42.7
         },
         {
-          "date": "10/29",
-          "value": 38.5
+          "date": "10/2",
+          "value": 40.3
         },
         {
-          "date": "10/30",
-          "value": 32.7
+          "date": "10/5",
+          "value": 39.1
         },
         {
-          "date": "11/2",
-          "value": 30.9
+          "date": "10/6",
+          "value": 41.2
         },
         {
-          "date": "11/3",
-          "value": 33.5
+          "date": "10/7",
+          "value": 38.9
         },
         {
-          "date": "11/4",
-          "value": 35.3
+          "date": "10/8",
+          "value": 38.2
         },
         {
-          "date": "11/5",
-          "value": 33.1
+          "date": "10/9",
+          "value": 36.2
         },
         {
-          "date": "11/6",
-          "value": 33.3
+          "date": "10/12",
+          "value": 37.8
         },
         {
-          "date": "11/9",
-          "value": 35.5
+          "date": "10/13",
+          "value": 35.2
         },
         {
-          "date": "11/10",
-          "value": 36.5
+          "date": "10/14",
+          "value": 32.6
         },
         {
-          "date": "11/11",
-          "value": 38.3
-        },
-        {
-          "date": "11/12",
-          "value": 38.4
-        },
-        {
-          "date": "11/13",
-          "value": 39.0
-        },
-        {
-          "date": "11/16",
-          "value": 36.7
-        },
-        {
-          "date": "11/17",
-          "value": 32.9
-        },
-        {
-          "date": "11/18",
+          "date": "10/15",
           "value": 34.1
         },
         {
+          "date": "10/16",
+          "value": 32.0
+        },
+        {
+          "date": "10/19",
+          "value": 32.0
+        },
+        {
+          "date": "10/20",
+          "value": 33.0
+        },
+        {
+          "date": "10/21",
+          "value": 33.4
+        },
+        {
+          "date": "10/22",
+          "value": 34.8
+        },
+        {
+          "date": "10/23",
+          "value": 35.0
+        },
+        {
+          "date": "10/26",
+          "value": 33.7
+        },
+        {
+          "date": "10/27",
+          "value": 35.3
+        },
+        {
+          "date": "10/28",
+          "value": 35.2
+        },
+        {
+          "date": "10/29",
+          "value": 35.3
+        },
+        {
+          "date": "10/30",
+          "value": 33.5
+        },
+        {
+          "date": "11/2",
+          "value": 35.9
+        },
+        {
+          "date": "11/3",
+          "value": 35.8
+        },
+        {
+          "date": "11/4",
+          "value": 37.2
+        },
+        {
+          "date": "11/5",
+          "value": 38.0
+        },
+        {
+          "date": "11/6",
+          "value": 37.2
+        },
+        {
+          "date": "11/9",
+          "value": 36.6
+        },
+        {
+          "date": "11/10",
+          "value": 36.6
+        },
+        {
+          "date": "11/11",
+          "value": 36.9
+        },
+        {
+          "date": "11/12",
+          "value": 36.4
+        },
+        {
+          "date": "11/13",
+          "value": 36.8
+        },
+        {
+          "date": "11/16",
+          "value": 36.8
+        },
+        {
+          "date": "11/17",
+          "value": 36.6
+        },
+        {
+          "date": "11/18",
+          "value": 36.3
+        },
+        {
           "date": "11/19",
-          "value": 31.8
+          "value": 36.1
         },
         {
           "date": "11/20",
-          "value": 28.9
+          "value": 36.8
         },
         {
           "date": "11/23",
-          "value": 29.9
+          "value": 35.3
         },
         {
           "date": "11/24",
-          "value": 28.6
+          "value": 35.5
         },
         {
           "date": "11/25",
-          "value": 28.4
+          "value": 36.6
         }
       ],
       "factors": [
@@ -16982,374 +16982,374 @@
           "score": 3.98
         },
         {
-          "id": "ig-credit",
-          "name": "IG Credit",
-          "value": "-0.86%",
-          "sevenDayChange": "\u2198 -0.01%",
-          "changeDirection": "down",
-          "historicalPercentile5Y": 16.7,
-          "status": "restrictive",
-          "velocity": "falling",
+          "id": "regional-banks-spy",
+          "name": "Regional Banks vs SPY",
+          "value": "1.36%",
+          "sevenDayChange": "\u2197 +0.02%",
+          "changeDirection": "up",
+          "historicalPercentile5Y": 54.4,
+          "status": "neutral",
+          "velocity": "rising",
           "trendData": [
             {
               "date": "7/22",
-              "value": -0.0013
+              "value": 0.0258
             },
             {
               "date": "7/23",
-              "value": -0.0033
+              "value": 0.0478
             },
             {
               "date": "7/24",
-              "value": -0.0044
+              "value": 0.0398
             },
             {
               "date": "7/27",
-              "value": -0.0032
+              "value": 0.0605
             },
             {
               "date": "7/28",
-              "value": -0.0027
+              "value": 0.0595
             },
             {
               "date": "7/29",
-              "value": -0.0056
+              "value": 0.0579
             },
             {
               "date": "7/30",
-              "value": -0.0034
+              "value": 0.0567
             },
             {
               "date": "7/31",
-              "value": -0.0013
+              "value": 0.0497
             },
             {
               "date": "8/3",
-              "value": -0.0012
+              "value": 0.0518
             },
             {
               "date": "8/4",
-              "value": -0.0002
+              "value": 0.0523
             },
             {
               "date": "8/5",
-              "value": -0.0032
+              "value": 0.0425
             },
             {
               "date": "8/6",
-              "value": -0.0029
+              "value": 0.0356
             },
             {
               "date": "8/7",
-              "value": -0.0024
+              "value": 0.0336
             },
             {
               "date": "8/10",
-              "value": -0.0051
+              "value": 0.0411
             },
             {
               "date": "8/11",
-              "value": -0.0069
+              "value": 0.0756
             },
             {
               "date": "8/12",
-              "value": -0.0067
+              "value": 0.0837
             },
             {
               "date": "8/13",
-              "value": -0.0068
+              "value": 0.1032
             },
             {
               "date": "8/14",
-              "value": -0.0081
+              "value": 0.1064
             },
             {
               "date": "8/17",
-              "value": -0.0115
+              "value": 0.1035
             },
             {
               "date": "8/18",
-              "value": -0.0097
+              "value": 0.0885
             },
             {
               "date": "8/19",
-              "value": -0.0065
+              "value": 0.0607
             },
             {
               "date": "8/20",
-              "value": -0.0082
+              "value": 0.0519
             },
             {
               "date": "8/21",
-              "value": -0.009
+              "value": 0.0512
             },
             {
               "date": "8/24",
-              "value": -0.0096
+              "value": 0.0545
             },
             {
               "date": "8/25",
-              "value": -0.0081
+              "value": 0.0388
             },
             {
               "date": "8/26",
-              "value": -0.0077
+              "value": 0.0521
             },
             {
               "date": "8/27",
-              "value": -0.0079
+              "value": 0.0484
             },
             {
               "date": "8/28",
-              "value": -0.0072
+              "value": 0.0516
             },
             {
               "date": "8/31",
-              "value": -0.0089
+              "value": 0.0661
             },
             {
               "date": "9/1",
-              "value": -0.0099
+              "value": 0.0437
             },
             {
               "date": "9/2",
-              "value": -0.0093
+              "value": 0.0784
             },
             {
               "date": "9/3",
-              "value": -0.0098
+              "value": 0.0498
             },
             {
               "date": "9/4",
-              "value": -0.0087
+              "value": 0.0301
             },
             {
               "date": "9/8",
-              "value": -0.0078
+              "value": 0.0223
             },
             {
               "date": "9/9",
-              "value": -0.0071
+              "value": -0.0
             },
             {
               "date": "9/10",
-              "value": -0.0069
+              "value": -0.0106
             },
             {
               "date": "9/11",
-              "value": -0.007
+              "value": -0.0109
             },
             {
               "date": "9/14",
-              "value": -0.0073
+              "value": -0.0127
             },
             {
               "date": "9/15",
-              "value": -0.0051
+              "value": 0.0248
             },
             {
               "date": "9/16",
-              "value": -0.0011
+              "value": 0.0018
             },
             {
               "date": "9/17",
-              "value": -0.0021
+              "value": -0.0034
             },
             {
               "date": "9/18",
-              "value": -0.0007
+              "value": -0.0022
             },
             {
               "date": "9/21",
-              "value": -0.002
+              "value": -0.0352
             },
             {
               "date": "9/22",
-              "value": -0.002
+              "value": -0.0764
             },
             {
               "date": "9/23",
-              "value": -0.0009
+              "value": -0.0926
             },
             {
               "date": "9/24",
-              "value": -0.0027
+              "value": -0.0932
             },
             {
               "date": "9/25",
-              "value": -0.0031
+              "value": -0.1026
             },
             {
               "date": "9/28",
-              "value": -0.0065
+              "value": -0.0873
             },
             {
               "date": "9/29",
-              "value": -0.0056
+              "value": -0.0893
             },
             {
               "date": "9/30",
-              "value": -0.0066
+              "value": -0.1118
             },
             {
               "date": "10/1",
-              "value": -0.0078
+              "value": -0.0922
             },
             {
               "date": "10/2",
-              "value": -0.0066
+              "value": -0.0863
             },
             {
               "date": "10/5",
-              "value": -0.003
+              "value": -0.0968
             },
             {
               "date": "10/6",
-              "value": -0.0024
+              "value": -0.0866
             },
             {
               "date": "10/7",
-              "value": -0.0008
+              "value": -0.1105
             },
             {
               "date": "10/8",
-              "value": 0.0005
+              "value": -0.0968
             },
             {
               "date": "10/9",
-              "value": 0.0015
+              "value": -0.1201
             },
             {
               "date": "10/12",
-              "value": 0.0033
+              "value": -0.1064
             },
             {
               "date": "10/13",
-              "value": 0.0007
+              "value": -0.1199
             },
             {
               "date": "10/14",
-              "value": 0.0
+              "value": -0.1499
             },
             {
               "date": "10/15",
-              "value": 0.0018
+              "value": -0.1293
             },
             {
               "date": "10/16",
-              "value": 0.0007
+              "value": -0.1084
             },
             {
               "date": "10/19",
-              "value": -0.0003
+              "value": -0.1134
             },
             {
               "date": "10/20",
-              "value": 0.0006
+              "value": -0.0935
             },
             {
               "date": "10/21",
-              "value": 0.0019
+              "value": -0.1052
             },
             {
               "date": "10/22",
-              "value": 0.0037
+              "value": -0.0749
             },
             {
               "date": "10/23",
-              "value": 0.0013
+              "value": -0.066
             },
             {
               "date": "10/26",
-              "value": 0.0021
+              "value": -0.0837
             },
             {
               "date": "10/27",
-              "value": 0.0066
+              "value": -0.0989
             },
             {
               "date": "10/28",
-              "value": 0.0058
+              "value": -0.0885
             },
             {
               "date": "10/29",
-              "value": 0.0015
+              "value": -0.0692
             },
             {
               "date": "10/30",
-              "value": -0.0045
+              "value": -0.062
             },
             {
               "date": "11/2",
-              "value": -0.0081
+              "value": -0.0258
             },
             {
               "date": "11/3",
-              "value": -0.0035
+              "value": -0.0359
             },
             {
               "date": "11/4",
-              "value": -0.0018
+              "value": -0.0259
             },
             {
               "date": "11/5",
-              "value": -0.003
+              "value": 0.0041
             },
             {
               "date": "11/6",
-              "value": -0.0019
+              "value": 0.0016
             },
             {
               "date": "11/9",
-              "value": 0.001
+              "value": -0.0181
             },
             {
               "date": "11/10",
-              "value": 0.0018
+              "value": -0.0242
             },
             {
               "date": "11/11",
-              "value": 0.0029
+              "value": -0.037
             },
             {
               "date": "11/12",
-              "value": 0.0034
+              "value": -0.0437
             },
             {
               "date": "11/13",
-              "value": 0.0048
+              "value": -0.0348
             },
             {
               "date": "11/16",
-              "value": 0.0021
+              "value": -0.0229
             },
             {
               "date": "11/17",
-              "value": -0.0024
+              "value": -0.0049
             },
             {
               "date": "11/18",
-              "value": -0.0005
+              "value": -0.0111
             },
             {
               "date": "11/19",
-              "value": -0.0035
+              "value": -0.0072
             },
             {
               "date": "11/20",
-              "value": -0.0071
+              "value": 0.0146
             },
             {
               "date": "11/23",
-              "value": -0.0057
+              "value": -0.0048
             },
             {
               "date": "11/24",
-              "value": -0.0083
+              "value": 0.0001
             },
             {
               "date": "11/25",
-              "value": -0.0086
+              "value": 0.0136
             }
           ],
           "percentileData": [
@@ -17395,8 +17395,8 @@
             }
           ],
           "isExtra": false,
-          "factorId": "ig_credit",
-          "score": 16.71
+          "factorId": "kre_spy",
+          "score": 54.41
         }
       ]
     },
@@ -17410,7 +17410,7 @@
       "trendDirection": "stable",
       "percentile5Y": 1.8,
       "lastUpdated": "Updated Nov 25, 2026",
-      "updatedAt": "2026-11-26T21:31:09Z",
+      "updatedAt": "2026-11-26T23:01:25Z",
       "color": "#ef4444",
       "trendData": [
         {
@@ -19870,7 +19870,7 @@
       "trendDirection": "stable",
       "percentile5Y": 80.6,
       "lastUpdated": "Updated Nov 25, 2026",
-      "updatedAt": "2026-11-26T21:31:09Z",
+      "updatedAt": "2026-11-26T23:01:25Z",
       "color": "#14b8a6",
       "trendData": [
         {
@@ -22329,6 +22329,10 @@
       "pts": 0.43
     },
     {
+      "name": "Regional Banks vs SPY",
+      "pts": 0.25
+    },
+    {
       "name": "High-Beta Preference",
       "pts": 0.25
     },
@@ -22389,10 +22393,6 @@
     {
       "name": "Risk vs Safe",
       "pts": -0.23
-    },
-    {
-      "name": "IG Credit",
-      "pts": -0.44
     },
     {
       "name": "VIX",
