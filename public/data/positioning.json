@@ -1,15 +1,15 @@
 {
   "calibrationVersion": "v2-20261121",
   "asOfTradingDate": "2026-11-27",
-  "generatedAtUtc": "2026-11-27T21:32:33Z",
-  "generatedAtEt": "2026-11-27T16:32:33.173211-05:00",
+  "generatedAtUtc": "2026-11-27T23:01:54Z",
+  "generatedAtEt": "2026-11-27T18:01:54.926153-05:00",
   "sessionScope": "post_close",
   "sourceFreshness": {
     "optionsSpotDate": "2026-11-27",
     "cotAsOfDate": "2026-11-17",
     "riskFreeRate": 0.0388
   },
-  "updatedAt": "2026-11-27T21:32:33.173211+00:00",
+  "updatedAt": "2026-11-27T23:01:54.926153+00:00",
   "vixTermStructure": {
     "points": [
       {
@@ -9176,9 +9176,9 @@
   "etfFlows": {
     "SPY": {
       "name": "SPY",
-      "obv": -603836095.0,
-      "mfi14": 24.6,
-      "volumeVsAvg": 0.6,
+      "obv": -602153571.0,
+      "mfi14": 24.7,
+      "volumeVsAvg": 0.62,
       "history30D": [
         {
           "date": "Oct 16",
@@ -9327,16 +9327,16 @@
         },
         {
           "date": "Nov 27",
-          "obv": -603836095.0,
-          "mfi": 24.6
+          "obv": -602153571.0,
+          "mfi": 24.7
         }
       ]
     },
     "QQQ": {
       "name": "QQQ",
-      "obv": -535720222.0,
-      "mfi14": 32.5,
-      "volumeVsAvg": 0.55,
+      "obv": -535212510.0,
+      "mfi14": 32.6,
+      "volumeVsAvg": 0.56,
       "history30D": [
         {
           "date": "Oct 16",
@@ -9485,16 +9485,16 @@
         },
         {
           "date": "Nov 27",
-          "obv": -535720222.0,
-          "mfi": 32.5
+          "obv": -535212510.0,
+          "mfi": 32.6
         }
       ]
     },
     "TLT": {
       "name": "TLT",
-      "obv": 193326610.0,
+      "obv": 192996559.0,
       "mfi14": 67.2,
-      "volumeVsAvg": 0.93,
+      "volumeVsAvg": 0.94,
       "history30D": [
         {
           "date": "Oct 16",
@@ -9643,14 +9643,14 @@
         },
         {
           "date": "Nov 27",
-          "obv": 193326610.0,
+          "obv": 192996559.0,
           "mfi": 67.2
         }
       ]
     },
     "HYG": {
       "name": "HYG",
-      "obv": -774213663.0,
+      "obv": -774090126.0,
       "mfi14": 30.6,
       "volumeVsAvg": 0.31,
       "history30D": [
@@ -9801,14 +9801,14 @@
         },
         {
           "date": "Nov 27",
-          "obv": -774213663.0,
+          "obv": -774090126.0,
           "mfi": 30.6
         }
       ]
     },
     "LQD": {
       "name": "LQD",
-      "obv": -118354006.0,
+      "obv": -118354361.0,
       "mfi14": 62.0,
       "volumeVsAvg": 0.49,
       "history30D": [
@@ -9959,16 +9959,16 @@
         },
         {
           "date": "Nov 27",
-          "obv": -118354006.0,
+          "obv": -118354361.0,
           "mfi": 62.0
         }
       ]
     },
     "GLD": {
       "name": "GLD",
-      "obv": 21412841.0,
-      "mfi14": 24.6,
-      "volumeVsAvg": 0.59,
+      "obv": 21574865.0,
+      "mfi14": 24.7,
+      "volumeVsAvg": 0.6,
       "history30D": [
         {
           "date": "Oct 16",
@@ -10117,16 +10117,16 @@
         },
         {
           "date": "Nov 27",
-          "obv": 21412841.0,
-          "mfi": 24.6
+          "obv": 21574865.0,
+          "mfi": 24.7
         }
       ]
     },
     "IWM": {
       "name": "IWM",
-      "obv": -117004033.0,
-      "mfi14": 46.3,
-      "volumeVsAvg": 0.51,
+      "obv": -114998621.0,
+      "mfi14": 46.6,
+      "volumeVsAvg": 0.58,
       "history30D": [
         {
           "date": "Oct 16",
@@ -10275,8 +10275,8 @@
         },
         {
           "date": "Nov 27",
-          "obv": -117004033.0,
-          "mfi": 46.3
+          "obv": -114998621.0,
+          "mfi": 46.6
         }
       ]
     }
