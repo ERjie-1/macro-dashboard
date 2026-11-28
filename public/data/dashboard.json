@@ -1,8 +1,8 @@
 {
   "calibrationVersion": "v2-20261121",
   "asOfTradingDate": "2026-11-27",
-  "generatedAtUtc": "2026-11-27T23:01:32Z",
-  "generatedAtEt": "2026-11-27T18:01:32.251834-05:00",
+  "generatedAtUtc": "2026-11-28T03:21:55Z",
+  "generatedAtEt": "2026-11-27T22:21:55.391362-05:00",
   "sessionScope": "post_close",
   "sourceFreshness": {
     "WALCL": {
@@ -98,8 +98,8 @@
       "lagTradingDays": 0
     },
     "^OVX": {
-      "lastDate": "2026-11-25",
-      "lagTradingDays": 1
+      "lastDate": "2026-11-27",
+      "lagTradingDays": 0
     },
     "CL=F": {
       "lastDate": "2026-11-27",
@@ -567,15 +567,15 @@
       "rawPercentile5Y": 0.0,
       "baselineMedian252d": 53.92,
       "ovxMedian252d": 53.92,
-      "floorTieShare": 0.4947,
-      "rawOvx": 48.04,
+      "floorTieShare": 0.4951,
+      "rawOvx": 45.86,
       "factorId": "ovx_dev",
       "slug": "oil-volatility-deviation",
       "module": "external",
       "direction": "lower_better",
       "weightInModule": 0.25,
-      "asOfDate": "2026-11-25",
-      "lagTradingDays": 1
+      "asOfDate": "2026-11-27",
+      "lagTradingDays": 0
     },
     "natgas": {
       "score": 41.71,
@@ -600,7 +600,7 @@
   "trendDirection": "declining",
   "percentile5Y": 12.8,
   "lastUpdated": "Updated Nov 27, 2026",
-  "updatedAt": "2026-11-27T23:01:32Z",
+  "updatedAt": "2026-11-28T03:21:55Z",
   "trendData": [
     {
       "date": "7/23",
@@ -974,7 +974,7 @@
       "trendDirection": "declining",
       "percentile5Y": 15.4,
       "lastUpdated": "Updated Nov 27, 2026",
-      "updatedAt": "2026-11-27T23:01:32Z",
+      "updatedAt": "2026-11-28T03:21:55Z",
       "color": "#ef4444",
       "trendData": [
         {
@@ -4681,7 +4681,7 @@
       "trendDirection": "declining",
       "percentile5Y": 7.2,
       "lastUpdated": "Updated Nov 27, 2026",
-      "updatedAt": "2026-11-27T23:01:32Z",
+      "updatedAt": "2026-11-28T03:21:55Z",
       "color": "#ef4444",
       "trendData": [
         {
@@ -9635,7 +9635,7 @@
       "trendDirection": "stable",
       "percentile5Y": 67.3,
       "lastUpdated": "Updated Nov 27, 2026",
-      "updatedAt": "2026-11-27T23:01:32Z",
+      "updatedAt": "2026-11-28T03:21:55Z",
       "color": "#f97316",
       "trendData": [
         {
@@ -13338,7 +13338,7 @@
       "trendDirection": "stable",
       "percentile5Y": 51.3,
       "lastUpdated": "Updated Nov 27, 2026",
-      "updatedAt": "2026-11-27T23:01:32Z",
+      "updatedAt": "2026-11-28T03:21:55Z",
       "color": "#f97316",
       "trendData": [
         {
@@ -15796,7 +15796,7 @@
       "trendDirection": "stable",
       "percentile5Y": 19.3,
       "lastUpdated": "Updated Nov 27, 2026",
-      "updatedAt": "2026-11-27T23:01:32Z",
+      "updatedAt": "2026-11-28T03:21:55Z",
       "color": "#f97316",
       "trendData": [
         {
@@ -17841,7 +17841,7 @@
       "trendDirection": "improving",
       "percentile5Y": 4.7,
       "lastUpdated": "Updated Nov 27, 2026",
-      "updatedAt": "2026-11-27T23:01:32Z",
+      "updatedAt": "2026-11-28T03:21:55Z",
       "color": "#ef4444",
       "trendData": [
         {
@@ -20301,7 +20301,7 @@
       "trendDirection": "stable",
       "percentile5Y": 80.6,
       "lastUpdated": "Updated Nov 27, 2026",
-      "updatedAt": "2026-11-27T23:01:32Z",
+      "updatedAt": "2026-11-28T03:21:55Z",
       "color": "#14b8a6",
       "trendData": [
         {
@@ -21921,8 +21921,8 @@
           "id": "oil-volatility-deviation",
           "name": "Oil Volatility Deviation",
           "value": "0.000",
-          "sevenDayChange": "\u2192 +0.00%",
-          "changeDirection": "flat",
+          "sevenDayChange": "\u2198 -0.20%",
+          "changeDirection": "down",
           "historicalPercentile5Y": 0.0,
           "status": "supportive",
           "velocity": "flat",
@@ -22311,11 +22311,11 @@
             },
             {
               "range": "50-60",
-              "freq": 125
+              "freq": 126
             },
             {
               "range": "60-70",
-              "freq": 126
+              "freq": 125
             },
             {
               "range": "70-80",
